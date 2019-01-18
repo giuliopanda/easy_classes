@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>gpRouter</title>
+</head>
+<style>
+    body {background:#FFF;}
+    .gp-doc-container {width:960px; margin:0 auto; background: #FFF; padding: 10px 20px; box-sizing: border-box;} 
+
+    .gp-content {
+        font-family: sans-serif ;
+        font-size: 1em;
+    }
+    .gp-content * {
+        font-size:1em;
+        line-height: 1em;
+        margin: 0;
+        padding: 0;
+    }
+    .gp-content p {
+        margin:1em 0;
+        font-size:.8em;
+        line-height: 1.3em;
+    }
+    .gp-content pre {
+        background: #f3f3f7;
+        border: 1px solid #dedee3;
+        padding: 11px;
+        font-size:.8em;
+        line-height: 1.3em;
+        margin-bottom: 22px;
+        overflow: auto;
+    }
+    .gp-content pre, .gp-content code {
+        margin-bottom: 22px;
+        font-family: Consolas, Monaco, "Courier New", Courier, monospace;
+        font-size: 12px;
+        font-weight: inherit;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        white-space: -moz-pre-wrap !important;
+        white-space: -pre-wrap;
+        white-space: -o-pre-wrap;
+        word-wrap: break-word;
+    }
+    .gp-content  h2, .gp-content  h3, .gp-content  h4, .gp-content  h5, .gp-content  h6 {
+        font-family: Georgia, "Times New Roman", Times, serif;
+        border-bottom: 1px solid #dadada;
+        padding-bottom: .2em;
+        font-weight: normal;
+    }
+    .gp-content  h2 {
+        font-size: 2.3em;
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+    .gp-content  h3 {
+        font-size: 1.4em;
+        margin-top: .5em;
+        margin-bottom: .5em;
+    }
+</style>
+<body>
+<div class="gp-doc-container gp-content">
+    <h2>Gestione register</h2>
+<p>GPRegistry serve per memorizzare dati in una classe singleton raggiungibile ovunque. I dati vengono salvati come
+    path con il punto.
+    <code><pre>$nome_variabile = array('ramo1'=>"val", "ramo2"=>"val2");</pre></code>
+    verrà richiamato come:
+    <code><pre>$data->get('nome_variabile.ramo1');</pre></code>
+    </p><br>
+    <h3>Istanziare la classe</h3>
+    <code><pre>$data = GPRegistry::getInstance();</pre></code>
+   
+
+    <h3><b>set</b>: Imposta i valori </h3>
+    <code><pre>$data->set($path, $data);</pre></code>
+
+    <p><b>$path</b>: I nomi della variabile da salvare. Vengono segnati come path.<br>
+    <b>$data</b>: i dati da salvare. Possono essere variabili singole, array o oggetti. Una volta inseriti nel registry verranno comunque richiamati come path (con il punto). <br>
+    
+    </p>
+    <p><b>Esempio</b>:
+    </p> 
+    <code><pre>$data->set( 'site_name', "Nome del sito");
+// Array
+$data->set( 'access', array("ip"=>"localhost","user"=>"admin", "psw"=>"nimda"));
+
+$data->set('country.[]', 'italia');
+$data->set('country.Francia', 'Francia');
+$data->set('country.[]', 'Spagna');
+var_dump ($data->get('country'));
+
+// Object
+$obj = new StdClass();
+$obj->title = "MY TITLE";
+$obj->author = "admin";
+$data->set( 'article', $obj);
+
+// per cancellare una variabile
+$data->set('access', null);
+    </pre></code>
+
+
+    <h3><b>get</b>: Richiama i dati</h3>
+    <code><pre>echo $data->get($path);</pre></code>
+    <p>Ritorna i dati o false se il dato non è settato</p>
+
+    <code><pre>$data->get('country.[]', 'italia');
+$data->get('access.ip');
+$data->get('article.title').
+    </pre></code>
+    <p> E' possibile richiamare i dati $_GET e $_POST attraverso request, oppure i dati salvati in sessione attraverso session</p>
+   
+    <h3><b>requestQueue</b>: Carica e salva i dati in sessione</h3>
+    <code><pre>requestQueue($path, $default = "")</pre></code>
+
+    <p> 
+        <b>path</b>>: string Il percorso in cui sono stati memorizzati i dati.
+        <b>default</b>: mixed Se non ci sono dati nel path ritorna il valore impostato
+        Carica i dati dal $this->getRequest(); e se esistono li salva in sessione. Se non esistono cerca i dati nella sessione.Se i dati nella sessione non esistono salva in sessione i dati del default.       
+    </p>
+
+    <h3><b>clearQueue</b>: Cancella i dati in sessione</h3>
+    <code><pre>$data->clearQueue();</pre></code>
+    <p>La sessione di gpRegistry viene salvata a partire da _gpregistry</p>
+  
+
+</div>
+</body>
+</html>

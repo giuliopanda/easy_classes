@@ -1,0 +1,220 @@
+/* REBOOT */
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+button, input {
+    overflow: visible;
+}
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+/** RESET */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+ .ecs, .ecs div, .ecs span, .ecs applet, .ecs object, .ecs iframe,
+.ecs h1, .ecs h2, .ecs h3, .ecs h4, .ecs h5, .ecs h6, .ecs p, .ecs blockquote, .ecs pre,
+.ecs a, .ecs abbr, .ecs acronym, .ecs address, .ecs big, .ecs cite, .ecs code,
+.ecs del, .ecs dfn, .ecs em, .ecs img, .ecs ins,  .ecs q, .ecs s, .ecs samp,
+.ecs small, .ecs strike, .ecs strong, .ecs sub, .ecs sup, .ecs tt, .ecs var,
+.ecs b, .ecs u, .ecs i, .ecs center,
+.ecs dl, .ecs dt, .ecs dd, .ecs ol, .ecs ul, .ecs li,
+.ecs fieldset, .ecs form, .ecs label, .ecs legend,
+.ecs table, .ecs caption, .ecs tbody, .ecs tfoot, .ecs thead, .ecs tr, .ecs th, .ecs td,
+.ecs article, .ecs aside, .ecs canvas, .ecs details, .ecs embed, 
+.ecs figure, .ecs figcaption, .ecs footer, .ecs header, .ecs hgroup, 
+.ecs menu, .ecs nav, .ecs output, .ecs ruby, .ecs section, .ecs summary,
+.ecs time, .ecs mark, .ecs audio, .ecs video, .ecs a  {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+    vertical-align: baseline;
+    color : inherit;
+    background:transparent;
+}
+.ecs:hover, .ecs div:hover, .ecs span:hover, .ecs applet:hover, .ecs object:hover, .ecs iframe:hover,
+.ecs h1:hover, .ecs h2:hover, .ecs h3:hover, .ecs h4:hover, .ecs h5:hover, .ecs h6:hover, .ecs p:hover, .ecs blockquote:hover, .ecs pre:hover,
+.ecs a:hover, .ecs abbr:hover, .ecs acronym:hover, .ecs address:hover, .ecs big:hover, .ecs cite:hover, .ecs code:hover,
+.ecs del:hover, .ecs dfn:hover, .ecs em:hover, .ecs img:hover, .ecs ins:hover,  .ecs q:hover, .ecs s:hover, .ecs samp:hover,
+.ecs small:hover, .ecs strike:hover, .ecs strong:hover, .ecs sub:hover, .ecs sup:hover, .ecs tt:hover, .ecs var:hover,
+.ecs b:hover, .ecs u:hover, .ecs i:hover, .ecs center:hover,
+.ecs dl:hover, .ecs dt:hover, .ecs dd:hover, .ecs ol:hover, .ecs ul:hover, .ecs li:hover,
+.ecs fieldset:hover, .ecs form:hover, .ecs label:hover, .ecs legend:hover,
+.ecs table:hover, .ecs caption:hover, .ecs tbody:hover, .ecs tfoot:hover, .ecs thead:hover, .ecs tr:hover, .ecs th:hover, .ecs td:hover,
+.ecs article:hover, .ecs aside:hover, .ecs canvas:hover, .ecs details:hover, .ecs embed:hover, 
+.ecs figure:hover, .ecs figcaption:hover, .ecs footer:hover, .ecs header:hover, .ecs hgroup:hover, 
+.ecs menu:hover, .ecs nav:hover, .ecs output:hover, .ecs ruby:hover, .ecs section:hover, .ecs summary:hover,
+.ecs time:hover, .ecs mark:hover, .ecs audio:hover, .ecs video:hover, .ecs a  {
+    color : inherit;
+    background:transparent;
+}
+/* HTML5 display-role reset for older browsers */
+.ecs article, .ecs aside, .ecs details, .ecs figcaption, .ecs figure,
+.ecs footer, .ecs header, .ecs hgroup, .ecs menu, .ecs nav, .ecs section {
+    display: block;
+    color : inherit;
+    background:transparent;
+}
+ .ecs, .ecs ol, .ecs ul {
+	list-style: none;
+}
+ .ecs, .ecs blockquote, .ecs q {
+	quotes: none;
+}
+ .ecs:before, .ecs:after, .ecs blockquote:before, .ecs blockquote:after,
+ .ecs q:before, .ecs q:after {
+	content: '';
+	content: none;
+}
+ .ecs, .ecs table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/** END RESET */
+
+/** CONTAINER */
+.ecs .exp-container-site {
+    max-width: 960px;
+    margin:20px auto;
+}
+
+
+/** STYLE FORM*/
+
+.ecs .ecs-form {
+    margin: 2em;
+}
+
+.ecs .ecs-col-grp  {
+    display:flex;
+    flex-direction:column;
+}
+
+.ecs .ecs-row-grp-fixed, .ecs .ecs-row-grp {
+    display:flex;
+    flex-direction:row;
+    align-items:baseline;
+    margin-top: 1em;
+}
+
+.ecs .ecs-row-grp-fixed .ecs-form-ctrl,  .ecs .ecs-row-grp .ecs-form-ctrl{
+    flex-grow:1;
+    width: 0;
+    min-width: 50px;
+}
+.ecs .ecs-row-grp-fixed .ecs-lbl,  .ecs .ecs-row-grp  .ecs-lbl {
+    margin:0 2em;
+   
+}
+.ecs-form-grp .ecs-lbl:first-child {
+    margin-left:0;
+    min-width: 10%;
+}
+
+.ecs .ecs-col-grp .ecs-lbl {
+    display: block;
+    margin-bottom: .5em;
+    margin-top: 1em;
+}
+
+.ecs .ecs-col-grp .ecs-form-ctrl {
+    display: block;
+    width: 100%;
+}
+.ecs .ecs-form-ctrl {
+    height: calc(2.25em + 2px);
+    padding: .375em .75em;
+    font-size: 1em;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25em;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.ecs .ecs-text-muted {
+    color: #6c757d!important;
+}
+.ecs .ecs-col-grp .ecs-form-text {
+    display: block;
+    margin-top: .25em;
+}
+
+
+.ecs .ecs-btn {
+    margin-top:1em;
+    display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375em .75em;
+    font-size: 1em;
+    line-height: 1.5;
+    border-radius: .25em;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.ecs .ecs-btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.ecs .ecs-btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+
+.ecs .ecs-btn-primary:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+.ecs .ecs-form-check-lbl {
+    
+}
+.ecs .ecs-form-check-lbl input {
+    margin:0 .5em 0 1em;
+}
+.ecs .ecs-form-check-lbl:first-child input {
+    margin-left:0;
+}
+ .ecs .ecs-col-grp textarea.ecs-form-ctrl {
+    min-height: 6em;
+}
+
+@media only screen and (max-width: 768px) {
+    .ecs .ecs-row-grp {
+        flex-direction:column;
+         margin-top: 0;
+    }
+     .ecs .ecs-row-grp  .ecs-lbl {
+        margin: 1em 0 .5em 0;
+    }
+    .ecs .ecs-row-grp .ecs-form-ctrl {
+        display: block;
+        width: 100%;
+    }
+    .ecs .ecs-row-grp .ecs-form-check-lbl input {
+        margin:1em  .5em 0 0;
+    }
+}
+
+
+/** END STYLE FORM */
