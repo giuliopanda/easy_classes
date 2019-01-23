@@ -1,0 +1,52 @@
+.ecs-btn, .ecs-btn-large {
+    text-decoration: none;
+    color: #fff;
+    background-color: #999;
+    text-align: center;
+    letter-spacing: .5px;
+    transition: .2s ease-out;
+    cursor: pointer;
+}
+
+.ecs-btn, .ecs-btn-large, .ecs-btn-flat {
+    border: none;
+    border-radius: 2px;
+    display: inline-block;
+    height: 2.375em;
+    line-height: 2.375em;
+    outline: 0;
+    padding: 0 2em;
+    text-transform: uppercase;
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ecs-btn:hover, .ecs-btn-large:hover {
+    background-color: #AAA;
+}
+.ecs-btn:hover, .ecs-btn-large:hover {
+    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.18), 0 4px 10px 0 rgba(0,0,0,0.15);
+}
+.ecs-btn-primary {
+    background-color: #26a69a;
+}
+
+.ecs-btn-primary:hover {
+    background-color: #2bbbad;
+}
+
+.ecs-btn-secondary {
+    background-color: #3697ff;
+}
+
+.ecs-btn-secondary:hover {
+    background-color: #6bb2ff;
+}
+
+.ecs-btn-danger {
+    background-color: #ee6e73;
+}
+
+.ecs-btn-danger:hover {
+    background-color: #ffa0a3;
+}

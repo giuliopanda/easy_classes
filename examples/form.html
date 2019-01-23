@@ -5,8 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>FORM</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="reset.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="form.css" />
-
+    <link rel="stylesheet" type="text/css" media="screen" href="button.css" />
+    <style>
+      .ecs .exp-container-site {
+        max-width: 960px;
+        margin:20px auto;
+      }
+    </style>
 </head>
 <body class="ecs">
   <div class="exp-container-site">
@@ -29,26 +36,23 @@
       </div>
       <small id="emailHelp" class="ecs-form-text ecs-text-muted">We'll never share your email with anyone else.</small>
 
-      <div class="ecs-form-grp ecs-col-grp">
-        <label class="ecs-lbl"for="exampleInputPassword1">Password</label>
-        <input type="password" class="ecs-form-ctrl" id="exampleInputPassword1" placeholder="Password">
-      </div>
       <div class="ecs-form-grp ecs-row-grp">
+        <label class="ecs-form-check-lbl" for="exampleCheck1">
+          <input type="checkbox" class="ecs-form-check-input" id="exampleCheck1">Check me out
+        </label>
       
-          <label class="ecs-form-check-lbl" for="exampleCheck1">
-          <input type="checkbox" class="ecs-form-check-input" id="exampleCheck1">Check me out</label>
-      
-          <label class="ecs-form-check-lbl" for="exampleCheck2">
-            <input type="checkbox" class="ecs-form-check-input" id="exampleCheck2">Check me out</label>
-       
+        <label class="ecs-form-check-lbl" for="exampleCheck2">
+          <input type="checkbox" class="ecs-form-check-input" id="exampleCheck2">Check me out
+        </label>
       </div>
+
       <div class="ecs-form-grp ecs-row-grp-fixed">
         <label class="ecs-form-check-lbl" for="exampleRad1">
         <input type="radio" name="rad1" class="ecs-form-check-input" id="exampleRad1">RADIO </label>
         <label class="ecs-form-check-lbl" for="exampleRad2">
         <input type="radio" name="rad1" class="ecs-form-check-input" id="exampleRad2">RADIO</label>
       </div>
-      <div class="ecs-form-grp">
+      <div class="ecs-form-grp ecs-row-grp">
         <button type="submit" class="ecs-btn ecs-btn-primary">Submit</button>
       </div>
     </form>
@@ -77,7 +81,7 @@
         <input type="checkbox" class="ecs-form-check-input" id="exampleCheck1">
         Check me out</label>
       </div>
-      <div class="ecs-form-grp">
+      <div class="ecs-form-grp ecs-row-grp">
         <button type="submit" class="ecs-btn ecs-btn-primary">Submit</button>
       </div>
     </form>
@@ -92,6 +96,24 @@
       </div>
     </form>
 
+    <hr>
+    <form class="ecs-form ecs-row-grp">
+      <div class="ecs-form-grp">
+        <label class="ecs-lbl" for="exampleInputPassword1">Name</label>
+        <input type="password" class="ecs-form-ctrl" id="" placeholder="Name">
+        <label class="ecs-lbl" for="exampleInputPassword1">Surname</label>
+        <input type="password" class="ecs-form-ctrl" id="" placeholder="Surname">
+      </div>
+    </form>
+
+    <form class="ecs-form ecs-col-grp" >
+      <div class="ecs-form-grp">
+        <label class="ecs-lbl" for="exampleInputPassword1">Name</label>
+        <input type="password" class="ecs-form-ctrl" id="" placeholder="Name">
+        <label class="ecs-lbl" for="exampleInputPassword1">Surname</label>
+        <input type="password" class="ecs-form-ctrl" id="" placeholder="Surname">
+      </div>
+    </form>
   </div>
 </body>
 </html>
