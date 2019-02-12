@@ -1,0 +1,99 @@
+.ecs-flex-row {
+    -ms-flex-direction: row !important;
+    flex-direction: row !important;
+}
+
+.ecs-flex-column {
+    -ms-flex-direction: column !important;
+    flex-direction: column !important;
+}
+
+.ecs-flex-row-reverse {
+    -ms-flex-direction: row-reverse !important;
+    flex-direction: row-reverse !important;
+}
+
+.ecs-flex-column-reverse {
+    -ms-flex-direction: column-reverse !important;
+    flex-direction: column-reverse !important;
+}
+
+.ecs-justify-content-start {
+    -ms-flex-pack: start !important;
+    justify-content: flex-start !important;
+}
+
+.ecs-justify-content-end {
+    -ms-flex-pack: end !important;
+    justify-content: flex-end !important;
+}
+
+.ecs-justify-content-center {
+    -ms-flex-pack: center !important;
+    justify-content: center !important;
+}
+
+.ecs-justify-content-between {
+    -ms-flex-pack: justify !important;
+    justify-content: space-between !important;
+}
+
+.ecs-justify-content-around {
+    -ms-flex-pack: distribute !important;
+    justify-content: space-around !important;
+}
+
+.ecs-align-items-start {
+    -ms-flex-align: start !important;
+    align-items: flex-start !important;
+}
+
+.ecs-align-items-end {
+    -ms-flex-align: end !important;
+    align-items: flex-end !important;
+}
+
+.ecs-align-items-center {
+    -ms-flex-align: center !important;
+    align-items: center !important;
+}
+
+.ecs-align-items-stretch {
+    -ms-flex-align: stretch !important;
+    align-items: stretch !important;
+}
+
+.ecs-align-self-start {
+    -ms-flex-item-align: start !important;
+    align-self: flex-start !important;
+}
+
+.ecs-align-self-end {
+    -ms-flex-item-align: end !important;
+    align-self: flex-end !important;
+}
+
+.ecs-align-self-center {
+    -ms-flex-item-align: center !important;
+    align-self: center !important;
+}
+
+.ecs-align-self-baseline {
+    -ms-flex-item-align: baseline !important;
+    align-self: baseline !important;
+}
+
+.ecs-align-self-stretch {
+    -ms-flex-item-align: stretch !important;
+    align-self: stretch !important;
+}
+
+.ecs-flex-fill {
+    -ms-flex: 1 1 auto !important;
+    flex: 1 1 auto !important;
+}
+
+.ecs-flex-grow-1 {
+    -ms-flex-positive: 1 !important;
+    flex-grow: 1 !important;
+}

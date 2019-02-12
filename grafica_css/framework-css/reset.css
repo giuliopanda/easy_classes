@@ -8,10 +8,11 @@
 	border: 0;
 	font-size: 100%;
 	font: inherit;
-    vertical-align: baseline;
     color : inherit;
     background:transparent;
 }
+.ecs b, .ecs strong {font-weight: bold}
+.ecs i, .ecs em {font-style: italic }
 
  .ecs button,  .ecs input {
     overflow: visible;
@@ -22,7 +23,10 @@
     font-size: inherit;
     line-height: inherit;
 }
-
+th {
+    font-weight: inherit;
+    text-align: inherit;
+}
 .ecs article, .ecs aside, .ecs details, .ecs figcaption, .ecs figure,
 .ecs footer, .ecs header, .ecs hgroup, .ecs menu, .ecs nav, .ecs section {
     display: block;
@@ -44,3 +48,5 @@
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+.ecs svg {width:1em; height:1em}

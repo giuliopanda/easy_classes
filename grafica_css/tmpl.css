@@ -1,0 +1,12 @@
+.ecs-content-center {
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+@media (min-width: 641px) AND (max-width: 998px) {
+  .ejs-sidebar-content .ecs-list-col > li > span > span, .ejs-sidebar-content .ecs-list-col > li > a > span {display:none;}
+  .ecs .ecs-sidebar {
+    max-width:80px;
+    min-width:80px;
+  }
+}

@@ -6,6 +6,8 @@
     <title>FORM</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="reset.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="utility.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="content.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="form.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="button.css" />
     <style>
@@ -13,10 +15,13 @@
         max-width: 960px;
         margin:20px auto;
       }
+      .ecs .ecs-form {
+        margin:2em;
+      }
     </style>
 </head>
 <body class="ecs">
-  <div class="exp-container-site">
+  <div class="exp-container-site ecs-content">
     <form class="ecs-form">
       <div class="ecs-form-grp ecs-col-grp">
         <label class="ecs-lbl" for="exampleInputPassword1">SELECT</label>
@@ -53,7 +58,7 @@
         <input type="radio" name="rad1" class="ecs-form-check-input" id="exampleRad2">RADIO</label>
       </div>
       <div class="ecs-form-grp ecs-row-grp">
-        <button type="submit" class="ecs-btn ecs-btn-primary">Submit</button>
+        <button type="submit" class="ecs-btn ecs-btn-1">Submit</button>
       </div>
     </form>
     <hr>
@@ -82,7 +87,7 @@
         Check me out</label>
       </div>
       <div class="ecs-form-grp ecs-row-grp">
-        <button type="submit" class="ecs-btn ecs-btn-primary">Submit</button>
+        <button type="submit" class="ecs-btn ecs-btn-1">Submit</button>
       </div>
     </form>
 
@@ -114,6 +119,21 @@
         <input type="password" class="ecs-form-ctrl" id="" placeholder="Surname">
       </div>
     </form>
+
+    <h5>form + button</h5>
+
+    <form   class="ecs-form ecs-row-grp">
+      <div class="ecs-form-grp ecs-mt0 ecs-input-btn-group">
+        <input type="text" class="ecs-form-ctrl" placeholder="search">
+        <div class="ecs-btn-svg">
+          <svg viewBox="0 0 24 24">
+            <path d="M24 21.172l-5.66-5.66C19.387 13.932 20 12.038 20 10c0-5.523-4.477-10-10-10S0 4.477 0 10s4.477 10 10 10c2.038 0 3.932-.613 5.512-1.66l5.66 5.66L24 21.172zM4 10c0-3.31 2.69-6 6-6s6 2.69 6 6-2.69 6-6 6-6-2.69-6-6z"></path>
+          </svg>
+        </div>
+      </div>
+    </form>
+
+    
   </div>
 </body>
 </html>

@@ -1,0 +1,347 @@
+.ecs .ecs-table {
+	width: 100%;
+	margin-bottom: 1rem;
+	background-color: transparent
+}
+
+.ecs .ecs-table td,
+.ecs .ecs-table th {
+	padding: .75rem;
+	vertical-align: top;
+	border-top: 1px solid #dee2e6
+}
+
+.ecs .ecs-table thead th {
+	vertical-align: bottom;
+	border-bottom: 2px solid #dee2e6
+}
+
+.ecs .ecs-table tbody+tbody {
+	border-top: 2px solid #dee2e6
+}
+
+.ecs .ecs-table  .ecs-table {
+	background-color: #fff
+}
+
+.ecs .ecs-table-sm td,
+.ecs .ecs-table-sm th {
+	padding: .3rem
+}
+
+.ecs .ecs-table-bordered {
+	border: 1px solid #dee2e6
+}
+
+.ecs .ecs-table-bordered td,
+.ecs .ecs-table-bordered th {
+	border: 1px solid #dee2e6
+}
+
+.ecs .ecs-table-bordered thead td,
+.ecs .ecs-table-bordered thead th {
+	border-bottom-width: 2px
+}
+
+.ecs .ecs-table-borderless tbody+tbody,
+.ecs .ecs-table-borderless td,
+.ecs .ecs-table-borderless th,
+.ecs .ecs-table-borderless thead th {
+	border: 0
+}
+
+.ecs .ecs-table-striped tbody tr:nth-of-type(odd) {
+	background-color: rgba(0, 0, 0, .05)
+}
+
+.ecs .ecs-table-hover tbody tr:hover {
+	background-color: rgba(0, 0, 0, .075)
+}
+
+.ecs .ecs-table-1,
+.ecs .ecs-table-1>td,
+.ecs .ecs-table-1>th {
+	background-color: #e5f5f3
+}
+
+.ecs .ecs-table-1 tbody+tbody,
+.ecs .ecs-table-1 td,
+.ecs .ecs-table-1 th,
+.ecs .ecs-table-1 thead th {
+	border-color: #86e0d7
+}
+
+.ecs .ecs-table-hover .ecs-table-1:hover,
+.ecs .ecs-table-hover .ecs-table-1:hover>td,
+.ecs .ecs-table-hover .ecs-table-1:hover>th {
+	background-color: #86e0d7
+}
+
+.ecs .ecs-table-2,
+.ecs .ecs-table-2>td,
+.ecs .ecs-table-2>th {
+	background-color: #86bdf8
+}
+
+.ecs .ecs-table-2 tbody+tbody,
+.ecs .ecs-table-2 td,
+.ecs .ecs-table-2 th,
+.ecs .ecs-table-2 thead th {
+	border-color: #5894d4
+}
+
+.ecs .ecs-table-hover .ecs-table-2:hover {
+	background-color: #5894d4
+}
+
+.ecs .ecs-table-hover .ecs-table-2:hover>td,
+.ecs .ecs-table-hover .ecs-table-2:hover>th {
+	background-color: #5894d4
+}
+
+.ecs .ecs-table-success,
+.ecs .ecs-table-success>td,
+.ecs .ecs-table-success>th {
+	background-color: #c3e6cb
+}
+
+.ecs .ecs-table-success tbody+tbody,
+.ecs .ecs-table-success td,
+.ecs .ecs-table-success th,
+.ecs .ecs-table-success thead th {
+	border-color: #8fd19e
+}
+
+.ecs .ecs-table-hover .ecs-table-success:hover {
+	background-color: #b1dfbb
+}
+
+.ecs .ecs-table-hover .ecs-table-success:hover>td,
+.ecs .ecs-table-hover .ecs-table-success:hover>th {
+	background-color: #b1dfbb
+}
+
+.ecs .ecs-table-info,
+.ecs .ecs-table-info>td,
+.ecs .ecs-table-info>th {
+	background-color: #bee5eb
+}
+
+.ecs .ecs-table-info tbody+tbody,
+.ecs .ecs-table-info td,
+.ecs .ecs-table-info th,
+.ecs .ecs-table-info thead th {
+	border-color: #86cfda
+}
+
+.ecs .ecs-table-hover .ecs-table-info:hover {
+	background-color: #abdde5
+}
+
+.ecs .ecs-table-hover .ecs-table-info:hover>td,
+.ecs .ecs-table-hover .ecs-table-info:hover>th {
+	background-color: #abdde5
+}
+
+.ecs .ecs-table-warning,
+.ecs .ecs-table-warning>td,
+.ecs .ecs-table-warning>th {
+	background-color: #ffeeba
+}
+
+.ecs .ecs-table-warning tbody+tbody,
+.ecs .ecs-table-warning td,
+.ecs .ecs-table-warning th,
+.ecs .ecs-table-warning thead th {
+	border-color: #ffdf7e
+}
+
+.ecs .ecs-table-hover .ecs-table-warning:hover {
+	background-color: #ffe8a1
+}
+
+.ecs .ecs-table-hover .ecs-table-warning:hover>td,
+.ecs .ecs-table-hover .ecs-table-warning:hover>th {
+	background-color: #ffe8a1
+}
+
+.ecs .ecs-table-danger,
+.ecs .ecs-table-danger>td,
+.ecs .ecs-table-danger>th {
+	background-color: #f5c6cb
+}
+
+.ecs .ecs-table-danger tbody+tbody,
+.ecs .ecs-table-danger td,
+.ecs .ecs-table-danger th,
+.ecs .ecs-table-danger thead th {
+	border-color: #ed969e
+}
+
+.ecs-table-hover .ecs-table-danger:hover {
+	background-color: #f1b0b7
+}
+
+.ecs .ecs-table-hover .ecs-table-danger:hover>td,
+.ecs .ecs-table-hover .ecs-table-danger:hover>th {
+	background-color: #f1b0b7
+}
+
+.ecs .ecs-table-light,
+.ecs .ecs-table-light>td,
+.ecs .ecs-table-light>th {
+	background-color: #fdfdfe
+}
+
+.ecs .ecs-table-light tbody+tbody,
+.ecs .ecs-table-light td,
+.ecs .ecs-table-light th,
+.ecs .ecs-table-light thead th {
+	border-color: #fbfcfc
+}
+
+.ecs .ecs-table-hover .ecs-table-light:hover {
+	background-color: #ececf6
+}
+
+.ecs .ecs-table-hover .ecs-table-light:hover>td,
+.ecs .ecs-table-hover .ecs-table-light:hover>th {
+	background-color: #ececf6
+}
+
+.ecs .ecs-table-dark,
+.ecs .ecs-table-dark>td,
+.ecs .ecs-table-dark>th {
+    color: #fff;
+	background-color: #212529;
+}
+
+.ecs .ecs-table-dark tbody+tbody,
+.ecs .ecs-table-dark td,
+.ecs .ecs-table-dark th,
+.ecs .ecs-table-dark thead th {
+	border-color: #32383e
+}
+
+.ecs .ecs-table-hover .ecs-table-dark:hover {
+	background-color: #b9bbbe
+}
+
+.ecs .ecs-table-hover .ecs-table-dark:hover>td,
+.ecs .ecs-table-hover .ecs-table-dark:hover>th {
+	background-color: #b9bbbe
+}
+
+.ecs .ecs-table-active,
+.ecs .ecs-table-active>td,
+.ecs .ecs-table-active>th {
+	background-color: rgba(0, 0, 0, .075)
+}
+
+.ecs .ecs-table-hover .ecs-table-active:hover {
+	background-color: rgba(0, 0, 0, .075)
+}
+
+.ecs .ecs-table-hover .ecs-table-active:hover>td,
+.ecs .ecs-table-hover .ecs-table-active:hover>th {
+	background-color: rgba(0, 0, 0, .075)
+}
+
+.ecs .ecs-table .ecs-thead-dark th {
+	color: #fff;
+	background-color: #212529;
+	border-color: #32383e
+}
+
+.ecs .ecs-table .ecs-thead-light th {
+	color: #495057;
+	background-color: #e9ecef;
+	border-color: #dee2e6
+}
+
+.ecs .ecs-table-dark {
+	color: #fff;
+	background-color: #212529
+}
+
+.ecs .ecs-table-dark td,
+.ecs .ecs-table-dark th,
+.ecs .ecs-table-dark thead th {
+	border-color: #32383e
+}
+
+.ecs .ecs-table-dark.ecs-table-bordered {
+	border: 0
+}
+
+.ecs .ecs-table-dark.ecs-table-striped tbody tr:nth-of-type(odd) {
+	background-color: rgba(255, 255, 255, .05)
+}
+
+.ecs .ecs-table-dark.ecs-table-hover tbody tr:hover {
+	background-color: rgba(255, 255, 255, .075)
+}
+
+@media (max-width:575.98px) {
+	.ecs .ecs-table-responsive-sm {
+		display: block;
+		width: 100%;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		-ms-overflow-style: -ms-autohiding-scrollbar
+	}
+	.ecs .ecs-table-responsive-sm>.ecs-table-bordered {
+		border: 0
+	}
+}
+
+@media (max-width:767.98px) {
+	.ecs .ecs-table-responsive-md {
+		display: block;
+		width: 100%;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		-ms-overflow-style: -ms-autohiding-scrollbar
+	}
+	.ecs .ecs-table-responsive-md>.ecs-table-bordered {
+		border: 0
+	}
+}
+
+@media (max-width:991.98px) {
+	.ecs .ecs-table-responsive-lg {
+		display: block;
+		width: 100%;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		-ms-overflow-style: -ms-autohiding-scrollbar
+	}
+	.ecs .ecs-table-responsive-lg>.ecs-table-bordered {
+		border: 0
+	}
+}
+
+@media (max-width:1199.98px) {
+	.ecs .ecs-table-responsive-xl {
+		display: block;
+		width: 100%;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		-ms-overflow-style: -ms-autohiding-scrollbar
+	}
+	.ecs .ecs-table-responsive-xl>.ecs-table-bordered {
+		border: 0
+	}
+}
+
+.ecs .ecs-table-responsive {
+	display: block;
+	width: 100%;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	-ms-overflow-style: -ms-autohiding-scrollbar
+}
+
+.ecs .ecs-table-responsive>.ecs-table-bordered {
+	border: 0
+}

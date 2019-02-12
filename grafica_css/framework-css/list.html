@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="reset.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="utility.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="content.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="flex.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="list.css" />
+    <style>
+      .ecs .exp-container-site {
+        max-width: 960px;
+        margin: 20px auto;
+      }
+    </style>
+</head>
+<body class="ecs">
+  <div class="exp-container-site ecs-content">
+    <h2 class="ecs-color-1">LIST</h2>
+    <h5>Orizzontale</h5>
+    <pre class="ecs-mb2"><code>
+    &lt;ul class=&quot;ecs-list-row&quot;&gt;&#10;      &lt;li&gt;&#10;        &lt;span&gt;&#10;          ...&#10;        &lt;/span&gt;&#10;      &lt;/li&gt;&#10;    &lt;/ul&gt;
+    </code></pre>
+    <ul class="ecs-list-row">
+      <li><span>primo valore</span></li>
+      <li><span>
+        <span>secondo valore</span>
+        <svg id="check" viewBox="0 0 24 24">
+          <path d="M24 5.827L21.17 3 9.107 15.345 2.83 9.06 0 11.89 9.106 21 24 5.827z"></path>
+        </svg>
+      </span>
+      </li>
+      <li>
+        <span>
+          <span>@</span>
+          <span>terzo valore</span>
+          <span class="ecs-pull-right">float right</span>
+      </span>
+      </li>
+    </ul>
+
+    <h5>verticale</h5>
+    <pre class="ecs-mb2"><code>
+    &lt;ul class=&quot;ecs-list-col&quot;&gt;&#10;      &lt;li&gt;&#10;        &lt;span&gt;&#10;          ...&#10;        &lt;/span&gt;&#10;      &lt;/li&gt;&#10;    &lt;/ul&gt;
+    </code></pre>
+  <ul class="ecs-list-col">
+    <li>
+      <span>
+        <svg id="check" viewBox="0 0 24 24">
+          <path d="M24 5.827L21.17 3 9.107 15.345 2.83 9.06 0 11.89 9.106 21 24 5.827z"></path>
+        </svg> 
+        <span>primo valore</span>
+      </span>
+    </li>
+    <li><span><span class="ecs-pull-right">float right</span><span class="ecs-pl0">secondo valore</span></span></li>
+    <li>
+      <span>
+        <span>terzo valore</span>
+        <span class="ecs-pull-right">float right</span>
+        <span class="ecs-pull-left">float left</span>
+      </span>
+    </li>
+  </ul>
+
+  <h5 class="ecs-mt2">Menu verticali</h5>
+  <div style="width: 300px;box-shadow: 0 0 6px 0 rgba(0,0,0,0.1), 0 3px 6px 0 rgba(0,0,0,0.2); margin: 0 auto;">
+    <ul class="ecs-list-col">
+      <li>
+        <a href="#" class="ecs-border-none">
+          <svg id="check" viewBox="0 0 24 24">
+            <path d="M24 5.827L21.17 3 9.107 15.345 2.83 9.06 0 11.89 9.106 21 24 5.827z"></path>
+          </svg>
+          <span>lorem ipsum</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <svg id="check" viewBox="0 0 24 24">
+            <path d="M24 5.827L21.17 3 9.107 15.345 2.83 9.06 0 11.89 9.106 21 24 5.827z"></path>
+          </svg>
+          <span>dolor sit</span>
+        </a>
+      </li>
+      <li>
+        <span >
+        <svg id="star-fill" viewBox="0 0 24 24">
+          <path d="M12 18.158l-7.655 5.842 2.821-8.866-7.166-6.134h9.153l2.846-9 2.853 9h9.148l-7.166 6.134 2.821 8.866-7.655-5.842z"></path>
+        </svg>
+          <span>dolor sit</span>
+        </span>
+      </li>
+      <li>
+        <a href="#" class="ecs-active">
+          <svg id="check" viewBox="0 0 24 24">
+            <path d="M24 5.827L21.17 3 9.107 15.345 2.83 9.06 0 11.89 9.106 21 24 5.827z"></path>
+          </svg>
+          <span>dolor sit</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <h5 class="ecs-mt2"> COLORI</h5>
+      <p>Si possono usare gli standard dei colori</p>
+      <ul class="ecs-list-col">
+        <li class="ecs-color-2">
+          <span>color 2</span>
+        </li>
+        <li class="ecs-bg-1">
+          <span>bg 1</span>
+        </li>
+        <li>
+          <a href="#" class="ecs-color-1">color in link</a>
+        </li>
+        <li>
+          <a href="#" class="ecs-color-1 ecs-bg-1-light-hover ecs-color-white-hover">bg in link</a>
+        </li>
+      </ul>
+
+  </div>
+</body>
+</html>

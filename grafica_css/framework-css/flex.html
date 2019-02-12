@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>FLEX</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="reset.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="utility.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="content.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="flex.css" />
+    <style>
+      .ecs .exp-container-site {
+        max-width: 960px;
+        margin: 20px auto;
+      }
+      .bd-example {
+          position: relative;
+          padding: 1rem;
+          margin: 1rem -15px 0;
+          border: solid #f8f9fa;
+          border-width: .2rem 0 0;
+      }
+      .bd-highlight {
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid rgba(86,61,124,.15);
+      }
+      .bd-highlight {
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid rgba(86,61,124,.15);
+      }
+
+      @media (min-width: 576px) {
+        .bd-example {
+            padding: 1.5rem;
+            margin-right: 0;
+            margin-left: 0;
+            border-width: .2rem;
+        }
+      }
+     
+    </style>
+</head>
+<body class="ecs">
+  <div class="exp-container-site ecs-content">
+    <h2 class="ecs-color-1">FLEX</h2>
+    <p>La parte flex è presa da bootstrap</p>
+    <div class="bd-example">
+      <div class="ecs-d-flex ecs-flex-row bd-highlight mb-3">
+        <div class="ecs-p1 bd-highlight">Flex item 1</div>
+        <div class="ecs-p1 bd-highlight">Flex item 2</div>
+        <div class="ecs-p1 bd-highlight">Flex item 3</div>
+      </div>
+      <div class="ecs-d-flex ecs-flex-row-reverse bd-highlight">
+        <div class="ecs-p1 bd-highlight">Flex item 1</div>
+        <div class="ecs-p1 bd-highlight">Flex item 2</div>
+        <div class="ecs-p1 bd-highlight">Flex item 3</div>
+      </div>
+    </div>
+
+  <div class="bd-example">
+    <div class="ecs-d-flex flex-column bd-highlight mb-3">
+      <div class="ecs-p1 bd-highlight">Flex item 1</div>
+      <div class="ecs-p1 bd-highlight">Flex item 2</div>
+      <div class="ecs-p1 bd-highlight">Flex item 3</div>
+    </div>
+    <div class="ecs-d-flex flex-column-reverse bd-highlight">
+      <div class="ecs-p1 bd-highlight">Flex item 1</div>
+      <div class="ecs-p1 bd-highlight">Flex item 2</div>
+      <div class="ecs-p1 bd-highlight">Flex item 3</div>
+    </div>
+  </div>
+
+  <div class="bd-example">
+    <div class="ecs-d-flex ecs-justify-content-start bd-highlight mb-3">
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+    </div>
+    <div class="ecs-d-flex ecs-justify-content-end bd-highlight mb-3">
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+    </div>
+    <div class="ecs-d-flex ecs-justify-content-center bd-highlight mb-3">
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+    </div>
+    <div class="ecs-d-flex ecs-justify-content-between bd-highlight mb-3">
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+    </div>
+    <div class="ecs-d-flex ecs-justify-content-around bd-highlight">
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+    </div>
+  </div>
+
+
+  <div class="bd-example">
+    <div class="ecs-d-flex ecs-align-items-start bd-highlight mb-3" style="height: 100px">
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+    </div>
+    <div class="ecs-d-flex ecs-align-items-end bd-highlight mb-3" style="height: 100px">
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+    </div>
+    <div class="ecs-d-flex ecs-align-items-center bd-highlight mb-3" style="height: 100px">
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+    </div>
+    <div class="ecs-d-flex ecs-align-items-baseline bd-highlight mb-3" style="height: 100px">
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+    </div>
+    <div class="ecs-d-flex ecs-align-items-stretch bd-highlight" style="height: 100px">
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+      <div class="ecs-p1 bd-highlight">Flex item</div>
+    </div>
+  </div>
+
+
+<div class="bd-example">
+  <div class="ecs-d-flex bd-highlight ecs-mb3" style="height: 100px">
+    <div class="ecs-p1 bd-highlight">Flex item</div>
+    <div class="ecs-align-self-start ecs-p1 bd-highlight">ecs-aligned flex item</div>
+    <div class="ecs-p1 bd-highlight">Flex item</div>
+  </div>
+  <div class="ecs-d-flex bd-highlight mb-3" style="height: 100px">
+    <div class="ecs-p1 bd-highlight">Flex item</div>
+    <div class="ecs-align-self-end ecs-p1 bd-highlight">ecs-aligned flex item</div>
+    <div class="ecs-p1 bd-highlight">Flex item</div>
+  </div>
+  <div class="ecs-d-flex bd-highlight mb-3" style="height: 100px">
+    <div class="ecs-p1 bd-highlight">Flex item</div>
+    <div class="ecs-align-self-center ecs-p1 bd-highlight">ecs-aligned flex item</div>
+    <div class="ecs-p1 bd-highlight">Flex item</div>
+  </div>
+  <div class="ecs-d-flex bd-highlight mb-3" style="height: 100px">
+    <div class="ecs-p1 bd-highlight">Flex item</div>
+    <div class="ecs-align-self-baseline ecs-p1 bd-highlight">ecs-aligned flex item</div>
+    <div class="ecs-p1 bd-highlight">Flex item</div>
+  </div>
+  <div class="ecs-d-flex bd-highlight" style="height: 100px">
+    <div class="ecs-p1 bd-highlight">Flex item</div>
+    <div class="ecs-align-self-stretch ecs-p1 bd-highlight">ecs-aligned flex item</div>
+    <div class="ecs-p1 bd-highlight">Flex item</div>
+  </div>
+</div>
+
+<div class="bd-example">
+  <div class="ecs-d-flex bd-highlight">
+    <div class="ecs-p1 flex-fill bd-highlight">Flex item with a lot of content</div>
+    <div class="ecs-p1 flex-fill bd-highlight">Flex item</div>
+    <div class="ecs-p1 flex-fill bd-highlight">Flex item</div>
+  </div>
+</div>
+
+
+<div class="bd-example">
+  <div class="ecs-d-flex bd-highlight">
+    <div class="ecs-p1 ecs-flex-grow-1 bd-highlight">Flex item</div>
+    <div class="ecs-p1 bd-highlight">Flex item</div>
+    <div class="ecs-p1 bd-highlight">Third flex item</div>
+  </div>
+</div>
+
+
+
+<div class="bd-example">
+  <div class="ecs-d-flex bd-highlight">
+    <div class="ecs-p1 bd-highlight" style="width:200px">200px</div>
+    <div class="ecs-p1 bd-highlight ecs-flex-fill">Flex fill</div>
+  </div>
+</div>
+
+
+
+</div>
+</body>
+</html>

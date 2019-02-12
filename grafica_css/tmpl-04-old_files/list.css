@@ -1,0 +1,102 @@
+.ecs-list-row {
+	display: inline-flex;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	border: 1px solid #EFEFEF;
+}
+.ecs-list-col {
+	display: flex;
+	 -ms-flex-direction: column;
+	flex-direction: column;
+	border: 1px solid #EFEFEF;
+}
+.ecs-list-row > li {
+	display:flex;
+}
+
+.ecs-list-col > li > a, .ecs-list-col > li > span {
+	border-bottom:1px solid #EFEFEF;
+	display: flex;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	-ms-flex-align: center;
+	align-items: center;
+}
+.ecs-list-col > li > .ecs-list-col  {
+	border:none;
+	margin-left:2em;
+}
+
+.ecs-list-col  li > a {
+	background:#FFF;
+	color:#666;
+}
+.ecs-list-col li:hover, .ecs-row-col li:hover {
+	z-index: 2;
+}
+
+.ecs-list-icon-big svg {font-size:1.4em;}
+.ecs-list-col li > a:hover, .ecs-row-col li > a:hover {
+	background-color: #EFEFEF;
+	color:#000;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.18), 0 2px 5px 0 rgba(0,0,0,0.15);
+
+}
+
+.ecs-list-col > li > a svg, .ecs-list-col > li > span svg {
+	fill:#666;
+}
+
+
+.ecs-list-col > li > a > *, .ecs-list-col > li > span > *,
+.ecs-list-row > li > a > *, .ecs-list-row > li > span > * {
+	padding:0 .5em;
+}
+.ecs-list-col > li > a > *:first-child, .ecs-list-col > li > span > *:first-child,
+.ecs-list-row > li > a > *:first-child, .ecs-list-row > li > span > *:first-child {
+	padding:0 .5em 0 0;
+}
+.ecs-list-col > li > a > *:last-child, .ecs-list-col > li > span > *:last-child,
+.ecs-list-row > li > a > *:last-child, .ecs-list-row > li > span > *:last-child {
+	padding:0 0 0 .5em;
+}
+.ecs-list-col > li:last-child a, .ecs-list-col > li:last-child span {
+	border-bottom:none;
+}
+.ecs-list-row > li > a,  .ecs-list-row > li > span {
+	border-right:1px solid #EFEFEF;
+}
+.ecs-list-row > li:last-child > a, .ecs-list-row > li:last-child > span {
+	border-right:none;
+}
+.ecs-list-row > li > a,  .ecs-list-row > li > span,
+.ecs-list-col > li > a, .ecs-list-col > li > span {
+	padding:1em;
+}
+
+.ecs-list-col > li  .ecs-pull-right, .ecs-list-col > li > a > .ecs-pull-right, .ecs-list-col > li > span > .ecs-pull-right {
+  margin-left: auto;
+  float:none ;
+  padding-right:0 ;
+  padding-left:.5em ;
+  order:999;
+}
+.ecs-list-col > li  .ecs-pull-left, .ecs-list-col > li > a > .ecs-pull-left, .ecs-list-col > li > span > .ecs-pull-left {
+  order: -1;
+  float:none ;
+  padding-left:0 ;
+  padding-right:.5em ;
+}
+
+.ecs-list-col > li.ecs-border-none,  .ecs-list-col > li.ecs-border-none a, .ecs-list-col > li.ecs-border-none span, .ecs-list-row > li.ecs-border-none,  .ecs-list-row > li.ecs-border-none a, .ecs-list-row > li.ecs-border-none span {
+	border:none !important;
+}
+
+.ecs-list-col .ecs-active, .ecs-list-col .ecs-active:hover , .ecs-list-row .ecs-active, .ecs-list-row .ecs-active:hover {
+	color:#046359;
+	background:#e5f5f3;
+
+}
+.ecs-list-col .ecs-active svg, .ecs-list-col .ecs-active:hover svg, .ecs-list-row .ecs-active svg, .ecs-list-row .ecs-active:hover svg {
+	fill:#157e73;
+}

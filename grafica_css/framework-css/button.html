@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>BUTTON</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="reset.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="button.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="utility.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="flex.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="content.css" />
+    <style>
+      .exp-container-site {
+        max-width: 960px;
+        margin: 20px auto;
+      }
+    </style>
+</head>
+<body class="ecs ecs-content">
+  <div class="exp-container-site">
+    <h2 class="ecs-color-1">Gestione dei bottoni</h2>
+    <div class="ecs-btn">default</div>
+    <div class="ecs-btn ecs-btn-1">1</div>
+    <div class="ecs-btn ecs-btn-2">2</div>
+    <div class="ecs-btn ecs-btn-danger">danger</div>
+    <div class="ecs-btn-svg ecs-btn-light">light</div>
+    <pre class="ecs-mt2">&lt;div class=&quot;ecs-btn&quot;&gt;default&lt;/div&gt;&#10;&lt;div class=&quot;ecs-btn ecs-btn-1&quot;&gt;1&lt;/div&gt;&#10;&lt;div class=&quot;ecs-btn ecs-btn-2&quot;&gt;2&lt;/div&gt;&#10;&lt;div class=&quot;ecs-btn ecs-btn-danger&quot;&gt;danger&lt;/div&gt;</pre>
+
+    <h5>dimensioni</h5>
+    <p>E' possibile gestire le dimensioni come per ogni altro elemento aggiungendo le classi <b>ecs-size-small</b> <b>ecs-size-default</b> <b>ecs-size-big</b></p>
+    <div class="ecs-d-flex ecs-justify-content-between ">
+      <div class="ecs-btn ecs-size-small">button</div>
+      <div class="ecs-size-default">
+        <div class="ecs-btn">button</div>
+      </div>
+      <div class="ecs-size-big">
+        <div class="ecs-btn">button</div>
+      </div>
+    </div>
+    <pre class="ecs-mt2">&lt;div class=&quot;ecs-btn ecs-size-small&quot;&gt;button&lt;/div&gt;&#10;&lt;div class=&quot;ecs-size-default&quot;&gt;&#10;  &lt;div class=&quot;ecs-btn&quot;&gt;button&lt;/div&gt;&#10;&lt;/div&gt;&#10;&lt;div class=&quot;ecs-size-big&quot;&gt;&#10;  &lt;div class=&quot;ecs-btn&quot;&gt;button&lt;/div&gt;&#10;&lt;/div&gt;</pre>
+
+    <h5>Icone</h5>
+    <div class="ecs-btn-svg">
+      <svg viewBox="0 0 24 24">
+        <path d="M24 21.172l-5.66-5.66C19.387 13.932 20 12.038 20 10c0-5.523-4.477-10-10-10S0 4.477 0 10s4.477 10 10 10c2.038 0 3.932-.613 5.512-1.66l5.66 5.66L24 21.172zM4 10c0-3.31 2.69-6 6-6s6 2.69 6 6-2.69 6-6 6-6-2.69-6-6z"></path>
+      </svg>
+    </div>
+
+    <div class="ecs-btn-svg ecs-btn-1">
+      <svg viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg" data-svg="user">
+      <circle cx="9.9" cy="6.4" r="4.4"></circle>
+      <path d="M1.5,19 C2.3,14.5 5.8,11.2 10,11.2 C14.2,11.2 17.7,14.6 18.5,19.2"></path>
+      </svg>
+    </div>
+
+    <div class="ecs-btn-svg ecs-btn-light">
+      <svg viewBox="0 0 24 24">
+      <path d="M17.843 1c2.159 0 3.912 1.753 3.912 3.912 0 .395-.053 1.704-1.195 2.813l-8.465 8.465c-.596.671-2.12 1.279-3.299.099-1.178-1.177-.586-2.685.088-3.29l4.409-4.409.707.707-3.164 3.163.014.003-1.411 1.413.004.003c-.97 1.151.618 2.93 1.977 1.572l8.383-8.384c.656-.652.94-1.393.94-2.155 0-1.601-1.299-2.9-2.9-2.9-.783 0-1.495.311-2.018.818l-.003-.003c-.573.573-11.502 11.494-11.534 11.527l-.002-.002c-.795.812-1.286 1.923-1.286 3.148 0 2.483 2.017 4.5 4.5 4.5.65 0 1.84.007 3.52-1.668l10.273-10.267.707.707-10.477 10.477c-1.004 1.077-2.435 1.751-4.023 1.751-3.035 0-5.5-2.465-5.5-5.5 0-1.577.666-3 1.731-4.004 10.668-10.667 10.835-10.839 11.295-11.297.277-.278 1.215-1.199 2.817-1.199"></path></svg>
+    </div>
+
+    <div class="ecs-btn">
+      <svg class="ecs-svg-left" viewBox="0 0 24 24">
+        <path d="M24 21.172l-5.66-5.66C19.387 13.932 20 12.038 20 10c0-5.523-4.477-10-10-10S0 4.477 0 10s4.477 10 10 10c2.038 0 3.932-.613 5.512-1.66l5.66 5.66L24 21.172zM4 10c0-3.31 2.69-6 6-6s6 2.69 6 6-2.69 6-6 6-6-2.69-6-6z"></path>
+      </svg>
+       button
+    </div>
+
+    <div class="ecs-btn">
+      button
+        <svg class="ecs-svg-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 21l-12-18h24z" />
+        </svg>
+    </div>
+
+  </div>
+
+  
+
+
+</body>
+</html>

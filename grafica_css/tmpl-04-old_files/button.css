@@ -1,0 +1,109 @@
+.ecs-btn {
+    position: relative;
+    text-decoration: none;
+    color: #fff;
+    background-color: #999;
+    text-align: center;
+    letter-spacing: .5px;
+    transition: .2s ease-out;
+    cursor: pointer;
+    border: none;
+    border-radius: 2px;
+    display: inline-flex;
+    align-items: center;
+    height: 2em;
+    line-height: 2em;
+    outline: 0;
+    padding: 0 1em;
+    text-transform: uppercase;
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent;
+}
+.ecs-btn-svg {
+     position: relative;
+    text-decoration: none;
+    color: #fff;
+    background-color: #999;
+    text-align: center;
+    letter-spacing: .5px;
+    transition: .2s ease-out;
+    cursor: pointer;
+    border: none;
+    border-radius: 2px;
+    display: inline-block;
+    height: 2em;
+    line-height: 2em;
+    outline: 0;
+    padding: 0 .5em;
+    text-transform: uppercase;
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-flex;
+    align-items: center;
+}
+.ecs-btn-svg svg {fill:#FFF;}
+.ecs-btn-svg:hover {
+    background-color: #AAA;
+    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.18), 0 4px 10px 0 rgba(0,0,0,0.15);
+}
+.ecs-btn svg {fill:#FFF;}
+.ecs-btn .ecs-svg-left {
+    fill: #FFF;
+    margin-right: .6em;
+    width: 1em;
+    height: 1em;
+    margin-left: -.3em;
+}
+.ecs-btn .ecs-svg-right {
+    fill: #FFF;
+    margin-left: .6em;
+    width: 1em;
+    height: 1em;
+    margin-right: -.3em;
+}
+.ecs-btn:hover {
+    background-color: #AAA;
+}
+.ecs-btn:hover {
+    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.18), 0 4px 10px 0 rgba(0,0,0,0.15);
+}
+.ecs-btn-1 {
+    background-color: #26a69a;
+}
+
+.ecs-btn-1:hover {
+    background-color: #2bbbad;
+}
+.ecs-btn-2 {
+    background-color: #3697ff;
+}
+
+.ecs-btn-2:hover {
+    background-color: #6bb2ff;
+}
+
+.ecs-btn-danger {
+    background-color: #ee6e73;
+}
+
+
+.ecs-btn-danger:hover {
+    background-color: #ffa0a3;
+}
+
+.ecs-btn-light {
+    background-color: #F8F8F8;
+    color:#666;
+}
+
+.ecs-btn-light:hover {
+    background-color: #EFEFEF;
+    color:#000;
+}
+
+.ecs-btn-danger svg  {fill:#FFF !important;}
+
+.ecs-btn-light svg {fill:#666 !important;}
+.ecs-btn-light:hover svg {fill:#000 !important;}
+
+.ecs-btn-icon, .ecs-btn svg, .ecs-btn-svg svg {width:1em; height:1em}

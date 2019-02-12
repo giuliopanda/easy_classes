@@ -1,0 +1,155 @@
+<div class="gp-popup-hover  boxleader_cell  boxhome-store">
+    <div class="box-home-img" style="height: 229px;">
+        <a class="box-home-page-link" href="/store/product/pc-building-simulator/621060"></a>
+        <img src="https://www.indiegalacdn.com/store-img_game/games/big/621060.jpg" class="imgbig" alt="PC Building Simulator"
+            style="height: 229px;">
+    </div>
+    <div class="info-type">store</div>
+    <div class="home-percent">20% OFF</div>
+    <div class="home-title home-title-store">
+        <a href="/store/product/pc-building-simulator/621060" title="PC Building Simulator">
+            PC Building Simulator
+        </a>
+    </div>
+    <div class="price-container">
+        <div class="home-old-price"> € 19.99 </div>
+        <div class="home-price">€ 15.99</div>
+    </div>
+
+    <div class="gp-popup gp-popup-store">
+        <div class="gp-popup-body" style="position: relative;">
+            <div class="gp-popup-title-bg">
+                <div class="gp-popup-title">
+                    <a href="/store/product/pc-building-simulator/621060">
+                        PC Building Simulator
+                    </a>
+                </div>
+                <div class="popup-discount">
+                    DISCOUNTED
+                    <div class="gp-popup-date">
+                        <i class="fa fa-clock-o" aria-hidden="true"></i> Ends
+                        Feb. 5, 2019, 5:59 p.m.
+                    </div>
+                </div>
+            </div>
+            <div class="gp-popup-drm-info">
+                <span><i class="fa fa-steam"></i></span>
+
+                |
+                <span><i class="fa fa-windows"></i></span>
+            </div>
+            <div class="gp-popup-txt">
+                THE ULTIMATE PC BUILDING SIMULATION HAS ARRIVED!
+                &nbsp;
+                Build your very own PC empire, from simpl...
+            </div>
+            <div class="youtubevideo" onclick="$.showYtVideo({videoId: 'h_pMegnuCH8'});"><img src="https://img.youtube.com/vi/h_pMegnuCH8/0.jpg">
+                <i class="fa fa-youtube-play" aria-hidden="true"></i>
+            </div>
+            <a class="gp-popup-readmore" href="/store/product/pc-building-simulator/621060">Read More</a>
+        </div>
+    </div>
+</div>
+
+<script>
+/* POPUP */
+var timeoutShowPopup = -1;
+$(document).ready(function () {
+    $('.gp-popup-hover').mouseover(function () {
+        if ($(window).innerWidth() >= 990) {
+            $this = $(this);
+            if (!$this.hasClass('gp-popup-open')) {
+                //console.log($this[0]);
+                $this.addClass('gp-popup-open');
+                $('#gpPopup').stop().remove();
+                $popup = $this.find('.gp-popup').clone();
+                $('body').prepend($popup);
+                $popup.mouseleave(function (e) {
+                    target = e.toElement || e.relatedTarget;
+                    $parent = $(target);
+                    k = 0;
+                    while ($parent.length > 0 && ($parent.prop('id') != 'gpPopup' && !$parent.hasClass('gp-popup-open')) && k < 5) {
+                        //console.log(parent);
+                        $parent = $parent.parent();
+                        k++;
+                    }
+                    if ($parent.prop('id') != 'gpPopup' && !$parent.hasClass('gp-popup-open')) {
+                        $('#gpPopup').stop().remove();
+                        $('.gp-popup-open').removeClass('gp-popup-open');
+                        clearInterval(timeoutShowPopup);
+                    }
+                });
+
+                $popup.prop('id', 'gpPopup');
+                offset = $this.offset();
+                //console.log(offset);
+                posLeft = offset.left - $popup.outerWidth();
+                posTop = offset.top;
+
+                winWidth = $(window).innerWidth() / 3;
+                if (offset.left < winWidth) {
+                    posLeft = offset.left + $this.width() - 2;
+                    $popup.find('.gp-popup-readmore').after('<div class="gp-popup-arrow-right"></div>');
+                    $popup.find('.gp-popup-readmore').after('<div class="gp-popup-arrow-right2"></div>');
+                } else {
+                    posLeft = offset.left - $popup.outerWidth() + 2;
+                    $popup.find('.gp-popup-readmore').after('<div class="gp-popup-arrow-left"></div>');
+                    $popup.find('.gp-popup-readmore').after('<div class="gp-popup-arrow-left2"></div>');
+                }
+                popupHeight = $popup.height();
+                if (offset.top < parseFloat($(window).scrollTop())) {
+                    posTop = $(window).scrollTop();
+                } else if (posTop > $(window).innerHeight() - popupHeight + parseFloat($(window).scrollTop())) {
+                    posTop = $(window).innerHeight() - popupHeight + parseFloat($(window).scrollTop());
+                    $popup.find('.gp-popup-arrow-left').css('top', (offset.top - posTop));
+                    $popup.find('.gp-popup-arrow-right').css('top', (offset.top - posTop));
+                    $popup.find('.gp-popup-arrow-left2').css('top', (offset.top - posTop));
+                    $popup.find('.gp-popup-arrow-right2').css('top', (offset.top - posTop));
+                } else {
+                    //console.log(popupHeight+" - "+$this.height());
+                    if (posTop > 100) posTop -= (popupHeight - $this.height()) / 2;
+
+                    $popup.find('.gp-popup-arrow-left').css('top', (offset.top - posTop) + ($this.height() / 2) - 15);
+                    $popup.find('.gp-popup-arrow-right').css('top', (offset.top - posTop) + ($this.height() / 2) - 15);
+                    $popup.find('.gp-popup-arrow-left2').css('top', (offset.top - posTop) + ($this.height() / 2) - 15);
+                    $popup.find('.gp-popup-arrow-right2').css('top', (offset.top - posTop) + ($this.height() / 2) - 15);
+
+                }
+
+                $popup.data('anim', 't');
+                $popup.css({ 'opacity': 0, 'display': 'block', 'left': posLeft, 'top': posTop });
+
+                timeoutShowPopup = setTimeout(function () {
+                    $popup.animate(
+                        { 'opacity': 1 },
+                        200,
+                        function () {
+                            $(this).data('anim', 'f');
+                        }
+                    );
+                }, 300);
+            }
+        }
+    });
+
+    $('.gp-popup-hover').mouseleave(function (e) {
+        target = e.toElement || e.relatedTarget;
+        $parent = $(target);
+        k = 0;
+        while ($parent.length > 0 && ($parent.prop('id') != 'gpPopup' && !$parent.hasClass('gp-popup-open')) && k < 5) {
+            //console.log(parent);
+            $parent = $parent.parent();
+            k++;
+        }
+
+        if ($parent.prop('id') != 'gpPopup' && !$parent.hasClass('gp-popup-open')) {
+            $('#gpPopup').stop().remove();
+            $('.gp-popup-open').removeClass('gp-popup-open');
+        }
+
+    });
+
+});
+
+
+</script>
