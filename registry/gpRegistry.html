@@ -80,8 +80,8 @@
     <code><pre>$data->set($path, $data);</pre></code>
 
     <p><b>$path</b>: I nomi della variabile da salvare. Vengono segnati come path.<br>
-    <b>$data</b>: i dati da salvare. Possono essere variabili singole, array o oggetti. Una volta inseriti nel registry verranno comunque richiamati come path (con il punto). <br>
-    
+    <b>$data</b>: i dati da salvare. Possono essere variabili singole, array o oggetti. Una volta inseriti nel registry verranno comunque richiamati come path (con il punto). Se si aggiunge un oggetto/classe non viene convertito in un array. Se lo si vuole convertire bisogna fare prima il cast in array: <br>
+    <code><pre>$data->set( 'dataArray', (array) $obj); </pre></code>
     </p>
     <p><b>Esempio</b>:
     </p> 

@@ -1,6 +1,6 @@
 <?php
 /** 
- * BUILD 20190116 EASY_CASSES V.1
+ * BUILD 20190305 EASY_CASSES V.2
  */
 
 /**
@@ -343,6 +343,7 @@ class gpRouter
     var $scheme = "http";
     var $site = ""; // l'home del sito
     var $fnParse = null;
+    var $htaccess = true; // dice se usare l'htaccess oppure no
     var $fnBuild = null;
     static $instance;
     /**
@@ -395,7 +396,7 @@ class gpRouter
             }
             $this->site = $site;
         } else {
-            $this->site = $_SERVER[HTTP_HOST].$this->relativePath;
+            $this->site = $_SERVER["HTTP_HOST"].$this->relativePath;
         }
     }
     /** 
@@ -412,10 +413,10 @@ class gpRouter
      */
     function getCurrentLink($getUri = true) {
         if ($getUri === true) {
-            return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+            return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
         }
         if ($getUri === false) {
-            return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]".strtok($_SERVER["REQUEST_URI"],'?'); 
+            return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://".$_SERVER["HTTP_HOST"].strtok($_SERVER["REQUEST_URI"],'?'); 
         }
     }
     /**
@@ -435,11 +436,12 @@ class gpRouter
     /**
      * Ritorna un link completo
      * @param String $query il link ad esempio esempio/index.php?var=1
+     * @param Boolean  $useFunction dice se usare la funzione personalizzata oppure no
      * @return String 
      */
-    function getLink($query = "") {
+    function getLink($query = "", $useFunction = true) {
         $query = str_replace(array($this->scheme . "://", $this->site), '', $query);
-        if ($this->fnBuild != null) {
+        if ($this->fnBuild != null && $useFunction) {
             return $this->scheme . "://" . $this->site . call_user_func_array($this->fnBuild, array($query, $this));
         } 
         if ($query != "" && substr($query,0,1)!= "/") {
@@ -450,21 +452,22 @@ class gpRouter
     /**
      * Fa il parsing di una url dove pathQuery sono i parametri del percorso  
      * Se il link è relativo devo metterci lo / davanti
-     *@param String  $link 
-     *@return Array ('scheme':string,'host':string, 'path':string,'filename':string,'pathQuery':array,'query':array)
+     * @param String  $link 
+     * @param Boolean  $useFunction dice se usare la funzione personalizzata oppure no
+     * @return Array ('scheme':string,'host':string, 'path':string,'filename':string,'pathQuery':array,'query':array)
      */
-    function parseUrl($link = "") {
+    function parseUrl($link = "", $useFunction = true) {
         if ($link == "") {
             $link = $this->getCurrentLink();
         }
         $ris = parse_url($link);
-        if ($ris['path']) {
+        if (array_key_exists('path', $ris)) {
             //$ris['filename'] = basename($ris['path']);
             $risPath = $ris['path'];
             $ris['path'] = array_values (array_filter(explode("/",  str_replace($this->relativePath, '', $risPath))));
         }
         
-        if ($ris['query']) {
+        if (array_key_exists('query', $ris)) {
             $ris['query'] = str_replace("&amp;", "&", $ris['query']);
             $temp = explode("&", $ris['query']);
             $t3 = array();
@@ -474,10 +477,35 @@ class gpRouter
             }
             $ris['query'] = $t3;
         }
-        if ($this->fnParse != null) {
+        if ($this->fnParse != null && $useFunction) {
             return call_user_func_array($this->fnParse, array($ris, $this));
         } 
         return $ris;
+    }
+    /**
+     * Verifica se la pagina è quella attiva
+     * @param String $link Il link da verificare
+     * @param Array $whichQueryCheck opzionale l'array di query da verificare perché il link sia lo stesso. Questo per evitare parametri aggiuntivi che comunque non modificherebbero la pagina
+     * @return Boolean
+     */
+    function isActive($link, $whichQueryCheck = false) {
+        $a = $this->parseUrl();
+        $b = $this->parseUrl($link);
+        if (array_key_exists('path', $a) && array_key_exists('path', $b)) {
+            if ($a['path'] != $b['path']) return false;
+        }
+        if (array_key_exists('query', $a) && array_key_exists('query', $b)) {
+            if ($whichQueryCheck != false) {
+                foreach ($whichQueryCheck as $wqc) {
+                    if (array_key_exists($wqc, $a['query']) && array_key_exists($wqc, $b['query'])) 
+                    if ($a['query'][$wqc] != $b['query'][$wqc]) return false;
+                }
+            } else {
+                if ($a['query'] != $b['query']) return false;
+            }
+           
+        }
+        return true;
     }
     /**
      * Implode un'array per le query
@@ -647,9 +675,11 @@ class GPRegistry
 	**/
 	function set($path, $data) 
 	{
+        /* TODO DISABILITO PER ACCETTARE ESTENSIONI DI CLASSI DENTRO REGISTRY
 		if (is_object($data)) {
  			$data = (array) $data;
-		}
+        }
+        */
 		if ($path != "") {
  			$path = explode(".", $path);
 			if (@$path[0] == "session") {

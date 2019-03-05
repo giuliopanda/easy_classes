@@ -8,9 +8,8 @@ class gpDBMySql
      var $error = false; // true se una query da un errore
      var $tablesList = array(); // l'elenco delle tabelle
      var $prefix = ''; // l'elenco delle tabelle
-    /*
+    /** 
     * COSTRUCTOR INIZIALIZZA LA CONNESSIONE
-    * @params 
     */
     function __construct($ip, $login, $pass, $dbname) 
     {
@@ -49,7 +48,7 @@ class gpDBMySql
         }
         return $ris;
     }
-     /**
+    /**
      * Esegue una query Select
      * @param String $sql 
      */
@@ -171,7 +170,7 @@ class gpDBMySql
         }
         return array_shift($row);
     }
-     /**
+    /**
      * Fa l'insert ad una tabella 
      * @param String $table
      * @param Array $data
@@ -295,8 +294,7 @@ class gpDBMySql
      */
     function insertId() {
         return $this->mysqli->insert_id;
-    }
-    
+    } 
     /**
      * QUOTE name or table
      * @param String $val
@@ -313,7 +311,6 @@ class gpDBMySql
     function quote($val) {
         return "'".$this->mysqli->real_escape_string($val)."'";
     }
-
      /**
      * Sostituisce '#__' con il prefisso reale delle tabelle
      * @param   String		$query
@@ -322,7 +319,6 @@ class gpDBMySql
     private function sqlPrefix($query) {
         return str_replace("#__", $this->prefix, $query);
     }
-
     /**
      * Close connection
      */

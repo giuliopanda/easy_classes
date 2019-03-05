@@ -46,9 +46,11 @@ class GPRegistry
 	**/
 	function set($path, $data) 
 	{
+        /* TODO DISABILITO PER ACCETTARE ESTENSIONI DI CLASSI DENTRO REGISTRY
 		if (is_object($data)) {
  			$data = (array) $data;
-		}
+        }
+        */
 		if ($path != "") {
  			$path = explode(".", $path);
 			if (@$path[0] == "session") {
