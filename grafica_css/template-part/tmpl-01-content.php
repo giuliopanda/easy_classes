@@ -6,6 +6,9 @@
     </div>
   </div>
   <p>
+  Per ora è una demo in cui non ci sono permessi, utenti, aree etc...<br>
+  Ogni utente può creare nuovi progetti, duplicarli o creare istanze da dei master</p> 
+  <p>
   <table class="ecs-table ecs-table-bordered">
         <thead class="ecs-thead-light">
           <tr>
@@ -22,6 +25,16 @@
         <tbody>
           <tr>
             <th scope="ecs-row"><input type="checkbox" ></th>
+            <th scope="ecs-row">id</th>
+            <td><a href="#">name</a></td>
+            <td>num_view</td>
+            <td>num_records</td>
+            <td>date</td>
+            <td>status</td>
+            <td>alias</td>
+          </tr>
+          <tr>
+            <th scope="ecs-row"><input type="checkbox" ></th>
             <th scope="ecs-row">#001</th>
             <td><a href="#">Gestione utenti</a></td>
             <td>5</td>
@@ -33,7 +46,7 @@
           <tr>
             <th scope="ecs-row"><input type="checkbox" ></th>
             <th scope="ecs-row">#002</th>
-            <td>Gestione utenti</td>
+            <td>Cd musicali</td>
             <td>5</td>
             <td>75</td>
             <td>25/02/2019</td>
@@ -43,7 +56,7 @@
           <tr>
             <th scope="ecs-row"><input type="checkbox" ></th>
             <th scope="ecs-row">#002</th>
-            <td>Gestione utenti</td>
+            <td>Copia di Gestione utenti</td>
             <td>5</td>
             <td>75</td>
             <td>25/02/2019</td>

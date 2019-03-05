@@ -6,7 +6,7 @@
   <div class="osp-logo">Title</div>
 </div>
 <div class="osp-col-header-center ecs-content">
-  <a href="#">Home</a> / <a href="#">path</a> > title
+  <a href="tmpl-01-home.php">Elenco progetti</a> / <a href="tmpl-02-project.php">Progetto utenti</a> / vista  > titolo
 </div>
 <div class="osp-col-header-right">
   <form  class="ecs-form">

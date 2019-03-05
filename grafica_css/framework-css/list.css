@@ -23,8 +23,9 @@
 	align-items: center;
 }
 .ecs-list-col > li > .ecs-list-col  {
-	border:none;
-	margin-left:2em;
+    border: 2px solid #3697FF;
+    margin-top: -1px;
+    border-left: 1em solid #3697ff;
 }
 
 .ecs-list-col  li > a {

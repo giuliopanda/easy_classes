@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="framework-css/content.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="framework-css/utility.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="framework-css/table.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="framework-css/pagination.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="tmpl-01.css" />
 </head>
 <body class="ecs ">
@@ -66,14 +67,43 @@
       <nav id="sidebar" class="ecs-sidebar ejs-sidebar-status-mobile-hide">
         <div class="ejs-sidebar-content">
           <div class="ecs-pr1">
-            <?php require('template-part/tmpl-sidebar.php'); ?>
+            <?php 
+            $active = ($_REQUEST['action'] ) ? $_REQUEST['action'] : 'edit-list-show';
+            require('template-part/tmpl-sidebar.php'); ?>
           </div>
         </div>
         <div class="ejs-sidebar-background" data-target="#sidebar"></div>
       </nav>
       <main class="ecs-content">
-        <?php require('template-part/tmpl-04-content.php'); ?>
-       
+      <p>
+       Le connesioni sono legate ai singoli progetti e istanze del progetto. quindi è dentro lo stesso progetto.
+      Per ora non pensiamo alle istanze! pensiamo solo ai progetti nella loro versione più semplice!
+
+      Nei progetti pubblicati i dati delle tabelle sono bloccati, ma ci sono i metadata per estenderli.
+
+      </p> 
+        <pre><code>
+{ 
+  "connection": {
+      "host":"127,0,0,1",
+      "user":"amdin",
+      "pwd":"admin",
+      "database":"ecs"
+  }
+  "tables": {
+      "ecs_users": {
+          "primary_key":"id",
+          "fields":{
+            "id":{"label":"id", "type":"int","length":"11"},
+            "username":{"label":"username", "type":"varchar", "length":"250" },
+            "password":{"label":"username", "type":"varchar", "length":"250"}
+          }
+      }
+  }
+}
+
+
+        </code></pre>
       </main>
 
     </div>

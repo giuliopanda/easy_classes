@@ -44,7 +44,7 @@ th {
 	content: '';
 	content: none;
 }
- .ecs, .ecs table {
+ .ecs table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }

@@ -2,7 +2,7 @@
   <div class="ecs-d-flex  ecs-align-items-center">
     <h3>Progetto utenti > elenco viste</h3>
     <div class="ecs-ml-auto">
-      <div class="ecs-btn ecs-btn-1">Crea una nuova vista</div>
+      <a class="ecs-btn ecs-btn-1" href="tmpl-03-edit-view.php">Crea una nuova vista</a>
     </div>
   </div>
   <p>
@@ -20,7 +20,7 @@
         <tbody>
           <tr>
             <th scope="ecs-row">list</th>
-            <td><a href="#">Anagrafica</a></td>
+            <td><a href="tmpl-04.php">Anagrafica</a></td>
             <td>75</td>
             <td>25/02/2019</td>
             <td>PUBLISHED</td>

@@ -123,6 +123,9 @@
 .ecs-w4 {min-width: 12em !important;}
 
 
+.ecs-w100 {width: 100% !important; box-sizing: border-box}
+
+
 .ecs-d-inline {display: inline-block !important;}
 .ecs-d-block {display: block !important;}
 .ecs-d-flex {display: flex !important;}
