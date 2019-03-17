@@ -1,6 +1,6 @@
 <?php
 /** 
- * BUILD 20190305 EASY_CASSES V.2
+ * BUILD 20190317 EASY_CASSES V.2.1
  */
 
 /**
@@ -441,6 +441,9 @@ class gpRouter
      */
     function getLink($query = "", $useFunction = true) {
         $query = str_replace(array($this->scheme . "://", $this->site), '', $query);
+        if (substr($query,0,1) != "/") {
+            $query = "/".$query;
+        }
         if ($this->fnBuild != null && $useFunction) {
             return $this->scheme . "://" . $this->site . call_user_func_array($this->fnBuild, array($query, $this));
         } 
@@ -494,8 +497,12 @@ class gpRouter
         if (array_key_exists('path', $a) && array_key_exists('path', $b)) {
             if ($a['path'] != $b['path']) return false;
         }
+        if (!array_key_exists('query', $a) || count ($a['query']) == 0) {
+            return  !(array_key_exists('query', $b) || count ($b['query']) == 0);
+        }
         if (array_key_exists('query', $a) && array_key_exists('query', $b)) {
             if ($whichQueryCheck != false) {
+             
                 foreach ($whichQueryCheck as $wqc) {
                     if (array_key_exists($wqc, $a['query']) && array_key_exists($wqc, $b['query'])) 
                     if ($a['query'][$wqc] != $b['query'][$wqc]) return false;

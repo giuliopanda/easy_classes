@@ -8,7 +8,6 @@ body { padding:0; margin:0;}
   margin:0;
 }
 
-
 .ecs .ecs-body {
   display: flex;
   flex: 1;
@@ -33,7 +32,6 @@ body { padding:0; margin:0;}
   left:0;
 }
 
-
 .ecs .ejs-sidebar-content {
     width: 90%;
     background: #FFF;
@@ -43,6 +41,7 @@ body { padding:0; margin:0;}
     left: 0;
     bottom: 0;
 }
+
 .ecs .ejs-sidebar-background {
     position: absolute;
     top:0;

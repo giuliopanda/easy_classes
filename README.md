@@ -18,12 +18,16 @@ Da la possibilità di salvare dati in una classe singleton
 La gestione di un router per l'htaccess o comunque per gestire
 
 
-# cms
+# cms diventerà la quinta classe [GPLoad]
 
-E' un esempio di struttura di un cms. Al momento viene mischiato con elements che invece dovrebbe essere estratto e gestito a parte
+E' un esempio di struttura di un cms. 
+gpLoad sarà la classe per caricare file, override, elementi delle posizioni o css/js.
 
 
-# grafica_css
+# elements una struttura css per gestire tabelle, form e query
+
+
+# grafica_css NON LO SUPPORTO PIU' NON HO ABBASTANZA TEMPO, uso bootstrap
 
 un piccolo framework css
 
