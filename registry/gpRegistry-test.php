@@ -63,7 +63,7 @@ echo "<p>getSite: ".$data->get('article.title')."</p>";
 
 
 
-echo "<h3>[TODO] BUILD ritorno i dati dopo averli fatti passare ad una funzione</h3>";
+echo "<h3> BUILD ritorna una stringa dopo aver fatto passare i dati ad una funzione</h3>";
 
 echo $data->build('article', 'drawArticle');
 

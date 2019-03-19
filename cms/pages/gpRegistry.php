@@ -1,69 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>gpRouter</title>
-</head>
-<style>
-    body {background:#FFF;}
-    .gp-doc-container {width:960px; margin:0 auto; background: #FFF; padding: 10px 20px; box-sizing: border-box;} 
 
-    .gp-content {
-        font-family: sans-serif ;
-        font-size: 1em;
-    }
-    .gp-content * {
-        font-size:1em;
-        line-height: 1em;
-        margin: 0;
-        padding: 0;
-    }
-    .gp-content p {
-        margin:1em 0;
-        font-size:.8em;
-        line-height: 1.3em;
-    }
-    .gp-content pre {
-        background: #f3f3f7;
-        border: 1px solid #dedee3;
-        padding: 11px;
-        font-size:.8em;
-        line-height: 1.3em;
-        margin-bottom: 22px;
-        overflow: auto;
-    }
-    .gp-content pre, .gp-content code {
-        margin-bottom: 22px;
-        font-family: Consolas, Monaco, "Courier New", Courier, monospace;
-        font-size: 12px;
-        font-weight: inherit;
-        overflow-x: auto;
-        white-space: pre-wrap;
-        white-space: -moz-pre-wrap !important;
-        white-space: -pre-wrap;
-        white-space: -o-pre-wrap;
-        word-wrap: break-word;
-    }
-    .gp-content  h2, .gp-content  h3, .gp-content  h4, .gp-content  h5, .gp-content  h6 {
-        font-family: Georgia, "Times New Roman", Times, serif;
-        border-bottom: 1px solid #dadada;
-        padding-bottom: .2em;
-        font-weight: normal;
-    }
-    .gp-content  h2 {
-        font-size: 2.3em;
-        margin-top: 1em;
-        margin-bottom: 1em;
-    }
-    .gp-content  h3 {
-        font-size: 1.4em;
-        margin-top: .5em;
-        margin-bottom: .5em;
-    }
-</style>
-<body>
 <div class="gp-doc-container gp-content">
     <h2>Gestione register</h2>
 
@@ -176,8 +111,4 @@ while ( list($key, $currentData) = $data->for('access') ) {
     <h3><b>clearQueue</b>: Cancella i dati in sessione</h3>
     <code><pre>$data->clearQueue();</pre></code>
     <p>La sessione di gpRegistry viene salvata a partire da _gpregistry</p>
-  
-
 </div>
-</body>
-</html>

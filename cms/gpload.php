@@ -39,12 +39,17 @@ class GPLoad
 	public function setPath($varName, $path, $override = "", $defaultFilename = "") {
 		$rooter = gpRouter::getInstance();
 		$dir = $rooter->getDir();
-		$this->dir[$varName] = array("path"=>$dir.$path, "override"=>$dir.$override, "defaultFilename"=>$defaultFilename, 'uri'=>$path);
+		$this->dir[$varName] = array("path"=>$dir.$path, "defaultFilename"=>$defaultFilename, 'uri'=>$path);
+		if ($override != "" && is_dir($dir.$override)) {
+			$this->dir[$varName]["override"] =$dir.$override;
+		}
+		if ($defaultFilename != "") {
+			$this->dir[$varName]["defaultFilename"] =$defaultFilename;
+		}
 	}
 	/**
 	 * Ritorna il link per per le risorse
 	 * @param String $varName
-	 * @param String $path il percorso relativo dalla directory principale senza lo slash finale
 	 */
 	public function getUri($varName) {
 		$rooter = gpRouter::getInstance();
