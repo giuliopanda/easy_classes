@@ -1,0 +1,116 @@
+body { padding:0; margin:0;}
+.ecs-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  box-sizing:border-box;
+  padding:0;
+  margin:0;
+}
+.ecs-body {
+  display: flex;
+  flex: 1;
+  width:100%;
+}
+.ecs-content {
+  flex: 1;
+}
+.ecs-body {
+  display: block;
+  flex-direction: column;
+}
+.ecs-sidebar {
+  position:absolute;
+  top:0;
+  bottom:0;
+  right:0;
+  left:0;
+}
+.ejs-sidebar-content {
+  width: 90%;
+  background: #FFF;
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.ejs-sidebar-background {
+  position: absolute;
+  top:0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:#000;
+  z-index: 1;
+  display:block;
+}
+.ejs-sidebar-status-mobile-hide { display:none; }
+.ejs-sidebar-status-mobile-show { display:block; }
+.osp-header {
+  border-bottom:1px solid #EEE;
+  padding:.5em;
+  margin-bottom: .5em;
+  display:flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-pack: justify ;
+  justify-content: space-between;
+  font-family: "Roboto", sans-serif;
+  align-items: center;
+}
+.osp-header .osp-col-header-center {
+  flex-grow:1;
+  padding:.5em 1em .5em 2em
+}
+.osp-logo {
+  vertical-align: middle;
+  font-size:1.4em;
+  margin-left: .2em;
+  letter-spacing: .1em;
+}
+.osp-col-header-right {padding:.5em; min-width:200px;}
+.osp-search {
+  width: 1.5em; 
+  height: 1.5em; 
+  margin: .25em .25em 0 .25em;
+  cursor:pointer;
+  fill:#666;
+  padding: .25em;
+}
+.osp-search:hover {
+  background-color: #EFEFEF;
+	fill:#000;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.18), 0 2px 5px 0 rgba(0,0,0,0.15);
+	z-index: 2;
+}
+.osp-header .osp-col-header-left {
+  display:flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  align-items: center;
+  height: 2.75em;
+}
+@media only screen and (min-width: 641px) {
+  .ecs-body {
+    display:flex;
+    flex-direction: row;
+    flex: 1;
+  }
+  .ecs-sidebar {
+    max-width:300px;
+    min-width:150px;
+    position:relative;
+    flex-grow: 1;
+    top:inherit;
+    bottom:inherit;
+    right:inherit;
+    left:inherit;
+  }
+  .ejs-sidebar-status-mobile-hide { display:block; }
+  .ejs-sidebar-content {width:100%; left: 0 !important;}
+  .ejs-sidebar-background { display:none; }
+
+	.ecs-only-cell {display:none !important;}
+}

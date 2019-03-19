@@ -1,7 +1,5 @@
 <html>
-  <?php
-  require ($router->getDir()."themes/".$template."/head.php");
-  ?>
+  <?php GPLoad::getInstance()->require('theme', "head.php"); ?>
   <body>
     <div class="ecs-content ecs-ml1 ecs-mr1">
       <div class="ecs-d-flex  ecs-align-items-center">

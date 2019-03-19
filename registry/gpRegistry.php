@@ -13,6 +13,14 @@ class GPRegistry
 	 * @var 		array  			Tutti i dati del Registro
 	*/
 	var $registry 				= array();
+	/*
+	 * @var 		array  			I puntatori dei foreach
+	*/
+	var $arrayPoint 				= array();
+	/*
+	 * @var 		String  			Il foreach corrente
+	*/
+	var $currentFor 				= false;
 	/**
 	 * Il costruttore della classe
 	 * @return  	void
@@ -112,6 +120,103 @@ class GPRegistry
 			return NULL;
 		} 	
 	}
+	/**
+	 * Verifica se una variabile è settata . 
+	 *@param   path		string		Il percorso in cui sono stati memorizzati i dati all'intero dell'array registry es: main.miavar
+	 *@param   return  	Boolean
+	**/
+	function has($path = "main") 
+	{
+		if ($path != "") {
+			$path = explode(".", $path);
+			if (@strtolower(trim($path[0])) == "session") {
+				$pointer = &$_SESSION['_gpregistry'];
+			} elseif (@strtolower(trim($path[0])) == "request") {
+				$pointer = $this->getRequest();
+				array_shift($path);
+			} else {
+				$pointer = &$this->registry;
+			}
+			foreach ($path as $p) {
+				$p = trim($p);
+				if (!array_key_exists($p, $pointer) || @$pointer[$p] === '') {
+					return false;
+				}
+				$pointer = &$pointer[$p];
+			}
+			return ((isset($pointer) && $pointer !== "") || is_bool($pointer));
+		} else {
+			return false;
+		} 	
+	}
+
+	/**
+	 * Verifica se una variabile è settata . 
+	 *@param   path		string		Il percorso in cui sono stati memorizzati i dati all'intero dell'array registry es: main.miavar
+	 *@param   return  	Boolean
+	**/
+	function for($path = "main") 
+	{
+		$this->currentFor = $path;
+		$data = $this->get($path);
+		if (is_array($data)|| is_object($data)) {
+			if (!array_key_exists($path, $this->arrayPoint)) {
+				$this->arrayPoint[$path] = 0;
+			}
+			if ($this->arrayPoint[$path] >= count($data)) {
+				$this->arrayPoint[$path] = 0;
+				return false;
+			}
+			$k = 0;
+			foreach ($data as $key=>$value) {
+				if ($this->arrayPoint[$path] == $k) {
+					$this->arrayPoint[$path]++;
+					return array($key, $value);
+				}
+				$k++;
+			}
+		}
+		return false;
+	}
+	/**
+	 * Interrompe l'esecuzione di un ciclo for
+	 *@param   String $pointer	Il path del ciclo da interrompere, se non settato il ciclo corrente.
+	**/
+	public function break($pointer = false) {
+		if ($pointer) {
+			$path = $pointer;
+		} else {
+			$path = $this->currentFor;
+		}
+		$data = $this->get($path);
+		if (is_array($data)|| is_object($data)) {
+			$this->arrayPoint[$path] = count($data);
+		}
+	}
+	/** 
+	 * BUILD passa le variabili di un path ad una funzione
+	 * @param  String path		Il percorso in cui sono stati memorizzati i dati all'intero dell'array registry oppure un array o un oggetto di dati
+	 * @return String
+	 */
+	public function build($data, $fn) {
+		$currentData = new GPRegistry();
+		if (is_object($data)) {
+			$currentData->registry = (array)$data;
+		} else if (is_array($data)) {
+			$currentData->registry = $data;
+		} else if (is_string($data)) {
+			$currentData->registry = GPRegistry::getInstance()->get($data);
+		} else {
+			return '';
+		}
+		if (is_callable($fn)) {
+			ob_start();
+			call_user_func_array($fn, array($currentData));
+			return ob_get_clean();
+		}
+		return '';
+	}
+
 	/**
 	 * $_REQUEST del php include anche i cookie, questa versione no.
 	 * In aggiunta getRequest trasforma i true e false in boolean e tutto minuscolo

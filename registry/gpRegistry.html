@@ -66,16 +66,18 @@
 <body>
 <div class="gp-doc-container gp-content">
     <h2>Gestione register</h2>
-<p>GPRegistry serve per memorizzare dati in una classe singleton raggiungibile ovunque. I dati vengono salvati come
-    path con il punto.
+
+
+    <h3>Istanziare la classe</h3>
+    <code><pre>$data = GPRegistry::getInstance();</pre></code>
+    
+    <p>GPRegistry serve per memorizzare dati in una classe singleton raggiungibile ovunque. I dati vengono salvati come
+        path con il punto.
     <code><pre>$nome_variabile = array('ramo1'=>"val", "ramo2"=>"val2");</pre></code>
     verrà richiamato come:
     <code><pre>$data->get('nome_variabile.ramo1');</pre></code>
     </p><br>
-    <h3>Istanziare la classe</h3>
-    <code><pre>$data = GPRegistry::getInstance();</pre></code>
    
-
     <h3><b>set</b>: Imposta i valori </h3>
     <code><pre>$data->set($path, $data);</pre></code>
 
@@ -115,6 +117,53 @@ $data->get('article.title').
     </pre></code>
     <p> E' possibile richiamare i dati $_GET e $_POST attraverso request, oppure i dati salvati in sessione attraverso session</p>
    
+    <h3><b>has</b>: verifica se una variabile è impostata</h3>
+    <code><pre>$data->has($path);</pre></code>
+    <p>Torna false se la variabile non è impostata oppure è null o ""</p>
+
+    <h3><b>for</b>: Permette di ciclare un array</h3>
+    <code><pre>list($key, $currentData) = $data->for($path);</pre></code>
+    <p>Torna false quando ha finito di ciclare. </p>
+    <code><pre>$data->set( 'access', array("ip"=>"localhost","user"=>"admin", "psw"=>"admin"));
+while ( list($key, $currentData) = $data->for('access') ) {
+    echo ("&lt;p&gt;".$key." > ".$currentData."&lt;/p&gt;");
+}</pre></code>
+
+    <h3><b>break</b>: Interrompe un ciclo</h3>
+    <code><pre> $data->break($path = false);</pre></code>
+    <p>Interrompe un ciclo. Si può interrompere il ciclo in cui è inserito il break non passando il path, oppure un ciclo specifico passando il path che si sta ciclando </p>
+    <p><b>Esempio:</b>
+    <code><pre>
+    $data->set( 'access', array("ip"=>"localhost","user"=>"admin", "psw"=>"admin"));
+    while ( list($key, $currentData) = $data->for('access') ) {
+        var_dump ($currentData);
+        $data->break();
+    }</pre></code>
+    </p>
+
+
+    <h3><b>build</b>: passa i paramentri ad una funzione per elaborarli</h3>
+    <code><pre> $data->build($data, $fn);</pre></code>
+    <p> <b>$data</b>: Se è una stringa è il path del registry, altrimenti può essere un array o un oggetto di dati<br>
+    <b>$fn</b>  String|Array E' la funzione da associare. Se la funzione associata è in una classe si passa un'array il cui primo valore è l'istanza della classe.</p>
+    <p><b>Esempio:</b>
+        <code><pre>
+    $obj = new StdClass();
+    $obj->title = "MY TITLE";
+    $obj->author = "admin";
+    $obj->text = "lorem ipsum dolor sit amet";
+    $data->set( 'article', (array)$obj);
+    echo $data->build('article', 'drawArticle');
+
+    function drawArticle($data) {
+    echo "&lt;div style=\"background:#F2F2F2; border:1px solid #CCC; padding:10px; margin:10px;\"&gt;";
+        echo "&lt;h2&gt;".$data-&gt;get('title')."&lt;/h2&gt;";
+        echo "&lt;p&gt;".$data-&gt;get('text')."&lt;/p&gt;";
+        echo "&lt;/div&gt;";
+    }  
+    </pre></code>
+    </p>
+
     <h3><b>requestQueue</b>: Carica e salva i dati in sessione</h3>
     <code><pre>requestQueue($path, $default = "")</pre></code>
 
