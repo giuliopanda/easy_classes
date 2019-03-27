@@ -27,10 +27,14 @@
           <nav id="sidebar" class="ecs-sidebar ejs-sidebar-status-mobile-hide">
             <div class="ejs-sidebar-content">
               <div class="list-group">
+                  <?php 
+                  $router = gpRouter::getInstance(); 
+                  $registry = gpRegistry::getInstance();
+                  ?>
                 <?php while (list($key, $value) = $item->for('navbar')): ?>
-                
+            
                   <?php  
-                    if ($router->isActive($key, array('page', 'view'))) {
+                    if ($router->isActive($key, $router->getLink($registry->get('request')), array('page', 'view'))) {
                       echo "<a class=\"list-group-item list-group-item-action active\" href=\"".$router->getLink($key)."\">".$value."</a> "; 
                     } else {
                       echo "<a class=\"list-group-item list-group-item-action\" href=\"".$router->getLink($key)."\">".$value."</a> "; 

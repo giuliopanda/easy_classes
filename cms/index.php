@@ -12,30 +12,17 @@ $router = gpRouter::getInstance();
 $router->setFnRewrite('routerBuild', 'routerParse');
 // setto i percorsi delle pagine
 $load = GPLoad::getInstance();
-$load->setPath('theme', 'themes/easy');
-$load->setPath('pages', 'pages', 'themes/easy/pages');
+$load->setPath('theme', 'themes/easy', 'themes/easy/override');
+$load->setPath('pages', 'pages', 'themes/easy/override/pages');
+
 // Faccio il parsing della pagina
 $parse = $router->parseUrl();
 $query = $parse['query'];
+GPRegistry::getInstance()->set('request', $query);
+$load->require('theme', "function.php");
 // Carico il contenuto della pagina che si trova in pages
-ob_start();
 if (!array_key_exists('page',$query) || in_array(strtolower($query['page']), array("index","home"))) {
     $load->require('pages', "home.php");
 } else if (!$load->require('pages', $query['page'].".php")) {
     $load->require('pages', "404.php");
 }
-GPRegistry::getInstance()->set('regTemplate.content', ob_get_clean());
-// Imposto la sidebar con l'array dei link
-$arrayLinks = array(
-    '/index.php?page=gpDBMySql'=>'Connettersi al database',
-    '/index.php?page=gpListener'=>'Eventi',
-    '/index.php?page=gpRegistry' =>'la gestione dei dati',
-    '/index.php?page=gpRouter'=>'I link e l\'url rewrite',
-    '/index.php?page=gpLoad'=>'I percorsi dei file nel sito');
-GPRegistry::getInstance()->set('regTemplate.navbar', $arrayLinks);
-// Stampo il template
-echo GPRegistry::getInstance()->build('regTemplate', function($item) {
-    if ($template = GPLoad::getInstance()->getPath('theme','index.php')) {
-        require($template);
-    }
-});

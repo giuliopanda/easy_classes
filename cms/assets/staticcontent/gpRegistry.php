@@ -1,7 +1,8 @@
 
 <div class="gp-doc-container gp-content">
-    <h2>Gestione register</h2>
-
+   
+    <a href="<?php echo gpRouter::getInstance()->getLink("/index.php?page=api&view=gpRegistry-test"); ?>" class="float-right">Vai al test</a>
+    <h2 >Gestione register</h2>
 
     <h3>Istanziare la classe</h3>
     <code><pre>$data = GPRegistry::getInstance();</pre></code>

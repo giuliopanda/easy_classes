@@ -435,14 +435,23 @@ class gpRouter
     }
     /**
      * Ritorna un link completo
-     * @param String $query il link ad esempio esempio/index.php?var=1
+     * @param String|Array $query il link ad esempio esempio/index.php?var=1 oppure ('var'=>1)
      * @param Boolean  $useFunction dice se usare la funzione personalizzata oppure no
      * @return String 
      */
     function getLink($query = "", $useFunction = true) {
-        $query = str_replace(array($this->scheme . "://", $this->site), '', $query);
-        if (substr($query,0,1) != "/") {
-            $query = "/".$query;
+        if (is_array($query)) {
+            $tempQuery = array();
+            foreach ($query as $k=>$v) {
+                $tempQuery[] = $k."=".$v;
+            }
+            $query = "/?".implode("&", $tempQuery);
+
+        } else if (is_string($query)) {
+            $query = str_replace(array($this->scheme . "://", $this->site), '', $query);
+            if (substr($query,0,1) != "/") {
+                $query = "/".$query;
+            }
         }
         if ($this->fnBuild != null && $useFunction) {
             return $this->scheme . "://" . $this->site . call_user_func_array($this->fnBuild, array($query, $this));
@@ -488,21 +497,25 @@ class gpRouter
     /**
      * Verifica se la pagina è quella attiva
      * @param String $link Il link da verificare
+     * @param String $currentLink opzionale Il link della pagina 
      * @param Array $whichQueryCheck opzionale l'array di query da verificare perché il link sia lo stesso. Questo per evitare parametri aggiuntivi che comunque non modificherebbero la pagina
      * @return Boolean
      */
-    function isActive($link, $whichQueryCheck = false) {
-        $a = $this->parseUrl();
+    function isActive($link, $currentLink = "", $whichQueryCheck = false) {
+        $a = $this->parseUrl($currentLink);
         $b = $this->parseUrl($link);
+
         if (array_key_exists('path', $a) && array_key_exists('path', $b)) {
             if ($a['path'] != $b['path']) return false;
         }
         if (!array_key_exists('query', $a) || count ($a['query']) == 0) {
-            return  !(array_key_exists('query', $b) || count ($b['query']) == 0);
+            return  ((array_key_exists('query', $b) && count ($b['query']) == 0) || !array_key_exists('query', $b));
+        }
+         if (!array_key_exists('query', $b) || count ($b['query']) == 0) {
+            return  ((array_key_exists('query', $a) && count ($a['query']) == 0) || !array_key_exists('query', $a));
         }
         if (array_key_exists('query', $a) && array_key_exists('query', $b)) {
             if ($whichQueryCheck != false) {
-             
                 foreach ($whichQueryCheck as $wqc) {
                     if (array_key_exists($wqc, $a['query']) && array_key_exists($wqc, $b['query'])) 
                     if ($a['query'][$wqc] != $b['query'][$wqc]) return false;

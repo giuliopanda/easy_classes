@@ -47,10 +47,13 @@ array
     <h3><b>getLink</b>: Crea un link</h3>
     <code><pre>$rooter->getLink($query = "", $useFunction = true); 
             </pre></code>
-    <p><b>$query</b>:  I parametri della query da elaborar<br>
+    <p><b>$query</b>:  I parametri della query da elaborare in formato testo o array<br>
     <b>$useFunction</b>: Boolean dice se usare la funzione personalizzata myrouterParse oppure no</p>
     <p> <b>Esempio:</b>
     <code><pre>$router->getLink('/index.php?page=mia_pagina&id=23');
+        </pre></code>
+    <p>La pagina corrente con i request ridefiniti</p>
+    <code><pre>$router->getLink($registry->get('request'))
         </pre></code>
     </p>
 
@@ -82,8 +85,9 @@ function myrouterParse($parseUrl, $routerClass) {
     </p>
 
     <h3><b>isActive</b>: Verifica se un link è uguale al link della url</h3>
-    <code><pre>isActive($link, $whichQueryCheck = false)</pre></code>
+    <code><pre>isActive($link, $currentLink = "", $whichQueryCheck = false)</pre></code>
     <p> <b>$link</b>: è il link da comparare<br> 
+        <b>$currentLink</b>:  Se vuoto prende il link della pagina, altrimnti fa il parsing del link passato<br> 
         <b>$whichQueryCheck</b>: è un array con le query da verificare
     </p>
 </div>
