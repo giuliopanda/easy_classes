@@ -17,11 +17,15 @@ $load->setPath('pages', 'pages', 'themes/easy/override/pages');
 
 // Faccio il parsing della pagina
 $parse = $router->parseUrl();
+var_dump ($parse);
 $query = $parse['query'];
 GPRegistry::getInstance()->set('request', $query);
 $load->require('theme', "function.php");
+// se il link punta ad una pagina o ad un file lo carico?
+$realPath = $router->linkToDir();
+
 // Carico il contenuto della pagina che si trova in pages
-if (!array_key_exists('page',$query) || in_array(strtolower($query['page']), array("index","home"))) {
+if (!array_key_exists('page',$query) || in_array(strtolower($query['page']), array("index","home", "index.php","index.html"))) {
     $load->require('pages', "home.php");
 } else if (!$load->require('pages', $query['page'].".php")) {
     $load->require('pages', "404.php");

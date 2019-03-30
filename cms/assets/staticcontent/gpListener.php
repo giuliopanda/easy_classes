@@ -1,6 +1,7 @@
 
 <div class="gp-doc-container gp-content">
-    <h2>Gestione degli eventi V 2</h2>
+    <a href="<?php echo gpRouter::getInstance()->getLink("/index.php?page=api&view=gpListener-test"); ?>" class="float-right">Vai al test</a>
+    <h2>Gestione degli eventi</h2>
 
     <h3>Istanziare la classe</h3>
     <code><pre>$listener = GPListener::getInstance();</pre></code>

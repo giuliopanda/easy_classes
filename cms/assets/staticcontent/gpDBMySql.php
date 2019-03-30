@@ -1,6 +1,7 @@
 
 <div class="gp-doc-container gp-content">
-    <h2>Interfacciarsi con il Database MySql V. 1</h2>
+    <a href="<?php echo gpRouter::getInstance()->getLink("/index.php?page=api&view=gpDBMySql-test"); ?>" class="float-right">Vai al test</a>
+    <h2>Interfacciarsi con il Database MySql</h2>
 
     <h3>Istanziare la classe</h3>
     <code><pre>$db = new gpDBMySql($ip, $name, $psw, $dbName);</pre></code>

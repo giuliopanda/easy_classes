@@ -1,6 +1,7 @@
 
 <div class="gp-doc-container gp-content">
-    <h2>Gestione del rooter V 1 Beta</h2>
+    <a href="<?php echo gpRouter::getInstance()->getLink("/index.php?page=api&view=gpRouter-test"); ?>" class="float-right">Vai al test</a>
+    <h2>Gestione del rooter </h2>
     <h3>Istanziare la classe</h3>
     <code><pre>$rooter = new gpRouter($dirRoot = "", $scheme = "", $site= "");</pre></code>
     <p>I parametri sono opzionali e vengono calcolati in automatico, ma se serve si possono sovrascrivere </p>
@@ -90,4 +91,44 @@ function myrouterParse($parseUrl, $routerClass) {
         <b>$currentLink</b>:  Se vuoto prende il link della pagina, altrimnti fa il parsing del link passato<br> 
         <b>$whichQueryCheck</b>: è un array con le query da verificare
     </p>
+
+
+    <h3><b>pathToQuery</b>: Converte un link scritto con il path (quindi con l'url rewrite attivo) in un array di query</h3>
+    <code><pre>pathToQuery($parseUrl, [args...])</pre></code>
+    <p> 
+        <b>$parseUrl</b>: è l'array derivante dal parsing di un url $this->parseUrl($link); <br> 
+        <b>[args]</b>:  Sono i nomi delle variabili a cui deve essere associato il parsing.<br> 
+    </p>
+    <p><b>Esempio:</b><br>
+    <pre>$link = "sito.it/post/23";
+$newParseUrl = $pathToQuery($this->parseUrl($link), "pagina", "id");
+var_dump ($newParseUrl);
+</pre>
+    </p>
+    <p>In generale questa funzione è pensata per essere usata dentro la funzione del parsing per l'url rewrite. </p>
+    <pre>$router = gpRouter::getInstance();
+$router->setFnRewrite('routerBuild', 'routerParse');
+function routerParse($parseUrl, $routerClass) {
+   return $routerClass->pathToQuery($parseUrl, "page", "view");
+}
+</pre>
+
+    <h3><b>queryToPath</b>: Converte una query in un link</h3>
+    <code><pre>pathToQuery($parseUrl)</pre></code>
+    <p> 
+        <b>$parseUrl</b>: è l'array derivante dal parsing di un url $this->parseUrl($link); <br> 
+        <b>[args]</b>:  Sono i nomi delle variabili a cui deve essere associato il parsing.<br> 
+    </p>
+    <p>Questa funzione è pensata per essere usata dentro la funzione di build dell'url rewrite</p>
+    <pre>
+function routerBuild($query, $routerClass) {
+    if (GPRegistry::getInstance()->get('config.htaccess', true)) {
+        $parse = $routerClass->parseUrl($query, false);
+        $query = $routerClass->queryToPath($parse, "page", "view");
+    }
+    return $query;
+}
+</pre>
+
+
 </div>

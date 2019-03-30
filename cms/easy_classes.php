@@ -427,6 +427,18 @@ class gpRouter
         return $this->dirRoot."/";
     }
     /**
+     * Trasforma un link nel percorso della directory
+     */
+    function linkToDir($link = "") {
+        $realPath = $this->parseUrl($link, false);
+        $path = "";
+        if (array_key_exists("path", $realPath) && count ($realPath['path'])) {
+           $path = implode ("/", $realPath['path']);
+        }
+        return $this->getDir().$path;
+    }
+
+    /**
      * Ritorna l'home del sito 
      * @return String 
      */
@@ -493,6 +505,65 @@ class gpRouter
             return call_user_func_array($this->fnParse, array($ris, $this));
         } 
         return $ris;
+    }
+    /**
+     * PathToQuery converte una path in query secondo lo schema passato:  $routerClass->pathToQuery($parseUrl, "page", "path");
+     * Lo si usa dentro la funzione personalizzata del rooter per gestire i dati
+     * @param Array  $parseUrl 
+     * @param args [query1, query2, query3, ...]
+     * @return Array
+     */
+    function pathToQuery($parseUrl) {
+        $args = func_get_args();
+        array_shift($args);
+        if (count($args) > 0) {
+            if (!array_key_exists('query',$parseUrl)) {
+                $parseUrl['query'] = array();
+            }
+            if (!array_key_exists('path',$parseUrl)) {
+                $parseUrl['path'] = array();
+            }
+            foreach ($args as $arg) {
+                if (count($parseUrl['path']) > 0) {
+                    if (!array_key_exists($arg, $parseUrl['query'])) {
+                        $parseUrl['query'][$arg] = array_shift($parseUrl['path']);
+                    } else {
+                        array_shift($parseUrl['path']);
+                    }
+                }
+            }
+        }
+        if (count ($parseUrl['path']) == 0) {
+            unset($parseUrl['path']);
+        }
+        return ($parseUrl);
+    }
+    /**
+     * PathToQuery converte una path in query secondo lo schema passato:  $routerClass->pathToQuery($parseUrl, "page", "path");
+     * Lo si usa dentro la funzione personalizzata del rooter per gestire i dati
+     * @param Array  $parseUrl 
+     * @param args [query1, query2, query3, ...]
+     * @return String il link creato dalla query
+     */
+    function queryToPath($parseUrl) {
+        $args = func_get_args();
+        array_shift($args);
+        $newPath = array();
+        if (count($args) > 0) {
+            if (!array_key_exists('query',$parseUrl)) {
+                $parseUrl['query'] = array();
+            }
+            if (!array_key_exists('path',$parseUrl)) {
+                $parseUrl['path'] = array();
+            }
+            foreach ($args as $arg) {
+                if (array_key_exists($arg, $parseUrl['query'])) {
+                    $newPath[] = $parseUrl['query'][$arg];
+                    unset($parseUrl['query'][$arg]);
+                }
+            }
+        }
+       return "/".implode("/", $newPath).$this->implodeQuery($parseUrl['query']);
     }
     /**
      * Verifica se la pagina è quella attiva

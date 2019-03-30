@@ -5,6 +5,9 @@
 function routerBuild($query, $routerClass) {
     if (GPRegistry::getInstance()->get('config.htaccess', true)) {
         $parse = $routerClass->parseUrl($query, false);
+        // trasforma il path in query dove il primo path è page e il secondo è view
+        $query = $routerClass->queryToPath($parse, "page", "view");
+        /*
         if (array_key_exists('query',$parse)) {
             $p = $parse['query'];
             if (array_key_exists('page',$p) && array_key_exists('view', $p))  {
@@ -17,6 +20,7 @@ function routerBuild($query, $routerClass) {
             }
             return "/".$newAlias.$routerClass->implodeQuery($parse['query']);
         }
+        */
     }
     return $query;
 }
@@ -25,6 +29,10 @@ function routerBuild($query, $routerClass) {
  *  Se servono filtri particolari li posso mettere qui dentro
  */
 function routerParse($parseUrl, $routerClass) {
+    // trasforma il path in query dove il primo path è page e il secondo è view
+    $parseUrl = $routerClass->pathToQuery($parseUrl, "page", "view");
+    /*
+    
     if (array_key_exists('query',$parseUrl)) {
     } else {
        $parseUrl['query'] = array();
@@ -46,5 +54,7 @@ function routerParse($parseUrl, $routerClass) {
     if (count ($parseUrl['path']) == 0) {
         unset($parseUrl['path']);
     }
+    
+    */
     return $parseUrl;
 }

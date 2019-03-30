@@ -8,7 +8,7 @@ echo ($data->get('site_name'));
 echo ($data->get('site_desc'," - NO DESC"));
 </pre>
 
-<div class="row">
+<div class="row php-test">
     <div class="col">
     <p><b>Risultato:</b></p>
     <?php
@@ -20,7 +20,6 @@ echo ($data->get('site_desc'," - NO DESC"));
     <div class="col">
     <p><b>Risultato atteso:</b></p>
     Nome del sito - descrizione di default
-
     </div>
 </div>
 
@@ -28,12 +27,10 @@ echo ($data->get('site_desc'," - NO DESC"));
 echo "<h3>REQUEST GET e POST</h3>";
 ?><pre>var_dump ($data->get('request'));</pre>
 
-<div class="row">
+<div class="row php-test">
     <div class="col-6">
     <p><b>Risultato:</b></p>
-    <?php  
-        var_dump ($data->get('request'));
-    ?>
+    <?php  var_dump ($data->get('request')); ?>
     </div>
     <div class="col-6">
         <p><b>Risultato atteso:</b></p>
@@ -46,53 +43,191 @@ echo "<h3>REQUEST GET e POST</h3>";
     </div>
 </div>
 
-
-
-
-
-
 <h3>ARRAY</h3>
 <pre>$data->set( 'access', array("ip"=>"localhost","user"=>"admin", "psw"=>"admin"));
-echo "&lt;p&gt;getSite: ".$data->get('access.ip')."&lt;/p&gt;";</pre><?php
+echo "&lt;p&gt;getSite: ".$data->get('access.ip')."&lt;/p&gt;";</pre>
+<?php
 $data->set( 'access', array("ip"=>"localhost","user"=>"admin", "psw"=>"admin"));
-echo "<p>getSite: ".$data->get('access.ip')."</p>";
-
-echo "<h3>Verifica l'esistenza di una variabile</h3>";
-if ($data->has ('access')) {
-    echo "<p>la variabile access esiste</p>";
-} else {
-    echo "<p>la variabile Access non esiste</p>"; 
-}
-if ($data->has ('sbirulo')) {
-    echo "<p>la variabile sbirulo esiste</p>";
-} else {
-    echo "<p>la variabile sbirulo non esiste</p>"; 
-}
-
-echo "<h3>Ciclo un array</h3>";
-
-while ( list($key, $currentData) = $data->for('access') ) {
-    echo  ("<p>".$key." > ".$currentData."</p>");
-}
-
-echo "<h3>Ciclo un array e esco dal ciclo</h3>";
-
-while ( list($key, $currentData) = $data->for('access') ) {
-    var_dump ($currentData);
-    $data->break();
-}
+?>
+<div class="row php-test">
+    <div class="col">
+    <p><b>Risultato:</b></p>
+    <?php echo "<p>getSite: ".$data->get('access.ip')."</p>";?>
+    </div>
+    <div class="col">
+    <p><b>Risultato atteso:</b></p>
+    getSite: localhost
+    </div>
+</div>
 
 
-echo "<p>E' possibile aggiungere ad un array dei valori numerici (<b>\$data->set('country.[]', 'italia');</b>:</p>";
-$data->set('country.[]', 'italia');
-$data->set('country.Francia', 'Francia');
-$data->set('country.[]', 'Spagna');
-var_dump ($data->get('country')); // è case insensitive
-$data->set('country.0', null);
-var_dump ($data->get('country'));
-
+<pre>
+if ($data->has ('access')) echo "&lt;p&gt;la variabile access esiste&lt;/p&gt;";
+else  echo "&lt;p&gt;la variabile Access non esiste&lt;/p&gt;"; 
 $data->set('access', null);
-var_dump ($data->get('access'));
+if ($data->has ('access')) echo "&lt;p&gt;la variabile sbirulo esiste&lt;/p&gt;";
+else echo "&lt;p&gt;la variabile sbirulo non esiste&lt;/p&gt;"; 
+if ($data->has ('sbirulo')) echo "&lt;p&gt;la variabile sbirulo esiste&lt;/p&gt;";
+else echo "&lt;p&gt;la variabile sbirulo non esiste&lt;/p&gt;"; 
+</pre>
+<div class="row php-test">
+    <div class="col">
+    <p><b>Risultato:</b></p>
+    <?php 
+    if ($data->has ('access')) echo "<p>la variabile access esiste</p>";
+    else  echo "<p>la variabile Access non esiste</p>"; 
+    $data->set('access', null);
+    if ($data->has ('access'))  echo "<p>la variabile access esiste</p>";
+    else  echo "<p>la variabile access non esiste</p>"; 
+    if ($data->has ('sbirulo'))  echo "<p>la variabile sbirulo esiste</p>";
+    else  echo "<p>la variabile sbirulo non esiste</p>"; 
+    ?>
+    </div>
+    <div class="col">
+    <p><b>Risultato atteso:</b></p>
+    <p>la variabile access esiste</p>
+    <p>la variabile access non esiste</p>
+    <p>la variabile sbirulo non esiste</p>
+    </div>
+</div>
+
+<h3>Ciclo un array</h3>
+<pre>$data->set( 'access', array("ip"=>"localhost","user"=>"admin", "psw"=>"admin"));
+while ( list($key, $currentData) = $data->for('access') ) {
+    echo  ("&lt;p&gt;".$key." > ".$currentData."&lt;/p&gt;");
+}</pre>
+<div class="row php-test">
+    <div class="col">
+    <p><b>Risultato:</b></p>
+    <?php 
+    $data->set( 'access', array("ip"=>"localhost","user"=>"admin", "psw"=>"admin"));
+    while ( list($key, $currentData) = $data->for('access') ) {
+        echo  ("<p>".$key." > ".$currentData."</p>");
+    }
+    ?>
+    </div>
+    <div class="col">
+    <p><b>Risultato atteso:</b></p>
+    <p>ip > localhost</p>
+    <p>user > admin</p>
+    <p>psw > admin</p>
+    </div>
+</div>
+<h3>Ciclo un array e esco dal ciclo</h3>
+<pre>while ( list($key, $currentData) = $data->for('access') ) {
+    echo  ("&lt;p&gt;".$key." > ".$currentData."&lt;/p&gt;");
+    $data->break();
+}</pre>
+<div class="row php-test">
+    <div class="col">
+    <p><b>Risultato:</b></p>
+    <?php 
+    while ( list($key, $currentData) = $data->for('access') ) {
+        echo  ("<p>".$key." > ".$currentData."</p>");
+        $data->break();
+    }
+    ?>
+    </div>
+    <div class="col">
+    <p><b>Risultato atteso:</b></p>
+    <p>ip > localhost</p>
+    </div>
+</div>
+
+<h3>CICLI ANNIDATI E INTERRUZIONI </h3>
+<pre>
+$data->set('orari', array('MATTINA',"POMERIGGIO", "SERA"));
+$data->set('tempo', array('PIOGGIA','SOLE')); 
+while ( list($key, $orario) = $data->for('orari') ) {
+    while ( list($key, $tempo) = $data->for('tempo') ) {
+        $mix = $orario." ".$tempo;
+        echo  ($mix ."&lt;br&gt;");
+        if ($mix == "POMERIGGIO SOLE") {
+            echo " - BREAK ORARI! -&lt;br&gt;";
+            $data->break('orari');
+        }
+        if ($mix == "MATTINA PIOGGIA" ) {
+            echo " - BREAK TEMPO! -&lt;br&gt;";
+            $data->break();
+        }
+    }
+}
+</pre>
+<div class="row php-test">
+    <div class="col">
+    <p><b>Risultato:</b></p>
+    <p>
+    <?php 
+        $data->set('orari', array('MATTINA',"POMERIGGIO", "SERA"));
+        $data->set('tempo', array('PIOGGIA','SOLE')); 
+        while ( list($key, $orario) = $data->for('orari') ) {
+            while ( list($key, $tempo) = $data->for('tempo') ) {
+                $mix = $orario." ".$tempo;
+                echo  ($mix ."<br>");
+                if ($mix == "POMERIGGIO SOLE") {
+                    echo " - BREAK ORARI! -<br>";
+                    $data->break('orari');
+                }
+                if ($mix == "MATTINA PIOGGIA" ) {
+                    echo " - BREAK TEMPO! -<br>";
+                    $data->break();
+                }
+            }
+        }
+    ?>
+    </p>
+    </div>
+    <div class="col">
+    <p><b>Risultato atteso:</b></p>
+    <p>MATTINA PIOGGIA<br>
+    - BREAK TEMPO! -<br>
+    POMERIGGIO PIOGGIA<br>
+    POMERIGGIO SOLE<br>
+    - BREAK ORARI! -</p>
+    </div>
+</div>
+<h3>AGGIUNGERE VALORI AD UN ARRAY</h3>
+<pre> $data-&gt;set('country.[]', 'italia');
+        $data-&gt;set('country.Francia', 'Francia');
+        $data-&gt;set('country.[]', 'Spagna');
+        var_dump ($data->get('country')); // è case insensitive
+        $data-&gt;set('country.0', null);
+        var_dump ($data->get('country'));
+        $data-&gt;set('access', null);
+        var_dump ($data->get('access'));</pre>
+<div class="row php-test">
+    <div class="col-6">
+    <p><b>Risultato:</b></p>
+    <?php 
+        $data->set('country.[]', 'italia');
+        $data->set('country.Francia', 'Francia');
+        $data->set('country.[]', 'Spagna');
+        var_dump ($data->get('country')); // è case insensitive
+        $data->set('country.0', null);
+        var_dump ($data->get('country'));
+        $data->set('access', null);
+        var_dump ($data->get('access'));
+    ?>
+    </div>
+    <div class="col-6">
+        <p><b>Risultato atteso:</b></p>  
+        <pre class="xdebug-var-dump" dir="ltr">
+        <b>array</b> <i>(size=3)</i>
+        0 <font color="#888a85">=&gt;</font> <small>string</small> <font color="#cc0000">'italia'</font> <i>(length=6)</i>
+        'Francia' <font color="#888a85">=&gt;</font> <small>string</small> <font color="#cc0000">'Francia'</font> <i>(length=7)</i>
+        1 <font color="#888a85">=&gt;</font> <small>string</small> <font color="#cc0000">'Spagna'</font> <i>(length=6)</i>
+        </pre>
+        <pre class="xdebug-var-dump" dir="ltr">
+        <b>array</b> <i>(size=2)</i>
+        'Francia' <font color="#888a85">=&gt;</font> <small>string</small> <font color="#cc0000">'Francia'</font> <i>(length=7)</i>
+        1 <font color="#888a85">=&gt;</font> <small>string</small> <font color="#cc0000">'Spagna'</font> <i>(length=6)</i>
+        </pre>
+        <pre class="xdebug-var-dump" dir="ltr"><small>boolean</small> <font color="#75507b">false</font>
+        </pre> 
+    </div>
+</div>
+<?php
+
 
 echo "<h3>OBJECT</h3>";
 $obj = new StdClass();

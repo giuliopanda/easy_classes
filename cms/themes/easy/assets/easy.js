@@ -1,4 +1,7 @@
 
+/** TOOGLE SIDEBAR  
+ *  gli eventi della funzione 
+*/
 $(document).ready(function() {
   $('#burderMenu').click(function() {
     showHideSidebar($(this).data('target'));
@@ -8,7 +11,7 @@ $(document).ready(function() {
   });
 });
 /**
-*
+* La funzione hce fa sparire o riapparire la sidebar quando si preme il burger button
 */
 function showHideSidebar(targetId) {
   if ($(targetId).hasClass("ejs-sidebar-status-mobile-show")) {
@@ -24,7 +27,22 @@ function showHideSidebar(targetId) {
     $(targetId).children('.ejs-sidebar-content').animate({ left: '0vw' }, 500, function () {
       
     });
-    
   }
 }
  
+
+/**
+ * TODO: Cambio la pagina caricando solo la sezio
+  function processAjaxData(response, urlPath){
+     document.getElementById("content").innerHTML = response.html;
+     document.title = response.pageTitle;
+     window.history.pushState({"html":response.html,"pageTitle":response.pageTitle},"", urlPath);
+  }
+  window.onpopstate = function(e){
+      if(e.state){
+          document.getElementById("content").innerHTML = e.state.html;
+          document.title = e.state.pageTitle;
+      }
+  };
+
+*/
