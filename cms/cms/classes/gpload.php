@@ -34,19 +34,16 @@ class GPLoad
 	 * @param String $varName
 	 * @param String $path il percorso relativo dalla directory principale senza lo slash finale
 	 * @param String $override il percorso relativo dalla directory principale senza lo slash finale
-	 * @param String $defaultFilename
 	 */
-	public function setPath($varName, $path, $override = "", $defaultFilename = "") {
+	public function setPath($varName, $path, $override = "") {
 		$rooter = gpRouter::getInstance();
 		$dir = $rooter->getDir();
-		$this->dir[$varName] = array("path"=>$dir.$path, "defaultFilename"=>$defaultFilename, 'uri'=>$path);
+		$this->dir[$varName] = array("path"=>$dir.$path,  'uri'=>$path);
 		if ($override != "" && is_dir($dir.$override)) {
 			$this->dir[$varName]["override"] =$dir.$override;
 			$this->dir[$varName]["uriOverride"] = $override;
 		}
-		if ($defaultFilename != "") {
-			$this->dir[$varName]["defaultFilename"] =$defaultFilename;
-		}
+		
 	}
 	/**
 	 * Ritorna il link per per le risorse
@@ -66,27 +63,24 @@ class GPLoad
 	 * @param String $fileName Il nome del file da richiamare
 	 * @return Mixed String|false
 	 */
-	public function getPath($varName, $fileName) {
+	public function getPath($varName, $fileName = "") {
 		if (array_key_exists($varName, $this->dir)) {
-			if (array_key_exists('override', $this->dir[$varName]) && $this->dir[$varName]['override'] != "") {
-				if (is_file($this->dir[$varName]['override']."/".$fileName)) {
-					return ($this->dir[$varName]['override']."/".$fileName);
+			if ($fileName == "") {
+				if (is_dir($this->dir[$varName]['path'])) {
+					return ($this->dir[$varName]['path']);
 				}
-			} 
-			if (is_file($this->dir[$varName]['path']."/".$fileName)) {
-				return ($this->dir[$varName]['path']."/".$fileName);
+			} else {
+				if (array_key_exists('override', $this->dir[$varName]) && $this->dir[$varName]['override'] != "") {
+					if (is_file($this->dir[$varName]['override']."/".$fileName)) {
+						return ($this->dir[$varName]['override']."/".$fileName);
+					}
+				} 
+				if (is_file($this->dir[$varName]['path']."/".$fileName)) {
+					return ($this->dir[$varName]['path']."/".$fileName);
+				}
 			}
+			
 
-			if (array_key_exists('override', $this->dir[$varName]) && $this->dir[$varName]['override'] != "" && array_key_exists('defaultFilename', $this->dir[$varName]) && $this->dir[$varName]['defaultFilename'] != "") {
-				if (is_file($this->dir[$varName]['override']."/".$this->dir[$varName]['defaultFilename'])) {
-					return ($this->dir[$varName]['override']."/".$this->dir[$varName]['defaultFilename']);
-				}
-			}
-			if (array_key_exists('defaultFilename', $this->dir[$varName]) && $this->dir[$varName]['defaultFilename'] != "") { 
-				if (is_file($this->dir[$varName]['path']."/".$this->dir[$varName]['defaultFilename'])) {
-					return ($this->dir[$varName]['path']."/".$this->dir[$varName]['defaultFilename']);
-				}
-			}
 		} 
 		return false;
 	}
@@ -115,8 +109,17 @@ class GPLoad
 	 * @param String $variable Il nome della variabile in cui settare i dati. di default i dati sono settati in $this->cData
 	 * @return Boolean
 	 */
-	public function require($varName, $fileName, $data = false, $requireOnce = false, $variable = false) {
-		$path = $this->getPath($varName, $fileName);
+	public function require($varName, $fileName = "", $data = false, $requireOnce = false, $variable = false) {
+		
+		if ($fileName == "") {
+			if (is_file($varName)) {
+				$path = $varName;
+			} else {
+				$path = false;
+			}
+		} else {
+			$path = $this->getPath($varName, $fileName);
+		}
 		$this->cData = new GPRegistry();
 		if ($data != false) {
 			if (is_object($data)) {
@@ -153,8 +156,9 @@ class GPLoad
 		$path = $this->getPath("_modules", $moduleName."/".$moduleName.".php");
 		if ($path == false) {
 			$this->setPath("_modules", "modules");
+			$path = $this->getPath("_modules", $moduleName."/".$moduleName.".php");
 		}
-		$path = $this->getPath("_modules", $moduleName."/".$moduleName.".php");
+
 		$cData = new GPRegistry();
 		if ($data != false) {
 			if (is_object($data)) {

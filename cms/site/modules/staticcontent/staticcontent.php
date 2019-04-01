@@ -1,7 +1,7 @@
 <?php 
 function module_staticcontent($item, $returnType) {
     $load = GPLoad::getInstance();
-    $load->setPath('pages', 'assets/staticcontent', $load->get('theme',true).'/assets/staticcontent');
+    $load->setPath('staticcontent', $load->get('site').'/assets/staticcontent');
     $page = GPRegistry::getInstance()->get('request.view', 'home');
     $page = $item->get('view', $page);
     switch ($returnType) {
@@ -16,7 +16,8 @@ function module_staticcontent($item, $returnType) {
         case 'html':
         default:
             ob_start();
-            $load->require('pages', $page.'.php');
+            
+            $load->require('staticcontent', $page.'.php');
             return ob_get_clean();
             break;
     }

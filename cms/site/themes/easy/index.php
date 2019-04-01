@@ -1,5 +1,6 @@
 <html>
     <?php 
+    $item = $this->cData;
     $router = gpRouter::getInstance();
     GPLoad::getInstance()->require('theme', "head.php");
     ?>

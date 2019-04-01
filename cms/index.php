@@ -1,28 +1,45 @@
 <?php
 session_start();
+$dir = dirname(__FILE__);
+$config = array();
+$config['cmsDir'] = "cms";
+$config['siteDir'] = "site";
+$config['template'] = "easy";
+$config['htaccess'] = true;
 // il framework
-require_once('easy_classes.php');
+require_once($dir."/".$config['cmsDir'].'/classes/easy_classes.php');
 // Il gestore delle pagine da caricare
-require_once('gpload.php');
+require_once($dir."/".$config['cmsDir'].'/classes/gpload.php');
+
+$load = GPLoad::getInstance();
+$load->setPath('cms', $config['cmsDir']);
+$load->setPath('site', $config['siteDir']);
+$load->setPath('theme', $config['siteDir'].'/themes/'.$config['template']);
+$load->setPath('pages', $config['cmsDir'].'/pages', $config['siteDir'].'/pages');
+$load->setPath("_modules", $config['cmsDir'].'/modules', $config['siteDir'].'/modules');
+$load->setPath("assets", $config['cmsDir'].'/assets', $config['siteDir'].'/assets');
+
 // le funzioni che definiscono come si deve fare il parsing dei link
-require_once('router.php');
+$load->require("assets", "router.php");
+GPRegistry::getInstance()->set('config', $config);
+$load->require("assets", "config.php");
+//require_once($dir."/".$config['cmsDir'].'/assets/router.php');
+
 // Setto il router
-GPRegistry::getInstance()->set('config.htaccess', true);
+
 $router = gpRouter::getInstance();
 $router->setFnRewrite('routerBuild', 'routerParse');
 // setto i percorsi delle pagine
-$load = GPLoad::getInstance();
-$load->setPath('theme', 'themes/easy', 'themes/easy/override');
-$load->setPath('pages', 'pages', 'themes/easy/override/pages');
 
 // Faccio il parsing della pagina
 $parse = $router->parseUrl();
-var_dump ($parse);
 $query = $parse['query'];
 GPRegistry::getInstance()->set('request', $query);
-$load->require('theme', "function.php");
+
+$load->require('assets', "function.php");
+
 // se il link punta ad una pagina o ad un file lo carico?
-$realPath = $router->linkToDir();
+// $realPath = $router->linkToDir(); ??
 
 // Carico il contenuto della pagina che si trova in pages
 if (!array_key_exists('page',$query) || in_array(strtolower($query['page']), array("index","home", "index.php","index.html"))) {

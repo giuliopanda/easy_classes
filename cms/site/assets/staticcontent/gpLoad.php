@@ -7,12 +7,12 @@
    
 
     <h3><b>setPath</b> Aggiunge un percorso e i possibili ovveride</h3>
-    <code><pre>$load->setPath($varName, $path, $override = "", $defaultFilename = "")</pre></code>
+    <code><pre>$load->setPath($varName, $path, $override = "")</pre></code>
     <p>
         <b>$varName</b> E' il nome da richiamare del percorso<br>
-        <b>$path</b> il percorso relativo dalla directory principale senza lo slash finale
+        <b>$path</b> il percorso relativo dalla directory principale senza lo slash finale<br>
 	    <b>$override</b> il percorso relativo dalla directory principale senza lo slash finale
-	    <b>$defaultFilename</b>  Il nome del file di default se non dovesse trovarsi quello proposto  
+	  
     </p>
     <p><b>Esempio</b>:<br>
     MyPage cerca il file prima dentro la directory ''themes/easy/pages' e se non lo trova cerca dentro 'pages'
@@ -34,7 +34,7 @@ echo $load->getUri('myPage');</pre></code>
    
     <h3><b>getPath</b>: Ritorna la stringa con il percorso del file </h3>
    
-    <code><pre>$load->getPath($varName, $fileName); 
+    <code><pre>$load->getPath($varName, $fileName= ""); 
     </pre></code>
      <p>Ritorna il percorso del file che trova. L'ordine di ricerca è:<br>
       prima l'override / nome del file passato <br>
@@ -47,10 +47,10 @@ echo $load->getUri('myPage');</pre></code>
     <code><pre>$load->require($varName, $fileName, $data = false, $requireOnce = false, $variable = false);
         </pre></code>
   <p>
-     <b>$varName</b>String  il nome del gruppo di directory da richiamare <br>
-	 <b>$fileName</b> String  Il nome del file da richiamare<br>
-	 <b>$data</b> Mixed Il path di gpRegistry oppure un array o un oggetto<br>
-	 <b>$requireOnce</b> Boolean  Se usare require_once o require<br>
+     <b>$varName</b>String  il nome del gruppo di directory da richiamare oppure se fileName = "" allora il percorso completo del file da richiamare<br>
+	 <b>$fileName</b> String  Opzionale Il nome del file da richiamare<br>
+	 <b>$data</b>  Mixed Opzionale Il path di gpRegistry oppure un array o un oggetto<br>
+	 <b>$requireOnce</b>  Boolean Opzionale Se usare require_once o require<br>
 	 <b>$variable </b> String Il nome della variabile in cui settare i dati. di default i dati sono settati in $this->cData<br>
      </p>
   

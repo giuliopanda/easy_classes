@@ -5,7 +5,9 @@ function module_menu($item, $returnType) {
         '/index.php?page=api&view=gpListener'=>'Eventi',
         '/index.php?page=api&view=gpRegistry' =>'la gestione dei dati',
         '/index.php?page=api&view=gpRouter'=>'I link e l\'url rewrite',
-        '/index.php?page=api&view=gpLoad'=>'I percorsi dei file nel sito');
+        '/index.php?page=api&view=gpLoad'=>'I percorsi dei file nel sito',
+        '/index.php?page=api&view=moduli'=>'Caricamento dei moduli',
+    '/index.php?page=api&view=files'=>'La struttura del cms');
 
     switch ($returnType) {
         case 'help':
