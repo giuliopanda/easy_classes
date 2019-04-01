@@ -32,29 +32,44 @@ class GPLoad
 	/**
 	 * Imposta una directory
 	 * @param String $varName
-	 * @param String $path il percorso relativo dalla directory principale senza lo slash finale
-	 * @param String $override il percorso relativo dalla directory principale senza lo slash finale
+	 * @param String|Array $path il percorso relativo dalla directory principale senza lo slash finale
 	 */
-	public function setPath($varName, $path, $override = "") {
+	public function setPath($varName, $path) {
 		$rooter = gpRouter::getInstance();
-		$dir = $rooter->getDir();
-		$this->dir[$varName] = array("path"=>$dir.$path,  'uri'=>$path);
-		if ($override != "" && is_dir($dir.$override)) {
-			$this->dir[$varName]["override"] =$dir.$override;
-			$this->dir[$varName]["uriOverride"] = $override;
-		}
 		
+		if (is_string($path)) {
+			$path = array($path);
+		}
+		$this->dir[$varName] = $path;
+				
 	}
 	/**
 	 * Ritorna il link per per le risorse
 	 * @param String $varName
 	 */
-	public function getUri($varName) {
-		$rooter = gpRouter::getInstance();
-		if (array_key_exists($varName, $this->dir)) {
-			return $rooter->getSite()."/".$this->dir[$varName]['uri'];
-		} else {
+	public function getUri($varName = "", $fileName = "") {
+		if ($varName == "") {
 			return $rooter->getSite();
+		}
+		$rooter = gpRouter::getInstance();
+		$dir = $rooter->getDir();
+		if (array_key_exists($varName, $this->dir)) {
+			if ($fileName == "") {
+				foreach ($this->dir[$varName] as $path ) {
+					if (is_dir($dir.$path)) {
+						return ($rooter->getSite()."/".$path);
+					}
+				}
+			} else {
+				foreach ($this->dir[$varName]  as $path ) {
+					if (is_file($dir.$path."/".$fileName)) {
+						return ($rooter->getSite()."/".$path."/".$fileName);
+					}
+				}
+			}
+		
+		} else {
+			return $rooter->getSite()."/".$varName;
 		}
 	}
 	/**
@@ -63,24 +78,26 @@ class GPLoad
 	 * @param String $fileName Il nome del file da richiamare
 	 * @return Mixed String|false
 	 */
-	public function getPath($varName, $fileName = "") {
+	public function getPath($varName = "", $fileName = "") {
+		$rooter = gpRouter::getInstance();
+		$dir = $rooter->getDir();
+		if ($varName == "") {
+			return $dir;
+		}
 		if (array_key_exists($varName, $this->dir)) {
 			if ($fileName == "") {
-				if (is_dir($this->dir[$varName]['path'])) {
-					return ($this->dir[$varName]['path']);
+				foreach ($this->dir[$varName] as $path ) {
+					if (is_dir($dir.$path)) {
+						return ($dir.$path);
+					}
 				}
 			} else {
-				if (array_key_exists('override', $this->dir[$varName]) && $this->dir[$varName]['override'] != "") {
-					if (is_file($this->dir[$varName]['override']."/".$fileName)) {
-						return ($this->dir[$varName]['override']."/".$fileName);
+				foreach ($this->dir[$varName]  as $path ) {
+					if (is_file($dir.$path."/".$fileName)) {
+						return ($dir.$path."/".$fileName);
 					}
-				} 
-				if (is_file($this->dir[$varName]['path']."/".$fileName)) {
-					return ($this->dir[$varName]['path']."/".$fileName);
 				}
 			}
-			
-
 		} 
 		return false;
 	}
@@ -90,15 +107,25 @@ class GPLoad
 	 * @param Boolean $override Se deve tornare il path principale o l'override (se true). Di default false
 	 * @return String
 	 */
-	public function get($varName, $override = false) {
+	public function get($varName, $fileName = "") {
+		$rooter = gpRouter::getInstance();
+		$dir = $rooter->getDir();
 		if (array_key_exists($varName, $this->dir)) {
-			if ($override && array_key_exists('uriOverride', $this->dir[$varName])) {
-				return ($this->dir[$varName]['uri']);
+			if ($fileName == "") {
+				foreach ($this->dir[$varName] as $path ) {
+					if (is_dir($dir.$path)) {
+						return ($path);
+					}
+				}
 			} else {
-				return ($this->dir[$varName]['uri']);
+				foreach ($this->dir[$varName]  as $path ) {
+					if (is_file($dir.$path."/".$fileName)) {
+						return ($path."/".$fileName);
+					}
+				}
 			}
 		} 
-		return '';
+		return false;
 	}
 	/**
 	 * Esegue il require di un file php
@@ -110,7 +137,6 @@ class GPLoad
 	 * @return Boolean
 	 */
 	public function require($varName, $fileName = "", $data = false, $requireOnce = false, $variable = false) {
-		
 		if ($fileName == "") {
 			if (is_file($varName)) {
 				$path = $varName;
@@ -135,6 +161,10 @@ class GPLoad
 		}
 		
 		if ($path) {
+			if (!is_file($path)) {
+				print(" ERRORE!!!  varName: ".$varName. "fileName: ". $fileName);
+				var_dump ($path);
+			}
 			if ($requireOnce) {
 				require_once($path);
 			} else {
@@ -142,6 +172,7 @@ class GPLoad
 			}
 			return true;
 		}
+		
 		return false;
 	}
 

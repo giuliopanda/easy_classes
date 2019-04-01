@@ -5,42 +5,39 @@
     <h3>Istanziare la classe</h3>
     <code><pre>$load = GPLoad::getInstance();</pre></code>
    
+    <h1> TODO $filename deve poter essere un array</h1>;
 
+    
     <h3><b>setPath</b> Aggiunge un percorso e i possibili ovveride</h3>
-    <code><pre>$load->setPath($varName, $path, $override = "")</pre></code>
+    <code><pre>$load->setPath($varName, $path )</pre></code>
     <p>
         <b>$varName</b> E' il nome da richiamare del percorso<br>
-        <b>$path</b> il percorso relativo dalla directory principale senza lo slash finale<br>
-	    <b>$override</b> il percorso relativo dalla directory principale senza lo slash finale
-	  
+        <b>$path</b> il percorso relativo dalla directory principale senza lo slash finale, può essere una stringa o un array di percorsi. In quel caso torna sempre il primo percorso valido.<br>	  
     </p>
     <p><b>Esempio</b>:<br>
-    MyPage cerca il file prima dentro la directory ''themes/easy/pages' e se non lo trova cerca dentro 'pages'
-        <code><pre>$load->setPath('myPage', 'pages', 'themes/easy/pages');</pre></code>
+    Nell'esempio MyPage imposta un percorso in cui verranno cercati i file prima dentro la directory 'override/pages' e se non si trovano dentro
+        <code><pre>$load->setPath('myPage', array('override/pages', 'pages')) ;</pre></code>
     </p>
     
-     <h3><b>get</b> Ritornano le configurazioni impostate di una url o del suo ovveride</h3>
-    <code><pre>$load->get($varName, $override = false)</pre></code>
+     <h3><b>get</b> Ritorna il percorso relativo della prima directory o del primo file che trova</h3>
+    <code><pre>$load->get($varName, $filename = "")</pre></code>
 
     <h3><b>getUri</b>: Ritorna il link relativo alla pagina settata</h3>
-    <code><pre>$load->getUri($varName);</pre></code>
+    <code><pre>$load->getUri($varName, $filename = "");</pre></code>
     <p><b>$varName</b>  Il nome settato in setPath
     </p>
     <p><b>Esempio:</b><br>
-    Ritorna il percorso principale caricabile dal sito www.miosito.xx/pages
+    Ritorna il link del file cercato o il link della directory caricabile dal sito www.miosito.xx/pages
         <code><pre>$load->setPath('myPage', 'pages', 'themes/easy/pages');
 echo $load->getUri('myPage');</pre></code>
     </p>
    
     <h3><b>getPath</b>: Ritorna la stringa con il percorso del file </h3>
    
-    <code><pre>$load->getPath($varName, $fileName= ""); 
+    <code><pre>$load->getPath($varName="", $fileName= ""); 
     </pre></code>
-     <p>Ritorna il percorso del file che trova. L'ordine di ricerca è:<br>
-      prima l'override / nome del file passato <br>
-      poi path / nome del file passato <br>
-      override / nome del file di default <br>
-      path / nome del file di default<br>
+     <p>Ritorna il percorso completo del primo file che trova nell'elenco delle directory assegnate<br>
+     
     </p>
 
     <h3><b>require </b>: Esegue il require di un file</h3>

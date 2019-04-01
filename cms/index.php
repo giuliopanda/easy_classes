@@ -15,9 +15,9 @@ $load = GPLoad::getInstance();
 $load->setPath('cms', $config['cmsDir']);
 $load->setPath('site', $config['siteDir']);
 $load->setPath('theme', $config['siteDir'].'/themes/'.$config['template']);
-$load->setPath('pages', $config['cmsDir'].'/pages', $config['siteDir'].'/pages');
-$load->setPath("_modules", $config['cmsDir'].'/modules', $config['siteDir'].'/modules');
-$load->setPath("assets", $config['cmsDir'].'/assets', $config['siteDir'].'/assets');
+$load->setPath('pages', array($config['siteDir'].'/pages', $config['cmsDir'].'/pages'));
+$load->setPath("_modules", array($config['siteDir'].'/modules', $config['cmsDir'].'/modules'));
+$load->setPath("assets", array($config['siteDir'].'/assets', $config['cmsDir'].'/assets'));
 
 // le funzioni che definiscono come si deve fare il parsing dei link
 $load->require("assets", "router.php");
