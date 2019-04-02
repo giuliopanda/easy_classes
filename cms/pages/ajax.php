@@ -1,0 +1,15 @@
+<?php
+$load = GpLoad::getInstance();
+$request = GpRegistry::getInstance()->get('request');
+$type = GpRegistry::getInstance()->get('request.type', 'html');
+
+switch ($type) {
+    case 'json' : 
+        $data = $load->module($request['module'], 'array', 'request');
+        echo json_encode($data);
+        break;
+    default : 
+        $data = $load->module($request['module'], 'html', 'request');
+        echo $data;
+        break;
+}
