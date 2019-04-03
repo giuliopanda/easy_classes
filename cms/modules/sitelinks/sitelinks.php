@@ -1,27 +1,27 @@
 <?php 
-function module_sitelinks($item, $returnType) {
-    $data = array(
-        '/index.php?page=api&view=GpDBMySql'=>'Connettersi al database',
-        '/index.php?page=api&view=GpListener'=>'Eventi',
-        '/index.php?page=api&view=GpRegistry' =>'la gestione dei dati',
-        '/index.php?page=api&view=GpRouter'=>'I link e l\'url rewrite',
-        '/index.php?page=api&view=GpLoad'=>'I percorsi dei file nel sito',
-        '/index.php?page=api&view=moduli'=>'Caricamento dei moduli',
-    '/index.php?page=api&view=files'=>'La struttura del cms');
-
-    switch ($returnType) {
-        case 'help':
-            ob_start();
-            require (dirname(__FILE__)."/help.php");
-            return ob_get_clean();
+/** Questo modulo permette il rewrite secondo i dati inseriti nel database! */
+require_once(dirname(__FILE__)."/model.php");
+function module_sitelinks($item, $action) {
+    $model = new model_sitelinks();
+    switch ($action) {
+        case 'getPageFromLink':
+            $p = ($item->has('p') && Gp::data()->get('request.ajax','0') == 1) ? $item->get('p') : $item->get('page');
+            if ($p != "") {
+                $page = $model->getPageFromLink($p);
+            } else {
+                $page = false;
+            }
+            return $page;
             break;
-        case 'html':
-            ob_start();
-            require (dirname(__FILE__)."/html.php");
-            return ob_get_clean();
-            break;
-        case 'array':
-            return $data;
+        case 'getLinkFromPage':
+            $p = ($item->has('p') && Gp::data()->get('request.ajax','0') == 1) ? $item->get('p') : $item->get('page');
+            $w = ($item->has('w') && Gp::data()->get('request.ajax','0') == 1) ? $item->get('w') : $item->get('view');
+            if ($p != "" && $w != "") {
+                $page = $model->getLinkFromPage($p, $w);
+            } else {
+                $page = false;
+            }
+            return $page;
             break;
     }
     return false;

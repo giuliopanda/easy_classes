@@ -6,8 +6,6 @@ $psw = "admin";
 $dbName = "test_class";
 echo "<h2> MYSQL DATABASE</h2>";
 $db = Gp::db();
-
-$db->connect($ip, $name, $psw, $dbName);
 if ($db->error) {
     echo "error: ".$db->error;
     exit();

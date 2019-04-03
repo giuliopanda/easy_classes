@@ -1,13 +1,13 @@
 <?php 
 function module_menu($item, $returnType) {
     $data = array(
-        '/index.php?page=api&view=GpDBMySql'=>'Connettersi al database',
-        '/index.php?page=api&view=GpListener'=>'Eventi',
-        '/index.php?page=api&view=GpRegistry' =>'la gestione dei dati',
-        '/index.php?page=api&view=GpRouter'=>'I link e l\'url rewrite',
-        '/index.php?page=api&view=GpLoad'=>'I percorsi dei file nel sito',
-        '/index.php?page=api&view=moduli'=>'Caricamento dei moduli',
-    '/index.php?page=api&view=files'=>'La struttura del cms');
+        '/index.php?page=api&id=GpDBMySql&view=new'=>'Connettersi al database',
+        '/index.php?page=api&id=GpListener'=>'Eventi',
+        '/index.php?page=api&id=GpRegistry' =>'la gestione dei dati',
+        '/index.php?page=api&id=GpRouter'=>'I link e l\'url rewrite',
+        '/index.php?page=api&id=GpLoad'=>'I percorsi dei file nel sito',
+        '/index.php?page=api&id=moduli'=>'Caricamento dei moduli',
+    '/index.php?page=api&id=files'=>'La struttura del cms');
 
     switch ($returnType) {
         case 'help':

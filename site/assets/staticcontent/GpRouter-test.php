@@ -54,27 +54,27 @@ var_dump($r);
 
 <h3>COSTRUZIONE DEI LINK SENZA l'URL REWRITE</h3>
 <pre> echo ($router->getLink('index.php?page=api')); 
- echo ($router->getLink('index.php?page=api&view=sp')); 
- echo ($router->getLink('index.php?page=api&view=sp&id=32')); 
+ echo ($router->getLink('index.php?page=api&id=sp')); 
+ echo ($router->getLink('index.php?page=api&id=sp&id=32')); 
  echo ($router->getLink('pippo/index.php?id=22'));  //[NON PRENDE IL PERCORSO!]
- echo ($router->getLink('pippo/index.php?id=22&view=so')); //[SOSTITUISCE LA VIEW ALLA PAGE!]
+ echo ($router->getLink('pippo/index.php?id=22&id=so')); //[SOSTITUISCE LA VIEW ALLA PAGE!]
 </pre>
 <div class="row php-test">
     <div class="col">
     <p><b>Risultato:</b></p>
         <?php echo ($router->getLink('index.php?page=api')); ?><br>
-        <?php echo ($router->getLink('index.php?page=api&view=sp')); ?><br>
-        <?php echo ($router->getLink('index.php?page=api&view=sp&id=32')); ?><br>
+        <?php echo ($router->getLink('index.php?page=api&id=sp')); ?><br>
+        <?php echo ($router->getLink('index.php?page=api&id=sp&id=32')); ?><br>
         <?php echo ($router->getLink('pippo/index.php?id=22')); ?> <br>
-        <?php echo ($router->getLink('pippo/index.php?id=22&view=so')); ?> <br>
+        <?php echo ($router->getLink('pippo/index.php?id=22&id=so')); ?> <br>
     </div>
     <div class="col">
     <p><b>Risultato atteso:</b></p>
         http://www.miosito.it/index.php?page=api<br>
-        http://www.miosito.it/index.php?page=api&view=sp<br>
-        http://www.miosito.it/index.php?page=api&view=sp&id=32<br>
+        http://www.miosito.it/index.php?page=api&id=sp<br>
+        http://www.miosito.it/index.php?page=api&id=sp&id=32<br>
         http://www.miosito.it/pippo/index.php?id=22 <br>
-        http://www.miosito.it/pippo/index.php?id=22&view=so <br>
+        http://www.miosito.it/pippo/index.php?id=22&id=so <br>
     </div>
 </div>
 <?php
@@ -106,19 +106,19 @@ function rParse($parseUrl, $routerClass) {
 }
 $router->setFnRewrite('rBuild', 'rParse');
 echo ($router->getLink('index.php?page=api')); 
-echo ($router->getLink('index.php?page=api&view=sp')); 
-echo ($router->getLink('index.php?page=api&view=sp&id=32')); 
+echo ($router->getLink('index.php?page=api&id=sp')); 
+echo ($router->getLink('index.php?page=api&id=sp&id=32')); 
 echo ($router->getLink('pippo/index.php?id=22'));  //[Non lo converte perché il path è già impostato]
-echo ($router->getLink('/index.php?id=22&view=so')); //[Non lo converte perché manca page!]
+echo ($router->getLink('/index.php?id=22&id=so')); //[Non lo converte perché manca page!]
 </pre>
     <div class="row php-test">
         <div class="col">
         <p><b>Risultato:</b></p>
             <?php echo ($router->getLink('index.php?page=api')); ?><br>
-            <?php echo ($router->getLink('index.php?page=api&view=sp')); ?><br>
-            <?php echo ($router->getLink('index.php?page=api&view=sp&id=32')); ?><br>
+            <?php echo ($router->getLink('index.php?page=api&id=sp')); ?><br>
+            <?php echo ($router->getLink('index.php?page=api&id=sp&id=32')); ?><br>
             <?php echo ($router->getLink('pippo/index.php?id=22')); ?> <br>
-            <?php echo ($router->getLink('index.php?id=22&view=so')); ?> <br>
+            <?php echo ($router->getLink('index.php?id=22&id=so')); ?> <br>
         </div>
         <div class="col">
         <p><b>Risultato atteso:</b></p>
@@ -126,7 +126,7 @@ echo ($router->getLink('/index.php?id=22&view=so')); //[Non lo converte perché 
             http://www.miosito.it/api/sp<br>
             http://www.miosito.it/api/sp?id=32<br>
             http://www.miosito.it/pippo/index.php?id=22 <br>
-            http://www.miosito.it/?id=22&view=so <br>
+            http://www.miosito.it/?id=22&id=so <br>
         </div>
     </div>
 </div>

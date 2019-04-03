@@ -195,11 +195,11 @@ class GpLoad
 	/**
 	 * Esegue un modulo
 	 * @param String $moduleName il nome del gruppo di directory da richiamare 
-	 * @param String $returnType Il tipo di elemento che si vuole che ritorno (html, array)
+	 * @param String $action L'azione passata al modulo
 	 * @param Mixed $data Il path di GpRegistry oppure un array o un oggetto
 	 * @return Boolean
 	 */
-	public function module($moduleName, $returnType = "html", $data = false) {
+	public function module($moduleName, $action = "", $data = false) {
 		$path = $this->getPath("_modules", $moduleName."/".$moduleName.".php");
 		if ($path == false) {
 			$this->setPath("_modules", "modules");
@@ -221,8 +221,8 @@ class GpLoad
 			require_once($path);		
 			$fn = "module_".$moduleName;
 			if (is_callable($fn)) {
-				$ris =  $fn($cData, $returnType);
-				$ris = $listener->invoke($fn."_event", $ris, $cData, $returnType);
+				$ris =  $fn($cData, $action);
+				$ris = $listener->invoke($fn."_event", $ris, $cData, $action);
 				return $ris;
 			}
 		}

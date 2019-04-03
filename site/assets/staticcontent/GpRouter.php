@@ -1,6 +1,6 @@
 
 <div class="gp-doc-container gp-content">
-    <a href="<?php echo GpRouter::getInstance()->getLink("/index.php?page=api&view=GpRouter-test"); ?>" class="float-right">Vai al test</a>
+    <a href="<?php echo GpRouter::getInstance()->getLink("/index.php?page=api&id=GpRouter-test"); ?>" class="float-right">Vai al test</a>
     <h2>Gestione del rooter </h2>
     <h3>Istanziare la classe</h3>
     <code><pre>$rooter = GpRouter::getInstance();

@@ -3,9 +3,19 @@
  * Come vengono scritti i link con l'htaccess attivo
  */
 function routerBuild($query, $routerClass) {
+    $load = Gp::load();
     if (GpRegistry::getInstance()->get('config.htaccess', true)) {
         $parse = $routerClass->parseUrl($query, false);
-        $query = $routerClass->queryToPath($parse, "page");
+        if (is_array($parse) && array_key_exists('query', $parse) && array_key_exists('page', $parse['query'])  && array_key_exists('view', $parse['query'])) {
+            $pageInfo = $load->module('sitelinks','getLinkFromPage', $parse['query']);
+            if ($pageInfo != false) { 
+                $parse['query']['page'] = $pageInfo['link'];
+                unset($parse['query']['view']);
+                $parse['info'] = $pageInfo;
+            } 
+        }
+        
+        $query = $routerClass->queryToPath($parse, "page", "id");
 
     }
     return $query;
@@ -15,7 +25,12 @@ function routerBuild($query, $routerClass) {
  *  Se servono filtri particolari li posso mettere qui dentro
  */
 function routerParse($parseUrl, $routerClass) {
-
-    $parseUrl = $routerClass->pathToQuery($parseUrl, "page");
+    $load = Gp::load();
+    $parseUrl = $routerClass->pathToQuery($parseUrl, "page", "id");
+    $pageInfo = $load->module('sitelinks','getPageFromLink', $parseUrl['query']);
+    if ($pageInfo != false) { 
+       $parseUrl['query']['page'] = $pageInfo['page'];
+       $parseUrl['info'] = $pageInfo;
+    } 
     return $parseUrl;
 }

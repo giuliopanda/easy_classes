@@ -1,15 +1,13 @@
 <?php
 $load = GpLoad::getInstance();
-$request = GpRegistry::getInstance()->get('request');
-$type = GpRegistry::getInstance()->get('request.type', 'html');
-
-switch ($type) {
-    case 'json' : 
-        $data = $load->module($request['module'], 'array', 'request');
-        echo json_encode($data);
-        break;
-    default : 
-        $data = $load->module($request['module'], 'html', 'request');
-        echo $data;
-        break;
-}
+Gp::data()->set('request.ajax','1');
+$request = Gp::data()->get('request');
+$action = Gp::data()->get('request.action', '');
+$data = $load->module($request['id'], $action, 'request');
+if (is_array($data) || is_object($data)) {
+    echo json_encode($data);
+} else {
+    echo $data;
+} 
+Gp::db()->close();
+exit();

@@ -35,6 +35,7 @@ class GpDBMySql
      * @param String $site  L'url del sito (con eventuali subdomain)
      */
     function connect($ip, $login, $pass, $dbname) {
+        $this->close();
         $mysqli_temp = new mysqli($ip, $login, $pass, $dbname);
         if ($mysqli_temp->connect_errno) 
         {
@@ -84,6 +85,7 @@ class GpDBMySql
             $this->error = true;
             return false;
         }
+        $sql = $this->sqlPrefix($sql);
         if (!$result = $this->mysqli->query($sql)) 
         {
             $this->error = true;
@@ -150,7 +152,8 @@ class GpDBMySql
             $this->error = true;
             return false;
         }
-       
+        $sql = $this->sqlPrefix($sql);
+        //print "<p>".$sql."</p>";
         if (!$result = $this->mysqli->query($sql)) 
         {
             $this->error = true;
@@ -179,6 +182,7 @@ class GpDBMySql
             $this->error = true;
             return false;
         }
+        $sql = $this->sqlPrefix($sql);
         if (!$result = $this->mysqli->query($sql)) 
         {
             $this->error = true;
@@ -217,6 +221,7 @@ class GpDBMySql
         if (count($values) > 0) 
         {
             $query = "INSERT INTO ".$this->quoteName($table)." (".implode(", ", $field)." ) VALUES (".implode(", ", $values).");";
+            $query = $this->sqlPrefix($query);
             $resQuery = $this->query($query);
             if (!$this->error) {
                 return $this->mysqli->insert_id;
@@ -252,6 +257,7 @@ class GpDBMySql
         if (count($values) > 0) 
         {
             $query = "DELETE FROM ".$this->quoteName($table)." WHERE ".implode(", ", $values).";";
+            $query = $this->sqlPrefix($query);
             return $this->query($query);
         } else {
             $this->error = true;
@@ -271,6 +277,7 @@ class GpDBMySql
             $this->error = true;
             return false;
         }
+        $sql = $this->sqlPrefix($sql);
         return $this->mysqli->multi_query($sql);
     }
     /**
@@ -304,6 +311,7 @@ class GpDBMySql
         if (count($values) > 0) 
         {
             $query = "UPDATE ".$this->quoteName($table)." SET ".implode(", ", $field)."  WHERE ".implode(", ", $values).";";
+            $query = $this->sqlPrefix($query);
            // print "<p>".$query."</p>";
             return $this->query($query);
           
@@ -341,7 +349,7 @@ class GpDBMySql
      * @return  String 		Ritorna La query con i prefissi sostituiti
      */
     private function sqlPrefix($query) {
-        return str_replace("#__", $this->prefix, $query);
+        return str_replace("#__", $this->prefix."_", $query);
     }
     /**
      * Close connection

@@ -1,6 +1,6 @@
 
 <div class="gp-doc-container gp-content">
-    <a href="<?php echo GpRouter::getInstance()->getLink("/index.php?page=api&view=GpListener-test"); ?>" class="float-right">Vai al test</a>
+    <a href="<?php echo GpRouter::getInstance()->getLink("/index.php?page=api&id=GpListener-test"); ?>" class="float-right">Vai al test</a>
     <h2>Gestione degli eventi</h2>
 
     <h3>Istanziare la classe</h3>

@@ -21,7 +21,14 @@ $load->setPath("assets", array($config['siteDir'].'/assets', $config['cmsDir'].'
 $load->require("assets", "router.php");
 Gp::data()->set('config', $config);
 $load->require("assets", "config.php");
-//require_once($dir."/".$config['cmsDir'].'/assets/router.php');
+
+$ac = Gp::data()->get('config.dbaccess');
+if (is_array($ac) && count($ac) > 3) {
+    Gp::db()->connect($ac['ip'],$ac['name'],$ac['psw'],$ac['dbName']);
+    if (array_key_exists('prefix', $ac)) {
+        Gp::db()->setPrefix($ac['prefix']);
+    }
+}
 
 // Setto il router
 $router = Gp::route();
@@ -33,12 +40,16 @@ $parse = $router->parseUrl();
 $query = $parse['query'];
 Gp::data()->set('request', $query);
 
+
+
 $load->require('assets', "function.php");
 
 // se il link punta ad una pagina o ad un file lo carico?
 // $realPath = $router->linkToDir(); ??
 
-// Carico il contenuto della pagina che si trova in pages
+
+// Carico il contenuto della pagina che si trova in pages senza passare per pageInfo
+// in questo caso sto caricando il MASTER per cui almeno dovrò avere privilegi di amministratore
 if (!array_key_exists('page',$query) || in_array(strtolower($query['page']), array("index","home", "index.php","index.html"))) {
     $load->require('pages', "home.php");
 } else if (!$load->require('pages', $query['page'].".php")) {
