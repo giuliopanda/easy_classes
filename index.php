@@ -2,17 +2,18 @@
 session_start();
 $dir = dirname(__FILE__);
 $config = array();
-$config['cmsDir'] = "cms";
-$config['siteDir'] = "site";
+$config['cmsDir'] = "gate_point";
+$config['siteDir'] = "site_dinamic_content";
 $config['template'] = "easy";
 $config['htaccess'] = true;
 // il framework
 require_once($dir."/".$config['cmsDir'].'/classes/Gp.php');
 
+// SETTO I PERCORSI DELLE CARTELLE
 $load = Gp::load();
 $load->setPath('cms', $config['cmsDir']);
 $load->setPath('site', $config['siteDir']);
-$load->setPath('theme', $config['siteDir'].'/themes/'.$config['template']);
+$load->setPath('theme', 'themes/'.$config['template']);
 $load->setPath('pages', array($config['siteDir'].'/pages', $config['cmsDir'].'/pages'));
 $load->setPath("_modules", array($config['siteDir'].'/modules', $config['cmsDir'].'/modules'));
 $load->setPath("assets", array($config['siteDir'].'/assets', $config['cmsDir'].'/assets'));

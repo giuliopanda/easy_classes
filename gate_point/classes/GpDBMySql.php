@@ -59,10 +59,7 @@ class GpDBMySql
      */
     function query($sql) 
     {
-        $this->error = false;
-        if($this->mysqli == null)
-        {   
-            $this->error = true;
+        if(!$this->checkError()) {  
             return false;
         }
         $sql = $this->sqlPrefix($sql);
@@ -79,10 +76,7 @@ class GpDBMySql
      */
     function getResults($sql) 
     {
-        $this->error = false;
-        if($this->mysqli == null)
-        {   
-            $this->error = true;
+        if(!$this->checkError()) {  
             return false;
         }
         $sql = $this->sqlPrefix($sql);
@@ -104,6 +98,9 @@ class GpDBMySql
      * @return Array The names of the tables
      */
     function getTables($cache = true) {
+        if(!$this->checkError()) {  
+            return false;
+        }
         $ris = array();
         if ($cache && $this->tablesList != false) {
             return $this->tablesList;
@@ -123,6 +120,9 @@ class GpDBMySql
      * @return Array fields and key
      */
     function describes($tableName, $cache = true) {
+        if(!$this->checkError()) {  
+            return false;
+        }
         $ris = array();
          if ($cache && array_key_exists($tableName, $this->fieldsList) != false) {
             return $this->fieldsList[$tableName];
@@ -146,10 +146,7 @@ class GpDBMySql
      */
     function getRow($sql, $offset = 0) 
     {
-        $this->error = false;
-        if($this->mysqli == null)
-        {    
-            $this->error = true;
+        if(!$this->checkError()) {  
             return false;
         }
         $sql = $this->sqlPrefix($sql);
@@ -176,10 +173,7 @@ class GpDBMySql
      */
     function getVar($sql, $offset = 0)
     {
-        $this->error = false;
-        if($this->mysqli == null)
-        {   
-            $this->error = true;
+        if(!$this->checkError()) {  
             return false;
         }
         $sql = $this->sqlPrefix($sql);
@@ -207,7 +201,9 @@ class GpDBMySql
      */
     function insert($table, $data) 
     {
-        $this->error = false;
+        if(!$this->checkError()) {  
+            return false;
+        }
         $field = array();
         $values = array();
         $tableFields = $this->describes($table);
@@ -242,7 +238,9 @@ class GpDBMySql
      */
     function delete($table, $where) 
     {
-        $this->error = false;
+        if(!$this->checkError()) {  
+            return false;
+        }
         $values = array();
         $tableFields = $this->describes($table);
         foreach ($where as $key=>$val) 
@@ -271,10 +269,7 @@ class GpDBMySql
      */
     function multiQuery($sql) 
     {
-        $this->error = false;
-        if($this->mysqli == null) 
-        {   
-            $this->error = true;
+        if(!$this->checkError()) {  
             return false;
         }
         $sql = $this->sqlPrefix($sql);
@@ -289,6 +284,9 @@ class GpDBMySql
      */
     function update($table, $data, $where) 
     {
+        if(!$this->checkError()) {  
+            return false;
+        }
         $this->error = false;
         $field = array();
         $values = array();
@@ -325,7 +323,11 @@ class GpDBMySql
      * @return Integer
      */
     function insertId() {
-        return $this->mysqli->insert_id;
+        if($this->checkError()) {  
+            return $this->mysqli->insert_id;
+        } else {
+            return false;
+        }
     } 
     /**
      * QUOTE name or table
@@ -341,7 +343,11 @@ class GpDBMySql
      * @return String
      */
     function quote($val) {
-        return "'".$this->mysqli->real_escape_string($val)."'";
+         if($this->mysqli != null)  {
+            return "'".$this->mysqli->real_escape_string($val)."'";
+        } else {
+            return $val;
+        }
     }
      /**
      * Sostituisce '#__' con il prefisso reale delle tabelle
@@ -356,8 +362,18 @@ class GpDBMySql
      */
     function close() 
     {
-        if($this->mysqli != null) {   
+        if($this->checkError()) {   
             $this->mysqli->close();
         }
+    }
+
+    function checkError() {
+        if($this->mysqli == null) 
+        {   
+            $this->error = true;
+            return false;
+        }
+        $this->error = false;
+        return true;
     }
 }
