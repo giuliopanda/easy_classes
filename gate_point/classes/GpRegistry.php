@@ -241,7 +241,7 @@ class GpRegistry
 				if (trim($value) == "true") $value = true;
 				if (trim($value) == "false") $value = false;
 			}
-			$ris[trim(strtolower($key))] = $value;
+			$ris[trim($key)] = $value;
 		}
 		return $ris;
 	}

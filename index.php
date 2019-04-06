@@ -3,6 +3,7 @@ session_start();
 $dir = dirname(__FILE__);
 $config = array();
 $config['cmsDir'] = "gate_point";
+$config['siteDir'] = "site_static_content";
 $config['siteDir'] = "site_dinamic_content";
 $config['template'] = "easy";
 $config['htaccess'] = true;

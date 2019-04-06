@@ -7,7 +7,7 @@ function routerBuild($query, $routerClass) {
     if (GpRegistry::getInstance()->get('config.htaccess', true)) {
         $parse = $routerClass->parseUrl($query, false);
         if (is_array($parse) && array_key_exists('query', $parse) && array_key_exists('page', $parse['query'])  && array_key_exists('view', $parse['query'])) {
-            $pageInfo = $load->module('sitelinks','getLinkFromPage', $parse['query']);
+            $pageInfo = $load->module('sitelinks','getLinkFromPage', array('parsePage'=>$parse['query']['page'], 'parseView'=>$parse['query']['view']));
             if ($pageInfo != false) { 
                 $parse['query']['page'] = $pageInfo['link'];
                 unset($parse['query']['view']);
@@ -27,10 +27,12 @@ function routerBuild($query, $routerClass) {
 function routerParse($parseUrl, $routerClass) {
     $load = Gp::load();
     $parseUrl = $routerClass->pathToQuery($parseUrl, "page", "id");
-    $pageInfo = $load->module('sitelinks','getPageFromLink', $parseUrl['query']);
-    if ($pageInfo != false) { 
-       $parseUrl['query']['page'] = $pageInfo['page'];
-       $parseUrl['info'] = $pageInfo;
-    } 
+    if (is_array($parseUrl) && array_key_exists('query', $parseUrl) && array_key_exists('page', $parseUrl['query'])) {
+        $pageInfo = $load->module('sitelinks','getPageFromLink', array('parsePage'=>$parseUrl['query']['page']));
+        if ($pageInfo != false) { 
+        $parseUrl['query']['page'] = $pageInfo['page'];
+        $parseUrl['info'] = $pageInfo;
+        } 
+    }
     return $parseUrl;
 }

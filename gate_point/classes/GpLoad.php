@@ -4,10 +4,15 @@
  */
 class GpLoad
 {
-   /*
+    /*
 	 * @var 		GpLoad  	L'istanza della classe per il singleton
 	*/
 	private static $instance 	= null;
+ 	/*
+	 * @var 		Class  	Le istanze delle classi per i moduli
+	*/
+	private static $modulesClass	= array();
+
 	/*
 	 * @var    link     I link del sito
 	*/
@@ -199,30 +204,56 @@ class GpLoad
 	 * @param Mixed $data Il path di GpRegistry oppure un array o un oggetto
 	 * @return Boolean
 	 */
-	public function module($moduleName, $action = "", $data = false) {
+	public function module($moduleName, $method = "", $data = false) {
 		$path = $this->getPath("_modules", $moduleName."/".$moduleName.".php");
 		if ($path == false) {
 			$this->setPath("_modules", "modules");
 			$path = $this->getPath("_modules", $moduleName."/".$moduleName.".php");
 		}
 
-		$cData = new GpRegistry();
 		if ($data != false) {
-			if (is_object($data)) {
-				$cData->registry = (array)$data;
-			} else if (is_array($data)) {
-				$cData->registry = $data;
-			} else if (is_string($data)) {
-				$cData->registry = GpRegistry::getInstance()->get($data);
+			if (is_string($data)) {
+				$data = GpRegistry::getInstance()->get($data);
 			} 
+			if (is_object($data)) {
+				$data = (array)$data;
+			} else if (is_array($data)) {
+				$data = $data;
+			} 
+		} else {
+			$data = array();
 		}
-		$listener = GpListener::getInstance();
 		if ($path) {
-			require_once($path);		
-			$fn = "module_".$moduleName;
-			if (is_callable($fn)) {
-				$ris =  $fn($cData, $action);
-				$ris = $listener->invoke($fn."_event", $ris, $cData, $action);
+			$listener = GpListener::getInstance();
+			$className = "module_".$moduleName;
+			if(!array_key_exists($moduleName, self::$modulesClass)) {
+				require_once($path);		
+				if (class_exists($className)) {
+					self::$modulesClass[$moduleName] = new $className;
+				} else {
+					return false;
+				}
+			}
+			if ($method == "") {
+				// ritorna l'istanza della classe
+				return self::$modulesClass[$moduleName];
+			}
+			
+			if (method_exists(self::$modulesClass[$moduleName], $method )) {
+				$reflection = new ReflectionMethod($className, $method);
+				$fire_args = array();
+				if ($reflection) {
+					foreach($reflection->getParameters() AS $arg)
+					{
+						if(array_key_exists($arg->name, $data)) {
+							$fire_args[$arg->name] = $data[$arg->name];
+						} else {
+							$fire_args[$arg->name] = false;
+						}
+					}
+				}
+				$ris = call_user_func_array(array(self::$modulesClass[$moduleName], $method), $fire_args);
+				$ris = $listener->invoke($moduleName."_event", $ris,  $method, $data);
 				return $ris;
 			}
 		}

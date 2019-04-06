@@ -2,6 +2,9 @@
 class model_sitelinks {
     static $pages;
     function getPageFromLink($page) { 
+        if (!is_string($page) && !is_int($page) ) {
+            return  array('link'=>$link, 'page'=>$link,'access'=>'{}','status'=>1);
+        }
         if (!is_array(self::$pages)) {
             self::$pages = array();
         }
