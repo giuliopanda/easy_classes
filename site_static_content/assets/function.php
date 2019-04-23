@@ -1,7 +1,10 @@
 <?php
-$listener = GpListener::getInstance();
-function afterRis($result, $cData, $type) {
+$listener = Gp::action();
+
+function afterRis($result) {
     $result['/'] = 'Home page';
     return $result;
 }
-$listener->add('module_menu_event', 'afterRis');
+$listener->add('module_menu_get_data', 'afterRis');
+
+// test di passaggio dei dati negli eventi

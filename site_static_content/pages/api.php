@@ -1,9 +1,8 @@
 <?php
 $load = GpLoad::getInstance();
 $load->setPath('api', $load->get('cms').'/pages/api', $load->get('theme').'/pages/api');
-$request = GpRegistry::getInstance()->get('request');
-$data = array('pageName'=>GpRegistry::getInstance()->get('request.id', 'home'));
-GpRegistry::getInstance()->set('dataTmpl.content',  $load->module('staticcontent','html', $data));
-GpRegistry::getInstance()->set('dataTmpl.navbar', $load->module('menu', 'array'));
+$data = array('pageName'=>Gp::data()->get('request.id', 'home'));
+$cData->set('content',  $load->module('staticcontent','html', $data));
+$cData->set('navbar.[]', $load->module('menu', 'html'));
 // Stampo il template
-$load->require('theme', 'index.php', 'dataTmpl', false);
+$load->require('theme', 'index.php', $cData, false);

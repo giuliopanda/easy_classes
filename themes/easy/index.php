@@ -1,10 +1,10 @@
 <html>
-    <?php 
-    $item = $this->cData;
-    $router = GpRouter::getInstance();
-    GpLoad::getInstance()->require('theme', "head.php");
-    ?>
-    <body>
+  <?php 
+  $item = $cData;
+  $router = GpRouter::getInstance();
+  Gp::load()->require('theme', "head.php");
+  ?>
+  <body>
     <svg display="none">
       <symbol id="svgBurgerMenu"  viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="menu">
         <rect x="2" y="4" width="16" height="1"></rect>
@@ -27,22 +27,9 @@
         <?php if ($item->has('navbar')) : ?>
           <nav id="sidebar" class="ecs-sidebar ejs-sidebar-status-mobile-hide">
             <div class="ejs-sidebar-content">
-              <div class="list-group">
-                  <?php 
-                  $router = GpRouter::getInstance(); 
-                  $registry = GpRegistry::getInstance();
-                  ?>
                 <?php while (list($key, $value) = $item->for('navbar')): ?>
-            
-                  <?php  
-                    if ($router->isActive($key, $router->getLink($registry->get('request')), array('page', 'id'))) {
-                      echo "<a class=\"list-group-item list-group-item-action active\" href=\"".$router->getLink($key)."\">".$value."</a> "; 
-                    } else {
-                      echo "<a class=\"list-group-item list-group-item-action\" href=\"".$router->getLink($key)."\">".$value."</a> "; 
-                    };
-                  ?>
+                  <?php echo $value; ?>
                 <?php endwhile; ?>
-              </div>
             </div>
             <div class="ejs-sidebar-background" data-target="#sidebar"></div>
           </nav>
@@ -53,7 +40,10 @@
           </main>
         <?php endif; ?>
       </div>
-      <footer>…</footer>
     </div>  
+       <div class="clearfix"></div>
+      <footer >
+              <?php echo $item->get('footer'); ?>
+      </footer>
   </body>
 </html>

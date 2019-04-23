@@ -1,5 +1,6 @@
 <?php
 $dir = dirname(__FILE__);
+require_once($dir.'/GpLog.php');
 require_once($dir.'/GpRegistry.php');
 require_once($dir.'/GpListener.php');
 require_once($dir.'/GpDBMySql.php');
@@ -38,5 +39,11 @@ class Gp
      */
      static function load() {
         return GpLoad::getInstance();
+    }
+    /**
+     * GET GpLoad Instance
+     */
+     static function log() {
+        return GpLog::getInstance();
     }
 }

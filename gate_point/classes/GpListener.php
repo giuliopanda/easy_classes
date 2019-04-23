@@ -34,9 +34,13 @@ class GpListener
 		if (!array_key_exists($event, $this->listener)) {
 			$this->listener[$event] = array();
 		}
+		$msgLog = (is_array($fn)) ? $fn[0]."->".$fn[1] : $fn;
 		if (is_callable($fn)) {
 			$this->listener[$event][] = $fn;
+			Gp::log()->set('system', 'LISTENER', 'Add event '.$event.': function  '.$msgLog.' added');
 			return true;
+		} else {
+			Gp::log()->set('system', 'ERROR', 'LISTENER add event '.$event.': function '.$msgLog.' is not callable');
 		}
 		return false;
 	}
@@ -48,14 +52,17 @@ class GpListener
 		if (array_key_exists($event, $this->listener)) {
 			foreach ($this->listener[$event] as $k=>$l) {
 				if ($fn === false) {
+					Gp::log()->set('system', 'LISTENER', 'Remove all event '.$event);
 					unset($this->listener[$event]);
 				} else if (is_array($fn)) {
 					if ($l[0] == $fn[0] && $l[1] == $fn[1] ) {
+						Gp::log()->set('system', 'LISTENER', 'Remove event '.$event.': function  '.$fn[0] .'->'. $fn[1] .' added');
 						array_splice($this->listener[$event],$k,1);
 						return true;
 					}
 				} else {
 					if ($l == $fn ) {
+						Gp::log()->set('system', 'LISTENER', 'Remove event '.$event.': function  '.$fn.' added');
 						array_splice($this->listener[$event],$k,1);
 						return true;
 					}
@@ -76,6 +83,8 @@ class GpListener
 		}
 		if (array_key_exists($event, $this->listener)) {
 			foreach ($this->listener[$event] as $l) {
+				$msgLog = (is_array($l)) ? $l[0]."->".$l[1] : $l;
+				Gp::log()->set('system', 'LISTENER', 'Invoke event '.$event.': function  '.$msgLog .' added');
 				$args[0] = call_user_func_array($l, $args);
 			}
 			return $args[0];

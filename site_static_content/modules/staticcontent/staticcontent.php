@@ -4,7 +4,9 @@ class module_staticcontent
 {
     function html($pageName = "") {
         ob_start();
+        ?><div class="" <?php echo Gp::log()->getDataLog(); ?>><?php
         Gp::load()->require('staticcontent', $pageName.'.php');
+        ?></div><?php
         return ob_get_clean();
     }
 }

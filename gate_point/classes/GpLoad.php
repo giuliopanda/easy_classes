@@ -154,7 +154,7 @@ class GpLoad
 	 * @param String|Array $fileName Il nome del file da richiamare
 	 * @param Mixed $data Il path di GpRegistry oppure un array o un oggetto
 	 * @param Boolean $requireOnce Se usare require_once o require
-	 * @param String $variable Il nome della variabile in cui settare i dati. di default i dati sono settati in $this->cData
+	 * @param String $variable Il nome della variabile in cui settare i dati. di default i dati sono settati in $cData
 	 * @return Boolean
 	 */
 	public function require($varName, $fileName = "", $data = false, $requireOnce = false, $variable = false) {
@@ -167,25 +167,31 @@ class GpLoad
 		} else {
 			$path = $this->getPath($varName, $fileName);
 		}
-		$this->cData = new GpRegistry();
-		if ($data != false) {
-			if (is_object($data)) {
-				$this->cData->registry = (array)$data;
-			} else if (is_array($data)) {
-				$this->cData->registry = $data;
-			} else if (is_string($data)) {
-				$this->cData->registry = GpRegistry::getInstance()->get($data);
-			} 
+		
+		if(!is_bool($data) && is_object($data) && get_class($data) == "GpRegistry") {
+			$cData = $data;
+		} else {
+			$cData = new GpRegistry();
+			if ($data != false) {
+				if (is_object($data)) {
+					$cData->registry = (array)$data;
+				} else if (is_array($data)) {
+					$cData->registry = $data;
+				} else if (is_string($data)) {
+					$cData->registry = GpRegistry::getInstance()->get($data);
+				} 
+			}
 		}
 		if ($variable != false) {
-			$$variable = $this->cData;
+			$$variable = $cData;
 		}
 		
 		if ($path) {
 			if (!is_file($path)) {
-				print(" ERRORE!!!  varName: ".$varName. "fileName: ". $fileName);
-				var_dump ($path);
+				Gp::log()->set('error', 'REQUIRE', $path);
+				Gp::log()->set('system', 'ERROR', 'Require: '.$path);
 			}
+			Gp::log()->set('system', 'LOAD', 'Require: '.$path);
 			if ($requireOnce) {
 				require_once($path);
 			} else {
@@ -193,10 +199,8 @@ class GpLoad
 			}
 			return true;
 		}
-		
 		return false;
 	}
-
 	/**
 	 * Esegue un modulo
 	 * @param String $moduleName il nome del gruppo di directory da richiamare 
@@ -205,11 +209,10 @@ class GpLoad
 	 * @return Boolean
 	 */
 	public function module($moduleName, $method = "", $data = false) {
-		$path = $this->getPath("_modules", $moduleName."/".$moduleName.".php");
-		if ($path == false) {
+		if (!array_key_exists("_modules", $this->dir)) {
 			$this->setPath("_modules", "modules");
-			$path = $this->getPath("_modules", $moduleName."/".$moduleName.".php");
 		}
+		$path = $this->getPath("_modules", $moduleName."/".$moduleName.".php");
 
 		if ($data != false) {
 			if (is_string($data)) {
@@ -223,23 +226,31 @@ class GpLoad
 		} else {
 			$data = array();
 		}
+		$debug = (debug_backtrace());
+		if (count ($debug) > 0) {
+			$debug = array_shift($debug);
+		}
+		Gp::log()->setPointerHTML();
 		if ($path) {
-			$listener = GpListener::getInstance();
 			$className = "module_".$moduleName;
-			if(!array_key_exists($moduleName, self::$modulesClass)) {
+			if(!array_key_exists($moduleName, self::$modulesClass)) {				
 				require_once($path);		
 				if (class_exists($className)) {
 					self::$modulesClass[$moduleName] = new $className;
 				} else {
+					Gp::log()->set('error', 'LOAD', ' Module: '.$moduleName.": class ".$className. " not exists in ".$path);
+					Gp::log()->set('system', 'ERROR', ' Module: '.$moduleName.": class ".$className. " not exists in ".$path);
 					return false;
 				}
 			}
 			if ($method == "") {
+				Gp::log()->set('system', 'LOAD', ' Class: '.$moduleName);
 				// ritorna l'istanza della classe
 				return self::$modulesClass[$moduleName];
 			}
 			
 			if (method_exists(self::$modulesClass[$moduleName], $method )) {
+				Gp::log()->set('system', 'LOAD', 'Module '.$moduleName." function: ".$method);
 				$reflection = new ReflectionMethod($className, $method);
 				$fire_args = array();
 				if ($reflection) {
@@ -253,9 +264,15 @@ class GpLoad
 					}
 				}
 				$ris = call_user_func_array(array(self::$modulesClass[$moduleName], $method), $fire_args);
-				$ris = $listener->invoke($moduleName."_event", $ris,  $method, $data);
+				$ris = Gp::action()->invoke($className."_event", $ris,  $method, $data);
 				return $ris;
+			} else {
+				Gp::log()->set('error', 'LOAD', 'Module: '.$moduleName." function ".$method.":  method not exist ");
+				Gp::log()->set('system', 'ERROR', 'LOAD Module: '.$moduleName." function ".$method.":  method not exist ");
 			}
+		} else {
+			Gp::log()->set('error', 'LOAD', "Module: ".$moduleName." path non found");
+			Gp::log()->set('system', 'ERROR', 'LOAD Module: '.$moduleName." path non found");
 		}
 		return false;
 	}

@@ -1,7 +1,6 @@
 
 <div class="gp-doc-container gp-content">
     <h2>Gestione del caricamento dei file</h2>
-    <p> per ora GpLoad non fa parte di easy_classes... </p>
     <h3>Istanziare la classe</h3>
     <code><pre>$load = GpLoad::getInstance();
 Gp::load();</pre></code>

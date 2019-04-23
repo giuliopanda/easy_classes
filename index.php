@@ -4,7 +4,7 @@ $dir = dirname(__FILE__);
 $config = array();
 $config['cmsDir'] = "gate_point";
 $config['siteDir'] = "site_static_content";
-$config['siteDir'] = "site_dinamic_content";
+//$config['siteDir'] = "site_dinamic_content";
 $config['template'] = "easy";
 $config['htaccess'] = true;
 // il framework
@@ -42,18 +42,26 @@ $parse = $router->parseUrl();
 $query = $parse['query'];
 Gp::data()->set('request', $query);
 
-
-
 $load->require('assets', "function.php");
 
 // se il link punta ad una pagina o ad un file lo carico?
 // $realPath = $router->linkToDir(); ??
 
-
 // Carico il contenuto della pagina che si trova in pages senza passare per pageInfo
 // in questo caso sto caricando il MASTER per cui almeno dovrò avere privilegi di amministratore
+ob_start();
 if (!array_key_exists('page',$query) || in_array(strtolower($query['page']), array("index","home", "index.php","index.html"))) {
     $load->require('pages', "home.php");
 } else if (!$load->require('pages', $query['page'].".php")) {
     $load->require('pages', "404.php");
 }
+echo Gp::action()->invoke("systemOnAfterRender", ob_get_clean());
+
+if (Gp::data()->get('config.log.write_error', false)) {
+    Gp::log()->write('error');
+}
+
+/*
+$log = Gp::log()->load('system_20190417144647', 20190417140000, 20190417144000);
+echo "LOGS: ".count ($log);
+*/
