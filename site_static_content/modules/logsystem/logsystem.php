@@ -39,12 +39,43 @@ class module_logsystem
      * @param Integer $startDate  La data scritta in Intero YYYYMMGGHHMMSS
      * @param Integer $endDate   La data scritta in Intero YYYYMMGGHHMMSS
      */
-    function load($logName, $startDate, $endDate) {
+    function load($logName, $startDate, $endDate, $start, $count) {
+        if ($logName == null || $startDate == null || $endDate == null || $start == null || $count == null) {
+            return array('error'=>'DATA','data_example'=>'&startDate=20100101000000&endDate=20500101000000&start=0&count=10000&logName=system');
+        } else {
+            $log = Gp::log()->load($logName, $startDate, $endDate, $start, $count);
+            return $log;
+        }
+    }
+     /**
+     * Estrae il log scritti per un determinato intervallo di date
+     * @param String $logName  il nome del log senza l'estensione
+     * @param Integer $startDate  La data scritta in Intero YYYYMMGGHHMMSS
+     * @param Integer $endDate   La data scritta in Intero YYYYMMGGHHMMSS
+     */
+    function showLog($logName, $startDate, $endDate, $start, $count) {
+
+        if ($logName == null || $startDate == null || $endDate == null || $start == null || $count == null) {
+            return array('error'=>'DATA','data_example'=>'&startDate=20100101000000&endDate=20500101000000&start=0&count=10000&logName=system');
+        } else {
+           
+            $items = Gp::log()->load($logName, $startDate, $endDate, $start, $count);
+            ob_start();
+            require(dirname(__FILE__)."/view_log_table_from_load.php"); 
+            return ob_get_clean();
+        }
+    }
+    /**
+     * Ritorna il numero di righe di un log
+     * @param String $logName  il nome del log senza l'estensione
+     * @param Integer $startDate  La data scritta in Intero YYYYMMGGHHMMSS
+     * @param Integer $endDate   La data scritta in Intero YYYYMMGGHHMMSS
+     */
+    function count($logName, $startDate, $endDate) {
         if ($logName == null || $startDate == null || $endDate == null) {
             return array('error'=>'DATA','data_example'=>'&startDate=20100101000000&endDate=20500101000000&logName=system');
         } else {
-            $log = Gp::log()->load($logName, $startDate, $endDate);
-            return $log;
+            return Gp::log()->count($logName, $startDate, $endDate);
         }
     }
 }

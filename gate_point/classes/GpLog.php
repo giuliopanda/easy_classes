@@ -24,10 +24,10 @@ class GpLog
     /**
      * Aggiunge un log ad un gruppo di log
     * @param String $group  Il nome del file in cui scrivere e il gruppo di dati da scrivere
-     * @param String $error Il tipo di messaggio è un testo libero es:  (LoadModule|Require|Info|Notice|Warning|Error|FatalError)
+     * @param String $msgType Il tipo di messaggio è un testo libero tutto maiuscolo
      * @param String $msg [Opzionale] Il messaggio da scrivere
-     * @param Array $params [Opzionale] Eventuali parametri da stampare in [key "value"]
-     * @param Boolean $path [Opzionale] se inserire dopo il messaggio i file che hanno portato chiamare quel messggio
+     * @param Array $params [Opzionale] Eventuali parametri da memorizzare
+     * @param Boolean $path [Opzionale] se inserire dopo il messaggio i file che hanno portato a chiamare quel messggio
      */
     public function set($group, $msgType, $msg = "", $params = "", $path = true) {
         $in = false;
@@ -52,7 +52,8 @@ class GpLog
         $this->logs[$group][] = array('msgType'=>$msgType, 'msg'=>$msg, 'params' =>$params, 'time'=>date('YmdHis'), "in"=> $in, "pointerHtml" => $this->pointerHtml);
     }
     /**
-     * 
+     * Ritorna il gruppo di messaggi salvato
+     * @param String $group
      */
     public function get($group) {
         if (array_key_exists($group, $this->logs)) {
@@ -148,38 +149,45 @@ class GpLog
      * @param Int $filterTimeStart  la data di inizio dell'intervallo di log che si vuole prendere formata da YmdHis
      * @param Int $filterTimeEnd la data di fine dell'intervallo di log che si vuole prendere formata da YmdHis
      */
-    function load($fileName, $filterTimeStart = 0, $filterTimeEnd = 99999999999999) {
+    function load($fileName, $filterTimeStart = 0, $filterTimeEnd = 99999999999999, $limitStart = 0, $limit = 10000) {
         $logDir = Gp::load()->getPath('assets')."/logs";
         $logFile = $logDir."/".$fileName.".log";
         
         $re = '/([0-9]{14})\s([a-z0-9]*?)\s((?!\").*?|\"(?!\\\\\").*?\")\s((?!\").*?|\"(?!\\\\\").*?\")\s((?!\").*?|\"(?!\\\\\").*?\")\s((?!\").*?|\"(?!\\\\\").*?\")\s((?!\").\s*|\"\s(?!\\\\\").*\")/';
        // $str = file_get_contents($logFile);
         $handle = fopen($logFile, "r");
+        $k = 0;
+        $limitEnd = $limitStart + $limit;
         if ($handle) {
             $logs = array();
             while (($line = fgets($handle)) !== false) {
-                if (substr($line,0,14) >=  $filterTimeStart && substr($line,0,14) <=  $filterTimeEnd){
-                    preg_match_all($re, $line, $matches, PREG_SET_ORDER, 0);
-                    $mc = $matches[0];
-                    $log = array();
-                    $log['time'] = $mc[1];
-                    $log['uniqId'] = $mc[2];
-                    $log['ip'] =  $mc[3];
-                    $log['type'] = $this->logStr($mc[4]);
-                    $log['msg'] = $this->logStr($mc[5]);
-                    $log['path'] =  explode(" # ", $mc[6]);
-                    if ($mc[6] != "-") {
-                        $log['params'] = json_decode($mc[7]);
-                        if ($log['params'] === null && json_last_error() !== JSON_ERROR_NONE) {
+                if (substr($line,0,14) >=  $filterTimeStart && substr($line,0,14) <=  $filterTimeEnd ) {   
+                    if ( $k >= $limitStart && $k < $limitEnd ) {
+                        preg_match_all($re, $line, $matches, PREG_SET_ORDER, 0);
+                        $mc = $matches[0];
+                        $log = array();
+                        $log['count'] = $k+1;
+                        $log['time'] = $mc[1];
+                        $log['uniqId'] = $mc[2];
+                        $log['ip'] =  $mc[3];
+                        $log['msgType'] = $this->logStr($mc[4]);
+                        $log['msg'] = $this->logStr($mc[5]);
+                        $mc[6] = $this->logStr($mc[6]);
+                        $log['in'] =  explode(" # ", $mc[6]);
+                        if ($mc[6] != "-") {
+                            $log['params'] = json_decode($mc[7]);
+                            if ($log['params'] === null && json_last_error() !== JSON_ERROR_NONE) {
+                                $log['params'] = array();
+                            }
+                        } else {
                             $log['params'] = array();
                         }
-                    } else {
-                        $log['params'] = array();
+                        $add = true;
+                        if ($add) {
+                            $logs[] = $log;
+                        }
                     }
-                    $add = true;
-                    if ($add) {
-                        $logs[] = $log;
-                    }
+                    $k++;
                 }
             }
             fclose($handle);
@@ -187,7 +195,30 @@ class GpLog
         } else {
             return false;
         } 
-        
+    }
+    /**
+     * LOAD Carica i dati da un file e li ridivide con un'espressione regolare
+     * @param String $filename  il nome del file
+     * @param Int $filterTimeStart  la data di inizio dell'intervallo di log che si vuole prendere formata da YmdHis
+     * @param Int $filterTimeEnd la data di fine dell'intervallo di log che si vuole prendere formata da YmdHis
+     */
+    function count($fileName, $filterTimeStart = 0, $filterTimeEnd = 99999999999999) {
+        $logDir = Gp::load()->getPath('assets')."/logs";
+        $logFile = $logDir."/".$fileName.".log";
+        $handle = fopen($logFile, "r");
+        $k = 0;
+        if ($handle) {
+            $logs = array();
+            while (($line = fgets($handle)) !== false) {
+                if (substr($line,0,14) >=  $filterTimeStart && substr($line,0,14) <=  $filterTimeEnd ) {   
+                    $k++;
+                }
+            }
+            fclose($handle);
+            return $k;
+        } else {
+            return 0;
+        } 
     }
     /**
      * Pulisce la stringa prima di salvarla nel log
@@ -284,8 +315,11 @@ function fatal_handler() {
     
     if ($msg != "shutdown" && $errline != 0) {
         if (Gp::data()->get('config.log.write_error', false)) {
+            Gp::log()->set('system', 'ERROR', "FATAL ERROR: ".$msg, false, array($errfile.":".$errline));
             Gp::log()->write('error', 'FATALERROR', $msg, false, array($errfile.":".$errline));
         }
+      
         Gp::action()->invoke("logOnFatalHandler", $error );
+        Gp::load()->require('pages', "500.php");
     }
 }
