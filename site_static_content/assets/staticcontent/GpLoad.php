@@ -16,8 +16,11 @@ Gp::load();</pre></code>
         <code><pre>$load->setPath('myPage', array('override/pages', 'pages')) ;</pre></code>
     </p>
     
-     <h3><b>get</b> Ritorna il percorso relativo della prima directory o del primo file che trova</h3>
-    <code><pre>$load->get($varName, $filename = "")</pre></code>
+     <h3><b>get</b>Ritorna l'array dei percorsi relativi della prima directory </h3>
+    <code><pre>$get->get($varName)</pre></code>
+
+    <h3><b>issetPath</b> verifica se un percorso è stato impostato oppure no</h3>
+    <code><pre>$load->issetPath($varName)</pre></code>
 
     <h3><b>getUri</b>: Ritorna il link relativo alla pagina settata</h3>
     <code><pre>$load->getUri($varName, $filename = "");</pre></code>
@@ -31,6 +34,9 @@ Gp::load();</pre></code>
 echo $load->getUri('myPage');</pre></code>
     </p>
    
+    <h3><b>append</b>: Aggiunge un segmento ad un path esistente</h3>
+    <code><pre>$load->append($newName, $varName, $appendPath);</pre></code>
+
     <h3><b>getPath</b>: Ritorna la stringa con il percorso del file </h3>
    
     <code><pre>$load->getPath($varName="", $fileName= ""); 

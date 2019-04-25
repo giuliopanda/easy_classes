@@ -49,6 +49,14 @@ class GpLoad
 				
 	}
 	/**
+	 * Verifica se un percorso è stato impostato oppure no.
+	 * @param String $varName
+	 * @param String|Array $path il percorso relativo dalla directory principale senza lo slash finale
+	 */
+	public function issetPath($varName) {
+		return (array_key_exists($varName, $this->dir));
+	}
+	/**
 	 * Ritorna il link per per le risorse
 	 * @param String $varName
 	 * @param String|Array $fileName 
@@ -80,11 +88,11 @@ class GpLoad
 			}
 		
 		} else {
-			return $rooter->getSite()."/".$varName;
+			return '';
 		}
 	}
 	/**
-	 * Ritorna la directory e il nome del file da cui caricare il file
+	 * Ritorna il percorso del file se esiste, o la prima directory esistente
 	 * @param String $varName il nome del gruppo di directory da richiamare 
 	 * @param String $fileName Il nome del file da richiamare
 	 * @return Mixed String|false
@@ -117,35 +125,30 @@ class GpLoad
 		} 
 		return false;
 	}
-	/**
+	/** 
+	 * appende ad un percorso un nuovo segmento 
+	 */
+	public function append($newName, $varName, $appendPath) {
+		$rooter = GpRouter::getInstance();
+		$dir = $rooter->getDir();
+		$newPath = array();
+		if (array_key_exists($varName, $this->dir)) {
+			foreach ($this->dir[$varName] as $path ) {
+				$newPath[] = str_replace("//","/", $path."/".$appendPath);
+			}
+		}
+		$this->setPath($newName, $newPath); 
+	}
+	/** 
 	 * Ritornano le configurazioni impostate di una url 
 	 * @param String $varName il nome del gruppo di directory da richiamare 
 	 * @param Boolean $override Se deve tornare il path principale o l'override (se true). Di default false
 	 * @return String
 	 */
-	public function get($varName, $fileName = "") {
-		$rooter = GpRouter::getInstance();
-		$dir = $rooter->getDir();
+	public function get($varName) {
 		if (array_key_exists($varName, $this->dir)) {
-			if ($fileName == "") {
-				foreach ($this->dir[$varName] as $path ) {
-					if (is_dir($dir.$path)) {
-						return ($path);
-					}
-				}
-			} else {
-				if (!is_array($fileName)) {
-					$fileName = array($fileName);
-				}
-				foreach ($fileName as $fname) {
-					foreach ($this->dir[$varName]  as $path ) {
-						if (is_file($dir.$path."/".$fname)) {
-							return ($path."/".$fname);
-						}
-					}
-				}
-			}
-		} 
+			return $this->dir[$varName];
+		}
 		return false;
 	}
 	/**

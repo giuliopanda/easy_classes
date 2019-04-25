@@ -1,4 +1,5 @@
 <?php
+Gp::data()->set('config.template', "easy");
 Gp::data()->set('config.htaccess', false);
 /*
 Gp::data()->set('config.dbaccess', array(

@@ -1,6 +1,6 @@
 <?php
 $load = GpLoad::getInstance();
-$load->setPath('api', $load->get('cms').'/pages/api', $load->get('theme').'/pages/api');
+//Gp::load()->append('staticcontent', 'assets', 'staticcontent');
 $data = array('pageName'=>Gp::data()->get('request.id', 'home'));
 $cData->set('content',  $load->module('staticcontent','html', $data));
 $cData->set('navbar.[]', $load->module('menu', 'html'));

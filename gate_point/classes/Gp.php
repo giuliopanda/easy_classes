@@ -1,11 +1,11 @@
 <?php
-$dir = dirname(__FILE__);
-require_once($dir.'/GpLog.php');
-require_once($dir.'/GpRegistry.php');
-require_once($dir.'/GpListener.php');
-require_once($dir.'/GpDBMySql.php');
-require_once($dir.'/GpRouter.php');
-require_once($dir.'/GpLoad.php');
+$currentDir = dirname(__FILE__);
+require_once($currentDir.'/GpLog.php');
+require_once($currentDir.'/GpRegistry.php');
+require_once($currentDir.'/GpListener.php');
+require_once($currentDir.'/GpDBMySql.php');
+require_once($currentDir.'/GpRouter.php');
+require_once($currentDir.'/GpLoad.php');
 
 /** Facedes */
 class Gp

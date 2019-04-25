@@ -4,26 +4,19 @@ $dir = dirname(__FILE__);
 $config = array();
 $config['cmsDir'] = "gate_point";
 $config['siteDir'] = "site_static_content";
-//$config['siteDir'] = "site_dinamic_content";
-$config['template'] = "easy";
-$config['htaccess'] = true;
+
 // il framework
 require_once($dir."/".$config['cmsDir'].'/classes/Gp.php');
+require_once($dir."/".$config['cmsDir'].'/init.php');
 
 // SETTO I PERCORSI DELLE CARTELLE
 $load = Gp::load();
-$load->setPath('cms', $config['cmsDir']);
-$load->setPath('site', $config['siteDir']);
-$load->setPath('theme', 'themes/'.$config['template']);
-$load->setPath('pages', array($config['siteDir'].'/pages', $config['cmsDir'].'/pages'));
-$load->setPath("_modules", array($config['siteDir'].'/modules', $config['cmsDir'].'/modules'));
-$load->setPath("assets", array($config['siteDir'].'/assets', $config['cmsDir'].'/assets'));
 
 // le funzioni che definiscono come si deve fare il parsing dei link
 $load->require("assets", "router.php");
 Gp::data()->set('config', $config);
 $load->require("assets", "config.php");
-
+$load->append('theme', 'themes', Gp::data()->get('config.template'));
 $ac = Gp::data()->get('config.dbaccess');
 if (is_array($ac) && count($ac) > 3) {
     Gp::db()->connect($ac['ip'],$ac['name'],$ac['psw'],$ac['dbName']);
@@ -41,6 +34,8 @@ $router->setFnRewrite('routerBuild', 'routerParse');
 $parse = $router->parseUrl();
 $query = $parse['query'];
 Gp::data()->set('request', $query);
+
+
 
 $load->require('assets', "function.php");
 
