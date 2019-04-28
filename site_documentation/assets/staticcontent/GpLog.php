@@ -1,5 +1,5 @@
 <div class="gp-doc-container gp-content">
-
+  <a href="<?php echo GpRouter::getInstance()->getLink("/index.php?page=api&id=GpLog-test"); ?>" class="float-right">Vai al test</a>
     <h2>Gestione dei log</h2>
     <p>Gestione dei log</p>
     <h3>Istanziare la classe</h3>
@@ -19,8 +19,9 @@ Gp::log();</pre></code>
     <h3><b>write</b>: Scrive su file un log</h3>
    <code><pre>write($group = "system", $msgType = "", $msg = "", $params = "", $path = true)</pre></code>
     
-    <p>La struttura con cui viene scritto un log è la seguente:</p>
-    <p>YYYYMMGGHHMMSS UNIQID IP MSG_TYPE MSG PATH JSON_PARAMS</p>
+    <p>Scrive un log nella directory impostata da $load->setPath("logs", array([...])); <br />
+    La struttura con cui viene scritto un log è la seguente:</p>
+    <code><pre>YYYYMMGGHHMMSS UNIQID IP MSG_TYPE MSG PATH JSON_PARAMS</pre></code>
     <p>La funzione write scrive su file tutti i log presenti in un determinato gruppo. Se è presente un $msgType allora prima di scrivere i log su file aggiunge il nuovo log alla coda. Una volta scritti i log di quel gruppo vengono cancellati</p>
     <p>I file vengono ruotati quando un file supera la dimensione impostata su  
     Gp::data()->get('config.log.size', '1024').

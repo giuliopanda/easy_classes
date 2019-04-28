@@ -13,16 +13,7 @@
       </symbol>
     </svg>
     <div class="ecs-container">
-      <header class="osp-header ecs-clearfix">
-        <div class="osp-col-header-left">
-          <div class="ecs-only-cell" id="burderMenu" data-target="#sidebar">
-            <svg class="osp-search"><use xlink:href="#svgBurgerMenu"></use></svg>
-          </div>
-          <div class="osp-logo">EASY_CLASSES</div>
-        </div>
-        <div class="osp-col-header-center"></div>
-        <div class="osp-col-header-right"></div>
-      </header>
+      <?php echo $item->get('header'); ?>
       <div class="ecs-body">
         <?php if ($item->has('navbar')) : ?>
           <nav id="sidebar" class="ecs-sidebar ejs-sidebar-status-mobile-hide">

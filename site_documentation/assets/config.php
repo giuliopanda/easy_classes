@@ -14,3 +14,8 @@ Gp::data()->set('config.dbaccess', array(
 Gp::data()->set('config.log.size', 1024*3); // la dimensione i un log in kb prima di ruotarli
 Gp::data()->set('config.log.max_files', '3');// Il numero massimo di log prima di cancellarli
 Gp::data()->set('config.log.write_error', true); // Quando scrivere il log del sistem TRUE|FALSE
+
+/**
+ * Configurazioni personalizzate per il sito
+ */
+Gp::data()->set('site.title', 'EASY_CLASSES');

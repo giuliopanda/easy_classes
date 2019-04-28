@@ -34,7 +34,7 @@ class GpListener
 		if (!array_key_exists($event, $this->listener)) {
 			$this->listener[$event] = array();
 		}
-		$msgLog = (is_array($fn)) ? $fn[0]."->".$fn[1] : $fn;
+		$msgLog = $this->getLogEventName($fn);
 		if (is_callable($fn)) {
 			$this->listener[$event][] = $fn;
 			Gp::log()->set('system', 'LISTENER', 'Add event '.$event.': function  '.$msgLog.' added');
@@ -56,13 +56,13 @@ class GpListener
 					unset($this->listener[$event]);
 				} else if (is_array($fn)) {
 					if ($l[0] == $fn[0] && $l[1] == $fn[1] ) {
-						Gp::log()->set('system', 'LISTENER', 'Remove event '.$event.': function  '.$fn[0] .'->'. $fn[1] .' added');
+						Gp::log()->set('system', 'LISTENER', 'Remove event '.$event.': function  '. $this->getLogEventName($fn).' added');
 						array_splice($this->listener[$event],$k,1);
 						return true;
 					}
 				} else {
 					if ($l == $fn ) {
-						Gp::log()->set('system', 'LISTENER', 'Remove event '.$event.': function  '.$fn.' added');
+						Gp::log()->set('system', 'LISTENER', 'Remove event '.$event.': function  '. $this->getLogEventName($fn).' added');
 						array_splice($this->listener[$event],$k,1);
 						return true;
 					}
@@ -83,7 +83,7 @@ class GpListener
 		}
 		if (array_key_exists($event, $this->listener)) {
 			foreach ($this->listener[$event] as $l) {
-				$msgLog = (is_array($l)) ? $l[0]."->".$l[1] : $l;
+				$msgLog = $this->getLogEventName($l);
 				Gp::log()->set('system', 'LISTENER', 'Invoke event '.$event.': function  '.$msgLog .' added');
 				$args[0] = call_user_func_array($l, $args);
 			}
@@ -100,14 +100,27 @@ class GpListener
 		$fns = array();
 		if (array_key_exists($event, $this->listener)) {
 			foreach ($this->listener[$event] as $l) {
-				if (is_array($l)) {
-					$fns[] = get_class($l[0]).":".$l[1];
-				} else {
-					$fns[] =  $l;
-				}
+				$fns[] = $this->getLogEventName($l);
 			}
 			return $fns;
 		}
 		return false;
+	}
+	/**
+	 * Ritorna il nome di un evento in formato string
+	 */
+	function getLogEventName($fn) {
+		if (is_array($fn)) {
+			if (is_object($fn[0])) {
+				return get_class($fn[0]).":".$fn[1];
+			} else {
+				return $fn[0].":".$fn[1];
+			}
+		} else if (is_object($fn)) {
+				return get_class($fn);
+		} else {
+			 return (String)$fn; 
+		}
+		
 	}
 }

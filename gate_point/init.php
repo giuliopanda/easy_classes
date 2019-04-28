@@ -7,6 +7,7 @@ $load->setPath('themes', array( $config['siteDir'].'/themes', 'themes') ) ;
 $load->setPath('pages', array($config['siteDir'].'/pages', $config['cmsDir'].'/pages'));
 $load->setPath("_modules", array($config['siteDir'].'/modules', $config['cmsDir'].'/modules'));
 $load->setPath("assets", array($config['siteDir'].'/assets', $config['cmsDir'].'/assets'));
+$load->setPath("logs", array($config['siteDir'].'/assets/logs', $config['cmsDir'].'/assets/logs'));
 
 
 
@@ -36,8 +37,9 @@ function fatal_handler() {
             Gp::log()->set('system', 'ERROR', "FATAL ERROR: ".$msg, false, array($errfile.":".$errline));
             Gp::log()->write('error', 'FATALERROR', $msg, false, array($errfile.":".$errline));
         }
-      
+        ob_clean();
         Gp::action()->invoke("logOnFatalHandler", $error );
+        
         Gp::load()->require('pages', "500.php");
     }
 }

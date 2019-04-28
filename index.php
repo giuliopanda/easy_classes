@@ -3,7 +3,7 @@ session_start();
 $dir = dirname(__FILE__);
 $config = array();
 $config['cmsDir'] = "gate_point";
-$config['siteDir'] = "site_static_content";
+$config['siteDir'] = "site_documentation";
 
 // il framework
 require_once($dir."/".$config['cmsDir'].'/classes/Gp.php');
@@ -35,13 +35,9 @@ $parse = $router->parseUrl();
 $query = $parse['query'];
 Gp::data()->set('request', $query);
 
-
-
 $load->require('assets', "function.php");
-
 // se il link punta ad una pagina o ad un file lo carico?
 // $realPath = $router->linkToDir(); ??
-
 // Carico il contenuto della pagina che si trova in pages senza passare per pageInfo
 // in questo caso sto caricando il MASTER per cui almeno dovrò avere privilegi di amministratore
 ob_start();
@@ -55,8 +51,3 @@ echo Gp::action()->invoke("systemOnAfterRender", ob_get_clean());
 if (Gp::data()->get('config.log.write_error', false)) {
     Gp::log()->write('error');
 }
-
-/*
-$log = Gp::log()->load('system_20190417144647', 20190417140000, 20190417144000);
-echo "LOGS: ".count ($log);
-*/

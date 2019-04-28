@@ -194,6 +194,7 @@ class GpLoad
 				Gp::log()->set('error', 'REQUIRE', $path);
 				Gp::log()->set('system', 'ERROR', 'Require: '.$path);
 			}
+			Gp::log()->cleanPointerHTML();
 			Gp::log()->set('system', 'LOAD', 'Require: '.$path);
 			if ($requireOnce) {
 				require_once($path);

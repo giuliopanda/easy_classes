@@ -88,7 +88,7 @@ class GpLog
                 $add = array();
                 if (array_key_exists('params', $logString) && is_array($logString['params'])) {
                     $add = json_encode($logString['params']);
-                    $add = str_replace(array( "\n\r", "\r\n",  "\n", "\r"), " ", $add);
+                    $add = " ".str_replace(array( "\n\r", "\r\n",  "\n", "\r"), " ", $add);
                 }  else {
                     $add = " -";
                 }
@@ -150,10 +150,13 @@ class GpLog
      * @param Int $filterTimeEnd la data di fine dell'intervallo di log che si vuole prendere formata da YmdHis
      */
     function load($fileName, $filterTimeStart = 0, $filterTimeEnd = 99999999999999, $limitStart = 0, $limit = 10000) {
-        $logDir = Gp::load()->getPath('assets')."/logs";
+        if (Gp::load()->issetPath('logs')) {
+            Gp::load()->append('logs', 'assets', 'logs');
+        }
+        $logDir = Gp::load()->getPath('logs');
         $logFile = $logDir."/".$fileName.".log";
         
-        $re = '/([0-9]{14})\s([a-z0-9]*?)\s((?!\").*?|\"(?!\\\\\").*?\")\s((?!\").*?|\"(?!\\\\\").*?\")\s((?!\").*?|\"(?!\\\\\").*?\")\s((?!\").*?|\"(?!\\\\\").*?\")\s((?!\").\s*|\"\s(?!\\\\\").*\")/';
+        $re = '/([0-9]{14})\s([a-z0-9]*?)\s((?!\").*?|\"(?!\\\\\").*?\")\s((?!\").*?|\"(?!\\\\\").*?\")\s((?!\").*?|\"(?!\\\\\").*?\")\s((?!\").*?|\"(?!\\\\\").*?\")\s(.*)/';
        // $str = file_get_contents($logFile);
         $handle = fopen($logFile, "r");
         $k = 0;
@@ -174,8 +177,9 @@ class GpLog
                         $log['msg'] = $this->logStr($mc[5]);
                         $mc[6] = $this->logStr($mc[6]);
                         $log['in'] =  explode(" # ", $mc[6]);
-                        if ($mc[6] != "-") {
-                            $log['params'] = json_decode($mc[7]);
+                      
+                        if ($mc[7] != "-") {
+                            $log['params'] = json_decode($mc[7], true);
                             if ($log['params'] === null && json_last_error() !== JSON_ERROR_NONE) {
                                 $log['params'] = array();
                             }
@@ -274,6 +278,12 @@ class GpLog
      */
     function setPointerHTML() {
         $this->pointerHtml = uniqid();
+    }
+     /**
+     * Imposta un nome di una variabile per collegare l'html ai messaggi
+     */
+    function cleanPointerHTML() {
+        $this->pointerHtml = '';
     }
     /**
      * Imposta un nome di una variabile per collegare l'html ai messaggi

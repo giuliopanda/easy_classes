@@ -41,8 +41,9 @@ $listener->add('module_menu_event', 'afterRis');
      <p class="ml-4"><b>/easy</b><br>
    E' il template di base.</p>
 
-
-
-
     <h3>siteDir</h3>
     <p>Sitedir è il percorso in cui vengono inseriti tutti gli override del sito. In particolare fa l'override di assets, modules, pages e themes</p>
+
+    <h3>Sviluppo di un nuovo progetto</h3>
+    <p>In progetto è composto dalla directory cmsDir nella quale si trovano i file di base, una serie di siti e una cartella con i temi grafici.</p>
+    <p>Nello sviluppo di un progetto viene preso il sito più vicino al progetto che si vuole sviluppare, si copiano le cartelle dentro la cmsDir e si usa questa come base di sviluppo Nell'index si ridefinisce la cartella del sito in cui verranno inseriti tutti gli override per le personalizzazioni</p>
