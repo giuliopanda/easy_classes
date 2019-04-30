@@ -83,6 +83,12 @@ $db->describes($tableName, $cache = true);
     <b>key</b>: La chiave primaria della tabella. La tabella deve avere una chiave primaria formata da un solo campo.<br>
     </p>
 
+    <h3>setFieldsList: Setta a mano i campi di una tabella</h3>
+    <code><pre>
+    $db->setFieldsList($tableName, $fields, $primaryKey);
+    </pre></code>
+
+
     <h3>insert: Inserisce i valori nel db</h3>
     <code><pre>
 $db->insert($table, $data);
@@ -140,11 +146,11 @@ $db->delete('gp_users', array('username' =>'UserName Update'));
     <h3>insertid: Ritorna l'ultima query inserita</h3>
     <code><pre>$db->insertiId();</pre></code>
 
-    <h3>quote:  Quota una stringa</h3>
-    <code><pre>$db->quote($str);</pre></code>
+    <h3>q:  Quota una stringa</h3>
+    <code><pre>$db->q($str);</pre></code>
 
-    <h3>quoteName:  Quota una variabile</h3>
-    <code><pre>$db->quoteName($str);</pre></code>
+    <h3>qn:  Quota una variabile</h3>
+    <code><pre>$db->qn($str);</pre></code>
 
     <h3>prepare: Interessante, ma non qui!</h3>
     <h3>multyQuery: </h3>

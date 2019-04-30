@@ -1,5 +1,6 @@
 <h1>Benvenuti in gate point</h1>
-<p>Per iniziare ad usare Gate Point crea una cartella con il nome del tuo sito</p>
+<p>Per iniziare ad usare Gate Point crea una cartella con il nome del tuo sito.<br>Se hai già una cartella apri l'index.php e inserisci il nome della cartella all'inizio in quest esempio:</p>
+<code><pre>$config['siteDir'] = "site_documentation";</pre></code>
 <p>Crea al suo interno le cartelle pages, assets, modules</p>
 <p>In <b>pages</b> si inseriranno le logiche delle pagine caricate</p>
 <p>In <b>assets</b> le risorse. Qui vanno anche i file <b>config.php</b>, <b>function.php</b> e <b>router.php</b>che vengono caricati durante l'inizializzazione del sito</p>

@@ -3,7 +3,9 @@ session_start();
 $dir = dirname(__FILE__);
 $config = array();
 $config['cmsDir'] = "gate_point";
+$config['siteDir'] = "/";
 $config['siteDir'] = "site_documentation";
+$config['siteDir'] = "site_dinamic_content";
 
 // il framework
 require_once($dir."/".$config['cmsDir'].'/classes/Gp.php');
@@ -42,8 +44,10 @@ $load->require('assets', "function.php");
 // in questo caso sto caricando il MASTER per cui almeno dovrò avere privilegi di amministratore
 ob_start();
 if (!array_key_exists('page',$query) || in_array(strtolower($query['page']), array("index","home", "index.php","index.html"))) {
+    $query['page'] = 'home';   
     $load->require('pages', "home.php");
 } else if (!$load->require('pages', $query['page'].".php")) {
+    $query['page'] = '404';
     $load->require('pages', "404.php");
 }
 echo Gp::action()->invoke("systemOnAfterRender", ob_get_clean());

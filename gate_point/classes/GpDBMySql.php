@@ -7,6 +7,7 @@ class GpDBMySql
      var $mysqli = null;
      var $error = false; // true se una query da un errore
      var $tablesList = array(); // l'elenco delle tabelle
+     var $fieldsList = array(); //l'elenco dei campi per tabella
      var $prefix = ''; // l'elenco delle tabelle
     static $instance;
     /**
@@ -36,10 +37,13 @@ class GpDBMySql
      */
     function connect($ip, $login, $pass, $dbname) {
         $this->close();
+        $this->error =  false;;
         $mysqli_temp = new mysqli($ip, $login, $pass, $dbname);
         if ($mysqli_temp->connect_errno) 
         {
             $this->error =  true;
+            Gp::log()->set('error', 'MYSQL', "Connect. ip:".$ip." login:". $login." psw:".$pass." dbname:".$dbname);
+			Gp::log()->set('system', 'ERROR', "MYSQL Connect. ip:".$ip." login:". $login." psw:".$pass." dbname:".$dbname);
             return false;
         } else {
             $this->mysqli = $mysqli_temp;
@@ -59,13 +63,13 @@ class GpDBMySql
      */
     function query($sql) 
     {
-        if(!$this->checkError()) {  
+        if(!$this->checkConnection()) {  
             return false;
         }
         $sql = $this->sqlPrefix($sql);
         $ris = $this->mysqli->query($sql);
-        if ($ris === false) 
-        {
+        if ($ris === false)  {
+            Gp::log()->set('system', 'ERROR', "MYSQL Query: '".$sql."' error:". $this->mysqli->error);
             $this->error = true;
         }
         return $ris;
@@ -76,13 +80,7 @@ class GpDBMySql
      */
     function getResults($sql) 
     {
-        if(!$this->checkError()) {  
-            return false;
-        }
-        $sql = $this->sqlPrefix($sql);
-        if (!$result = $this->mysqli->query($sql)) 
-        {
-            $this->error = true;
+        if (!$result = $this->query($sql)) {
             return false;
         }
         $data = array();
@@ -98,7 +96,7 @@ class GpDBMySql
      * @return Array The names of the tables
      */
     function getTables($cache = true) {
-        if(!$this->checkError()) {  
+        if(!$this->checkConnection()) {  
             return false;
         }
         $ris = array();
@@ -115,29 +113,40 @@ class GpDBMySql
     }
     /**
      * Ritorna un array con due valori: 'fields' contiene l'elenco delle colonne, 'key' il nome della  primary key
-     * @param String $tableName primary key
+     * @param String $tableName il nome della tabella
      * @param Boolean $cache default true
      * @return Array fields and key
      */
     function describes($tableName, $cache = true) {
-        if(!$this->checkError()) {  
+        if(!$this->checkConnection()) {  
             return false;
         }
         $ris = array();
          if ($cache && array_key_exists($tableName, $this->fieldsList) != false) {
             return $this->fieldsList[$tableName];
         }
-        $fields = $this->mysqli->query('DESCRIBE '.$this->quoteName($tableName)); 
+        $fields = $this->mysqli->query('DESCRIBE '.$this->qn($tableName)); 
         while($row = mysqli_fetch_assoc($fields))
         {
-           $ris[$row['Field']] = $row['Type'];
-           if ($row['Key'] == "PRI") {
-               $primary = $row['Field'];
-           }
+            $ris[$row['Field']] = $row['Type'];
+            if ($row['Key'] == "PRI") {
+                $primary = $row['Field'];
+            }
         }
         $this->fieldsList[$tableName] = array('fields'=>$ris, 'key'=>$primary);
         return $this->fieldsList[$tableName];
     }
+
+    /**
+     * Setta l'elenco dei campi di una tabella così non deve fare la query per il describe
+     * @param String $tableName il nome della tabella
+     * @param Array $fields l'array dei campi es: ('id' =>'int(11)', 'username' => 'varchar(250)')
+     * @param String $primaryKey il nome del campo della primary key
+     */
+    function setFieldsList($tableName, $fields, $primaryKey) {
+        $this->fieldsList[$tableName] = array('fields'=>$fields, 'key'=>$primaryKey);
+    }
+
     /**
      * Esegue una query Select e restituisce la prima riga
      * @param String $sql 
@@ -146,19 +155,11 @@ class GpDBMySql
      */
     function getRow($sql, $offset = 0) 
     {
-        if(!$this->checkError()) {  
-            return false;
-        }
-        $sql = $this->sqlPrefix($sql);
-        //print "<p>".$sql."</p>";
-        if (!$result = $this->mysqli->query($sql)) 
-        {
-            $this->error = true;
+        if (!$result = $this->query($sql)) {
             return false;
         }
         $k = 0;
-        while($row = mysqli_fetch_assoc($result))
-        {
+        while($row = mysqli_fetch_assoc($result)) {
             if ($k == $offset) {
                 return $row;
             }
@@ -166,20 +167,15 @@ class GpDBMySql
         }
         return $row;
     }
-     /**
+    /**
      * Esegue una query Select e restituisce la prima riga
      * @param String $sql 
      * @param Integer $offset Default 0, Sceglie la riga da scaricare
      */
     function getVar($sql, $offset = 0)
     {
-        if(!$this->checkError()) {  
-            return false;
-        }
-        $sql = $this->sqlPrefix($sql);
-        if (!$result = $this->mysqli->query($sql)) 
-        {
-            $this->error = true;
+
+        if (!$result = $this->query($sql)) {
             return false;
         }
         $k = 0;
@@ -201,7 +197,7 @@ class GpDBMySql
      */
     function insert($table, $data) 
     {
-        if(!$this->checkError()) {  
+        if(!$this->checkConnection()) {  
             return false;
         }
         $field = array();
@@ -210,13 +206,13 @@ class GpDBMySql
         foreach ($data as $key=>$val) 
         {
             if (array_key_exists($key, $tableFields['fields'])) {
-                $field[] = $this->quoteName($key);
-                $values[] = $this->quote($val);
+                $field[] = $this->qn($key);
+                $values[] = $this->q($val);
             }
         }
         if (count($values) > 0) 
         {
-            $query = "INSERT INTO ".$this->quoteName($table)." (".implode(", ", $field)." ) VALUES (".implode(", ", $values).");";
+            $query = "INSERT INTO ".$this->qn($table)." (".implode(", ", $field)." ) VALUES (".implode(", ", $values).");";
             $query = $this->sqlPrefix($query);
             $resQuery = $this->query($query);
             if (!$this->error) {
@@ -238,23 +234,21 @@ class GpDBMySql
      */
     function delete($table, $where) 
     {
-        if(!$this->checkError()) {  
+        if(!$this->checkConnection()) {  
             return false;
         }
         $values = array();
         $tableFields = $this->describes($table);
-        foreach ($where as $key=>$val) 
-        {
+        foreach ($where as $key=>$val) {
             if (array_key_exists($key, $tableFields['fields'])) {
-                $values[] = $this->quoteName($key)." = ". $this->quote($val);
+                $values[] = $this->qn($key)." = ". $this->q($val);
             } else {
                 $this->error = true;
                 return false;
             }
         }
-        if (count($values) > 0) 
-        {
-            $query = "DELETE FROM ".$this->quoteName($table)." WHERE ".implode(", ", $values).";";
+        if (count($values) > 0) {
+            $query = "DELETE FROM ".$this->qn($table)." WHERE ".implode(", ", $values).";";
             $query = $this->sqlPrefix($query);
             return $this->query($query);
         } else {
@@ -269,7 +263,7 @@ class GpDBMySql
      */
     function multiQuery($sql) 
     {
-        if(!$this->checkError()) {  
+        if(!$this->checkConnection()) {  
             return false;
         }
         $sql = $this->sqlPrefix($sql);
@@ -284,7 +278,7 @@ class GpDBMySql
      */
     function update($table, $data, $where) 
     {
-        if(!$this->checkError()) {  
+        if(!$this->checkConnection()) {  
             return false;
         }
         $this->error = false;
@@ -294,13 +288,13 @@ class GpDBMySql
         foreach ($data as $key=>$val) 
         {
             if (array_key_exists($key, $tableFields['fields'])) {
-                $field[] = $this->quoteName($key)." = ". $this->quote($val);
+                $field[] = $this->qn($key)." = ". $this->q($val);
             }
         }
         foreach ($where as $key=>$val) 
         {
             if (array_key_exists($key, $tableFields['fields'])) {
-                $values[] = $this->quoteName($key)." = ". $this->quote($val);
+                $values[] = $this->qn($key)." = ". $this->q($val);
             } else {
                 $this->error = true;
                 return false;
@@ -308,7 +302,7 @@ class GpDBMySql
         }
         if (count($values) > 0) 
         {
-            $query = "UPDATE ".$this->quoteName($table)." SET ".implode(", ", $field)."  WHERE ".implode(", ", $values).";";
+            $query = "UPDATE ".$this->qn($table)." SET ".implode(", ", $field)."  WHERE ".implode(", ", $values).";";
             $query = $this->sqlPrefix($query);
            // print "<p>".$query."</p>";
             return $this->query($query);
@@ -323,7 +317,7 @@ class GpDBMySql
      * @return Integer
      */
     function insertId() {
-        if($this->checkError()) {  
+        if($this->checkConnection()) {  
             return $this->mysqli->insert_id;
         } else {
             return false;
@@ -334,7 +328,7 @@ class GpDBMySql
      * @param String $val
      * @return String
      */
-    function quoteName($val) {
+    function qn($val) {
         return '`'.$val.'`';
     }
     /**
@@ -342,8 +336,9 @@ class GpDBMySql
      *  @param String $val
      * @return String
      */
-    function quote($val) {
-         if($this->mysqli != null)  {
+
+    function q($val) {
+        if($this->mysqli != null)  {
             return "'".$this->mysqli->real_escape_string($val)."'";
         } else {
             return $val;
@@ -362,14 +357,13 @@ class GpDBMySql
      */
     function close() 
     {
-        if($this->checkError()) {   
+        if($this->checkConnection()) {   
             $this->mysqli->close();
         }
     }
 
-    function checkError() {
-        if($this->mysqli == null) 
-        {   
+    function checkConnection() {
+        if($this->mysqli == null) {   
             $this->error = true;
             return false;
         }

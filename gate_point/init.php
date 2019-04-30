@@ -39,7 +39,6 @@ function fatal_handler() {
         }
         ob_clean();
         Gp::action()->invoke("logOnFatalHandler", $error );
-        
         Gp::load()->require('pages', "500.php");
     }
 }

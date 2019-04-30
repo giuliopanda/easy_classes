@@ -10,7 +10,7 @@ class model_sitelinks {
         }
         if (!array_key_exists($page, self::$pages)) {
             $db = Gp::db();
-            self::$pages[$page] = $db->getRow("SELECT * FROM `#__pages` WHERE link = ".$db->quote($page));
+            self::$pages[$page] = $db->getRow("SELECT * FROM `#__pages` WHERE link = ".$db->q($page));
             if (is_null(self::$pages[$page])) {
                 self::$pages[$page] = array('link'=>$page, 'page'=>$page,'access'=>'{}','status'=>1);
             }
@@ -24,7 +24,7 @@ class model_sitelinks {
         $pageKey = "_".$page."_".$view;
         if (!array_key_exists($pageKey, self::$pages)) {
             $db = Gp::db();
-            self::$pages[$pageKey] = $db->getRow("SELECT * FROM `#__pages` WHERE `page` = ".$db->quote($page)." AND `view` = ".$db->quote($view));
+            self::$pages[$pageKey] = $db->getRow("SELECT * FROM `#__pages` WHERE `page` = ".$db->q($page)." AND `view` = ".$db->q($view));
             if (is_null(self::$pages[$pageKey])) {
                 self::$pages[$pageKey] = array('link'=>$link, 'page'=>$link,'access'=>'{}','status'=>1);
             }

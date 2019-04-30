@@ -30,8 +30,8 @@ function routerParse($parseUrl, $routerClass) {
     if (is_array($parseUrl) && array_key_exists('query', $parseUrl) && array_key_exists('page', $parseUrl['query'])) {
         $pageInfo = $load->module('sitelinks','getPageFromLink', array('parsePage'=>$parseUrl['query']['page']));
         if ($pageInfo != false) { 
-        $parseUrl['query']['page'] = $pageInfo['page'];
-        $parseUrl['info'] = $pageInfo;
+            $parseUrl['query']['page'] = $pageInfo['page'];
+            $parseUrl['info'] = $pageInfo;
         } 
     }
     return $parseUrl;

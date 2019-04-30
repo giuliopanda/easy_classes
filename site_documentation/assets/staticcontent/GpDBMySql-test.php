@@ -5,9 +5,9 @@ $name = "admin";
 $psw = "admin";
 $dbName = "test_class";
 echo "<h2> MYSQL DATABASE</h2>";
-$db = Gp::db();
+$db = new GpDBMySql($ip, $name, $psw, $dbName);
 if ($db->error) {
-    echo "error: ".$db->error;
+    Gp::load()->require('pages', "500.php");
     exit();
 }
 $query ="
@@ -67,15 +67,15 @@ if ($db->error) {
         }
 
         echo "<h3 >Estraggo i dati</h3>";
-        echo "<p>\$db->getResults(\"SELECT * FROM \".\$db->quoteName('gp_users'));</p>";
-        $list = $db->getResults("SELECT * FROM ".$db->quoteName('gp_users'));
+        echo "<p>\$db->getResults(\"SELECT * FROM \".\$db->qn('gp_users'));</p>";
+        $list = $db->getResults("SELECT * FROM ".$db->qn('gp_users'));
         foreach ($list as $key => $value) {
             var_dump ($value);
         } 
         
         echo "<h3 >Estraggo una singola riga</h3>";
-        echo "<p>\$db->getRow(\"SELECT * FROM \".\$db->quoteName('gp_users'))</p>";
-        $list = $db->getRow("SELECT * FROM ".$db->quoteName('gp_users'), 0);
+        echo "<p>\$db->getRow(\"SELECT * FROM \".\$db->qn('gp_users'))</p>";
+        $list = $db->getRow("SELECT * FROM ".$db->qn('gp_users'), 0);
         foreach ($list as $key => $value) {
             print ("<p>".$key.": ".$value."</p>");
         } 
@@ -86,8 +86,8 @@ if ($db->error) {
             print " <span style=\"color:red\">La query di aggiornamento ha dato errore</span>";
         }
         echo "<h3 >Estraggo il singolo valore appena modificato</h3>";
-        echo "<p>\$db->getRow(\"SELECT * FROM \".\$db->quoteName('gp_users')) ORDER BY ID DESC</p>";
-        $list = $db->getVar("SELECT username FROM ".$db->quoteName('gp_users')." ORDER BY ID ASC");
+        echo "<p>\$db->getRow(\"SELECT * FROM \".\$db->qn('gp_users')) ORDER BY ID DESC</p>";
+        $list = $db->getVar("SELECT username FROM ".$db->qn('gp_users')." ORDER BY ID ASC");
         
         print ("<p>getVar: ".$list."</p>");
         

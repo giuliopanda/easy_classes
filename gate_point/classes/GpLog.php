@@ -42,7 +42,11 @@ class GpLog
             if (count ($debug) > 0) {
                 $in = array();
                 foreach ($debug as $d) {
-                    $in[] = $d['file'].":".$d['line'];
+                    if (array_key_exists('file', $d) && array_key_exists('line', $d)) {
+                        $in[] = $d['file'].":".$d['line'];
+                    } else if (array_key_exists('file', $d)) {
+                        $in[] = $d['file'];
+                    }
                 }
             }
         } 
