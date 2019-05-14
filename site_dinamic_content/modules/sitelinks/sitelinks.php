@@ -14,6 +14,7 @@ class module_sitelinks {
     }
     //
     function getPageFromLink($parsePage) {
+        $page = "";
         $newPage = $this->model->getPageFromLink($parsePage);
         if ($newPage['page'] != false) {
             $page = $newPage;
@@ -22,6 +23,7 @@ class module_sitelinks {
     }
     //
     function getLinkFromPage($parsePage, $parseView) {
+        $page = "";
         $newPage = $this->model->getLinkFromPage($parsePage, $parseView);
          if ($newPage['page'] != false) {
             $page = $newPage;

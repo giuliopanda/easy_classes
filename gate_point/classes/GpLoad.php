@@ -57,7 +57,7 @@ class GpLoad
 		return (array_key_exists($varName, $this->dir));
 	}
 	/**
-	 * Ritorna il link per per le risorse
+	 * Ritorna il link per le risorse
 	 * @param String $varName
 	 * @param String|Array $fileName 
 	 */
@@ -127,6 +127,9 @@ class GpLoad
 	}
 	/** 
 	 * appende ad un percorso un nuovo segmento 
+	 * @param String $newName il nome del nuovo percorso
+	 * @param String $varName Il nome del percorso da cui partire
+	 * @param String $appendPath il segmento di directory da aggiungere
 	 */
 	public function append($newName, $varName, $appendPath) {
 		$rooter = GpRouter::getInstance();
@@ -202,6 +205,18 @@ class GpLoad
 				require($path);
 			}
 			return true;
+		} else {
+			if (!array_key_exists($varName, $this->dir)) {
+				Gp::log()->set('error', 'REQUIRE path ', $varName." No exist");
+				Gp::log()->set('system', 'ERROR', 'Require path '.$varName." No exist");
+			} else {
+				$pathList = $this->get($varName);
+				if (!is_array($pathList)) {
+					$pathList = array($pathList);
+				}
+				Gp::log()->set('error', 'REQUIRE ', $varName.":".implode("# ",$pathList));
+				Gp::log()->set('system', 'ERROR', 'Require '.$varName.": ".implode("# ",$pathList));
+			}
 		}
 		return false;
 	}
@@ -213,10 +228,10 @@ class GpLoad
 	 * @return Boolean
 	 */
 	public function module($moduleName, $method = "", $data = false) {
-		if (!array_key_exists("_modules", $this->dir)) {
-			$this->setPath("_modules", "modules");
+		if (!array_key_exists("modules", $this->dir)) {
+			$this->setPath("modules", "modules");
 		}
-		$path = $this->getPath("_modules", $moduleName."/".$moduleName.".php");
+		$path = $this->getPath("modules", $moduleName."/".$moduleName.".php");
 
 		if ($data != false) {
 			if (is_string($data)) {
@@ -236,7 +251,7 @@ class GpLoad
 		}
 		Gp::log()->setPointerHTML();
 		if ($path) {
-			$className = "module_".$moduleName;
+			$className = "module_".str_replace(".","_",$moduleName);
 			if(!array_key_exists($moduleName, self::$modulesClass)) {				
 				require_once($path);		
 				if (class_exists($className)) {

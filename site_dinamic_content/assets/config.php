@@ -1,7 +1,7 @@
 <?php
 Gp::data()->set('config.htaccess', true);
 Gp::data()->set('config.template', "easy");
-/*
+
 Gp::data()->set('config.dbaccess', array(
     'ip' => "localhost",
     'name' => "admin",
@@ -9,7 +9,6 @@ Gp::data()->set('config.dbaccess', array(
     'dbName' => "test_class",
     'prefix' => "gp"
 ));
-*/
 
 
 /*

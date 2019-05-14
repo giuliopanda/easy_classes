@@ -218,6 +218,7 @@ class GpDBMySql
             if (!$this->error) {
                 return $this->mysqli->insert_id;
             } else {
+                $this->error = true;
                 return false;
             }
            
@@ -329,6 +330,7 @@ class GpDBMySql
      * @return String
      */
     function qn($val) {
+        $val = $this->sqlPrefix($val);
         return '`'.$val.'`';
     }
     /**
@@ -338,6 +340,7 @@ class GpDBMySql
      */
 
     function q($val) {
+        $val = $this->sqlPrefix($val);
         if($this->mysqli != null)  {
             return "'".$this->mysqli->real_escape_string($val)."'";
         } else {

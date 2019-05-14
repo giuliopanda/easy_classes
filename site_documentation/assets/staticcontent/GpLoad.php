@@ -64,7 +64,7 @@ echo $load->getUri('myPage');</pre></code>
  <code><pre>$load->module($moduleName, $returnType = "html", $data = false);
     </pre></code>
     <p> I file dei moduli sono dentro la cartella /modules/[nomemodulo]/[nomemodulo].php</p>
-    <p> La cartella modules è modificabile impostando setPAth('_modules', [nuova_path])) </p>
+    <p> La cartella modules è modificabile impostando setPAth('modules', [nuova_path])) </p>
     <p>Il file nomemodulo deve contenere una funzione che si chiama module_[nomemodulo]$item, $returnType);</p>
     <p>$item è un'itanza di GpRegistry con i dati inviati al modulo. Per la versione ajax viene inviato l'intero request</p>
     <p>Una volta generato il modulo questo viene passato ad un evento [nomemodulo]_event in cui viene passato il risultato del modulo, i dati passati al modulo e il returnType.</p>

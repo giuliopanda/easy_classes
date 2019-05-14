@@ -83,6 +83,10 @@ class GpLog
         if (!is_dir($logDir)) {
             mkdir($logDir);
         }
+        if (!is_dir($logDir)) {
+            echo "I CAN'T CREATE THE DIR!";
+            die;
+        }
         $logFile = $logDir."/".strtolower($group).".log";
         $textToAppend = "";
         if (array_key_exists($group, $this->logs)) {

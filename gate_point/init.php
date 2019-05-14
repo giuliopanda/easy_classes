@@ -5,10 +5,9 @@ $load->setPath('cms', $config['cmsDir']);
 $load->setPath('site', $config['siteDir']);
 $load->setPath('themes', array( $config['siteDir'].'/themes', 'themes') ) ;
 $load->setPath('pages', array($config['siteDir'].'/pages', $config['cmsDir'].'/pages'));
-$load->setPath("_modules", array($config['siteDir'].'/modules', $config['cmsDir'].'/modules'));
+$load->setPath("modules", array($config['siteDir'].'/modules', $config['cmsDir'].'/modules'));
 $load->setPath("assets", array($config['siteDir'].'/assets', $config['cmsDir'].'/assets'));
 $load->setPath("logs", array($config['siteDir'].'/assets/logs', $config['cmsDir'].'/assets/logs'));
-
 
 
 // GESTIONE DEI FATAL ERROR
@@ -33,8 +32,8 @@ function fatal_handler() {
     $errstr  = $error["message"];
     
     if ($msg != "shutdown" && $errline != 0) {
+        Gp::log()->set('system', 'ERROR', "FATAL ERROR: ".$msg, false, array($errfile.":".$errline));
         if (Gp::data()->get('config.log.write_error', false)) {
-            Gp::log()->set('system', 'ERROR', "FATAL ERROR: ".$msg, false, array($errfile.":".$errline));
             Gp::log()->write('error', 'FATALERROR', $msg, false, array($errfile.":".$errline));
         }
         ob_clean();
