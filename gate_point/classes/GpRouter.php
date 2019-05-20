@@ -75,11 +75,17 @@ class GpRouter
     }
     /** 
      * Ritorna il link corrente della pagina
-     * @param Boolean $getUri Se avere le query oppure no
+     * @param Boolean|String $getUri Boolean: Se avere le query oppure no nell'url corrente. String: aggiunge parametri all'url corrente
      * @return String
      */
     function getCurrentLink($getUri = true) {
-        if ($getUri === true) {
+        if (is_string($getUri)) {
+            $url = $this->parseUrl();
+            $url2 = $this->parseUrl($getUri, false);
+            $newUrlQuery = array_filter(array_merge($url['query'], $url2['query']));
+            return $this->getLink($newUrlQuery);
+            
+        } else if ($getUri === true) {
             return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
         }
         if ($getUri === false) {
@@ -206,7 +212,7 @@ class GpRouter
         return ($parseUrl);
     }
     /**
-     * PathToQuery converte una path in query secondo lo schema passato:  $routerClass->pathToQuery($parseUrl, "page", "path");
+     * queryToPath converte una query in path secondo lo schema passato:  $routerClass->pathToQuery($parseUrl, "page", "path");
      * Lo si usa dentro la funzione personalizzata del rooter per gestire i dati
      * @param Array  $parseUrl 
      * @param args [query1, query2, query3, ...]

@@ -72,5 +72,12 @@ class module_pages_admin {
         }
         return array('save'=>$ris, 'errors'=>$errors);
     }
+    /**
+     * Chiama la parte di form a seconda della pagina che si sceglie
+     */
+    function getForm($pageFile) {
+        $formHtml = $this->model->getCustomForm($pageFile);
+        return ($formHtml);
+    }
 
 }

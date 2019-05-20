@@ -125,7 +125,8 @@ class GpDBMySql
          if ($cache && array_key_exists($tableName, $this->fieldsList) != false) {
             return $this->fieldsList[$tableName];
         }
-        $fields = $this->mysqli->query('DESCRIBE '.$this->qn($tableName)); 
+        $fields = $this->query('DESCRIBE '.$this->qn($tableName)); 
+        $primary = '';
         while($row = mysqli_fetch_assoc($fields))
         {
             $ris[$row['Field']] = $row['Type'];

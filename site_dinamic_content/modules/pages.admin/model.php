@@ -38,10 +38,19 @@ class model_pages_admin {
         $options = array();
         foreach ($page as $p) {
             if (is_file($pages[0]."/".$p) && substr($p,-4) == ".php") {
-                $options[] = array('value'=>substr($p,0, -4),'label'=>substr($p,0, -4));
+                if (is_file($pages[0]."/".substr($p,0, -4).".json")) {
+                    $data = file_get_contents($pages[0]."/".substr($p,0, -4).".json");
+                    $data = json_decode($data, true);
+                    if (json_last_error() == JSON_ERROR_NONE) {
+                        $options[] = array('value'=>substr($p,0, -4),'label'=>$data['title']);
+                    } else {
+                         $options[] = array('value'=>substr($p,0, -4),'label'=>substr($p,0, -4)." ERROR JSON");
+                    }
+                } else {
+                    $options[] = array('value'=>substr($p,0, -4),'label'=>substr($p,0, -4));
+                }
             }
         }
-      
         $fields = array(
         ['label'=>'Page', 'name'=>'page', 'type'=>"page", 'options' => $options],
         ['label'=>'Link', 'name'=>'link', 'type'=>"text"],
@@ -53,11 +62,35 @@ class model_pages_admin {
         );
         return $fields;
     }
+    /**
+     * Ritorna l'html del form da aggiungere alla pagina
+     */
+    function getCustomForm($pageName) {
+        $pages = Gp::load()->get('pages');
+        if (is_file($pages[0] ."/" . $pageName . ".json")) {
+            $data = file_get_contents($pages[0] ."/" . $pageName . ".json");
+            $data = json_decode($data, true);
+            if (json_last_error() == JSON_ERROR_NONE) {
+                if (isset($data['formFile']) && is_file($pages[0] ."/" . $data['formFile'])) {
+                    ob_start();
+                    require ( $pages[0] ."/" . $data['formFile']);
+                    return ob_get_clean();
+                } else {
+                    return "";
+                }
+            } else {
+                return "Error json parse";
+            }
+        } else {
+            return "";
+        }
+    }
+
 
     function save($data) {
         $checkExistsRow = 0;
         if (isset($data['id']) && $data['id'] > 0) {
-            $checkExistsRow = Gp::db()->getVal('SELECT count(*) FROM '.$this->table." WHERE id = ".Gp::db()->q($data['id']));
+            $checkExistsRow = Gp::db()->getVar('SELECT count(*) FROM '.$this->table." WHERE id = ".Gp::db()->q($data['id']));
         }
         if (!isset($data['status']) ) {
             $data['status'] = 1;
@@ -65,9 +98,9 @@ class model_pages_admin {
             $data['status'] = (int)$data['status'];
         }
         if ($checkExistsRow) {
-            $di = $data['id'];
+            $id = $data['id'];
             unset($data['id']);
-            return Gp::db()->update($this->update, $data, array('id'=>$id));
+            return Gp::db()->update($this->table, $data, array('id'=>$id));
         } else {
             return Gp::db()->insert($this->table, $data);
         }

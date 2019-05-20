@@ -16,9 +16,11 @@ $rooter->setConfig(dirname(__FILE__), 'https', 'www.miosito.it');</pre></code>
 
     <h3><b>getCurrentLink</b>: Ritorna la pagina corrente</h3>
     <code><pre>echo $rooter->getCurrentLink($getUri = true);</pre></code>
-    <p><b>$getUri</b> Definisce se avere solo l'url o l'url con la query<br>
+    <p><b>$getUri</b>Boolean|String  Se è boolean identifica se deve tornare l'url con o senza la query. Se è una stringa aggiunge al link corrente nuovi parametri<br>
     </p>
-
+    <code><pre>echo $rooter->getCurrentLink('?id=2');</pre></code>
+    <p>E' possibile rimuovere parametri passandoli vuoti:</p>
+    <code><pre>echo $rooter->getCurrentLink('?id=&cmd=');</pre></code>
     <h3><b>getSite</b>: Ritorna la home del sito</h3>
     <code><pre>echo $rooter->getSite();</pre></code>
     
