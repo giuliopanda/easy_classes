@@ -1,8 +1,5 @@
 # gate point
-E' uno studio su come risolvere alcuni algoritmi che spesso si ritrovano nell'ossatura di un progetto web.
-
-E' un progetto di studio e non utilizzare in progetti in produzione
-
+E' uno studio su come risolvere alcuni algoritmi che spesso si ritrovano nell'ossatura di un progetto web. 
 
 Alcuni dei problemi che sto affrontando nello specifico sono:
 
