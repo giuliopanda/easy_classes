@@ -1,10 +1,10 @@
 # gate point
-E' uno studio su come impostare un progetto web in PHP. Dopo tanti anni di lavoro in questo settore ho voluto qui testare alcune idee su come io risolverei alcuni algoritmi che spesso si ritrovano nell'ossatura di un progetto web.
+E' uno studio su come risolvere alcuni algoritmi che spesso si ritrovano nell'ossatura di un progetto web.
 
-Ovviamente questo lavoro non vuole competere con cms quali joomla! o wordpress o con framework tipo lavarel, ma ho comunque la speranza di arrivare ad un punto utilizzabile. 
+E' un progetto di studio e non utilizzare in progetti in produzione
 
 
-Nello specifico sto affrontando alcuni problemi tra cui:
+Alcuni dei problemi che sto affrontando nello specifico sono:
 
 **GESTIONE DEI PROGETTI**
 
