@@ -110,7 +110,7 @@ class GpRegistry
 			}
 			foreach ($path as $p) {
 				$p = trim($p);
-				if (!array_key_exists($p, $pointer) || @$pointer[$p] === '') {
+				if (!is_array($pointer) || !array_key_exists($p, $pointer) || @$pointer[$p] === '') {
 					return $default;
 				}
 				$pointer = &$pointer[$p];

@@ -18,6 +18,7 @@
 	<script type="text/javascript" src="<?php echo $load->getUri('theme', 'assets/jquery.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo $load->getUri('theme', 'assets/bootstrap.bundle.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo $load->getUri('theme', 'assets/easy.js'); ?>"></script>
+	<?php $load->require("assets", "head.php"); ?>
 	<script>
 		var _LINK_AJAX = "<?php echo Gp::route()->getLink('?page=ajax'); ?>";
 	</script>

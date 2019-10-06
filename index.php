@@ -5,7 +5,7 @@ $config = array();
 $config['cmsDir'] = "gate_point";
 $config['siteDir'] = "/";
 $config['siteDir'] = "site_documentation";
-$config['siteDir'] = "site_dinamic_content";
+//$config['siteDir'] = "site_dinamic_content";
 
 // il framework
 require_once($dir."/".$config['cmsDir'].'/classes/Gp.php');

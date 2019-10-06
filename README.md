@@ -10,13 +10,13 @@ Il problema di quando io lavoro con codice personalizzato è che spesso non ries
  Per provare a risolvere questo problema, ho pensato di creare una struttura tipo framework in una cartella e tutte le personalizzazioni in un'altra.
 Così la struttura delle cartelle è del tipo
 - CMSDIR
-- SITO 1
-- SITO 2
-- SITO 3
+- SITO
 - TEMPLATE
 index.php
 
 Sull'index.php si indica qual'è la cartella del cms e quale del sito. Sulla configurazione del sito si indica quale template si usa.
+
+Si dovrebbe lavorare sempre sul SITO, mai sul CMS o sul template che invece dovrebbero essere riportabili in ogni progetto.
 
 Se poi un sito diventa un progetto completo e lo si vuole pacchettizare, si copiano le cartelle dentro la directory del CMS e così si può creare un ulteriore livello di personalizzazione. 
 
