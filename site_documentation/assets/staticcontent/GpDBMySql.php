@@ -105,6 +105,7 @@ $data = array('username' =>'Pippo', 'email'=>'pippo@gmail.com ', 'password'=>'gf
 $id = $db->insert('gp_users', $data);
 if ($db->error) {
     // C'è stato un problema.
+    echo "&lt;p&gt;La query: ".$db->lastQuery()." ha dato errore&lt;/p&gt;";
 }
 </pre></code>
 </p>
@@ -123,7 +124,7 @@ $db->update($table, $data, $where);
 <code><pre>
 $update = $db->update('gp_users', array('username' =>'UserName Updated'), array('id'=>1));
 if ($db->error) {
-    print " <span style=\"color:red\">La query di aggiornamento ha dato errore</span>";
+    print " &lt;span style=\"color:red\"&gt;La query (".$db->lastQuery().") di aggiornamento ha dato errore&lt;/span&gt;";
 }
 </pre></code>
 </p>
@@ -143,8 +144,11 @@ $db->delete('gp_users', array('username' =>'UserName Update'));
 </pre></code>
 </p>
 
-    <h3>insertid: Ritorna l'ultima query inserita</h3>
+    <h3>insertid: Ritorna l'id dell'ultima query inserita</h3>
     <code><pre>$db->insertiId();</pre></code>
+
+    <h3>lastQuery: Ritorna l'ultima query eseguita</h3>
+    <code><pre>$db->lastQuery();</pre></code>
 
     <h3>q:  Quota una stringa</h3>
     <code><pre>$db->q($str);</pre></code>
@@ -152,7 +156,6 @@ $db->delete('gp_users', array('username' =>'UserName Update'));
     <h3>qn:  Quota una variabile</h3>
     <code><pre>$db->qn($str);</pre></code>
 
-    <h3>prepare: Interessante, ma non qui!</h3>
     <h3>multyQuery: </h3>
     <code><pre>$db->multyQuery($query);</pre></code>
     <p>Esegue più query divise da punto e virgola. L'esecuzione è asincrona</p>

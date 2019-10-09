@@ -6,6 +6,7 @@ class GpDBMySql
 {
      var $mysqli = null;
      var $error = false; // true se una query da un errore
+     var $lastQuery = "";
      var $tablesList = array(); // l'elenco delle tabelle
      var $fieldsList = array(); //l'elenco dei campi per tabella
      var $prefix = ''; // l'elenco delle tabelle
@@ -67,6 +68,7 @@ class GpDBMySql
             return false;
         }
         $sql = $this->sqlPrefix($sql);
+        $this->lastQuery = $sql;
         $ris = $this->mysqli->query($sql);
         if ($ris === false)  {
             Gp::log()->set('system', 'ERROR', "MYSQL Query: '".$sql."' error:". $this->mysqli->error);
@@ -325,6 +327,15 @@ class GpDBMySql
             return false;
         }
     } 
+
+     /**
+     * GET Last query
+     * @return Integer
+     */
+    function lastQuery() {
+        return $this->lastQuery;
+    } 
+
     /**
      * QUOTE name or table
      * @param String $val
