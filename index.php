@@ -3,9 +3,7 @@ session_start();
 $dir = dirname(__FILE__);
 $config = array();
 $config['cmsDir'] = "gate_point";
-$config['siteDir'] = "/";
-$config['siteDir'] = "site_documentation";
-//$config['siteDir'] = "site_dinamic_content";
+$config['siteDir'] = "marina_admin";
 
 // il framework
 require_once($dir."/".$config['cmsDir'].'/classes/Gp.php');
@@ -18,6 +16,7 @@ $load = Gp::load();
 $load->require("assets", "router.php");
 Gp::data()->set('config', $config);
 $load->require("assets", "config.php");
+$load->require("assets", "utility.php");
 $load->append('theme', 'themes', Gp::data()->get('config.template'));
 $ac = Gp::data()->get('config.dbaccess');
 if (is_array($ac) && count($ac) > 3) {
@@ -34,9 +33,9 @@ $router->setFnRewrite('routerBuild', 'routerParse');
 
 // Faccio il parsing della pagina
 $parse = $router->parseUrl();
+Gp::data()->set('page-info', $parse);
 $query = $parse['query'];
 Gp::data()->set('request', $query);
-
 $load->require('assets', "function.php");
 // se il link punta ad una pagina o ad un file lo carico?
 // $realPath = $router->linkToDir(); ??
