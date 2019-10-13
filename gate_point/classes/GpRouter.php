@@ -128,7 +128,11 @@ class GpRouter
         if (is_array($query)) {
             $tempQuery = array();
             foreach ($query as $k=>$v) {
-                $tempQuery[] = $k."=".$v;
+                if (is_array($v)) {
+                    $tempQuery = $this->_recursiveImplodeQuery($v, $k);
+                } else {
+                    $tempQuery[] = $k."=".$v;
+                }
             }
             $query = "/?".implode("&", $tempQuery);
 
@@ -285,10 +289,33 @@ class GpRouter
         if (is_array($query) && count($query) > 0) {
             $list = array();
             foreach ($query as $key=>$value) {
-                $list[] = $key."=".$value;
+                if (is_array($value)) {
+                    $list = $this->_recursiveImplodeQuery($value, $key);
+                } else {
+                    $list[] = $key."=".$value;
+                }
             }
             return "?".implode("&", $list);
         }
         return "";
     }
+    /**
+     * Server per gestire la costruzione di query con array annidati
+     * @param Array  $query la query da trasformare in stringa
+     * @param String $base la chiave da cui è partito l'array es {"a":{"b":"1","c":"2"}} la chiave è a e ritornerà ["a[b]=1", "a[c]=2"]
+     * @return Array
+     */
+    private function _recursiveImplodeQuery($query, $base="") {
+        $tempQuery = array();
+        foreach ($query as $k=>$v) {
+            $basek =  $base."[".$k."]";
+            if (is_array($v)) {    
+                $tempQuery = array_merge($tempQuery, $this->_recursiveImplodeQuery($v, $basek));
+            } else {
+                $tempQuery[] = $basek."=".$v;
+            }
+        }
+        return $tempQuery;
+    }
+
 }

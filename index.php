@@ -3,7 +3,7 @@ session_start();
 $dir = dirname(__FILE__);
 $config = array();
 $config['cmsDir'] = "gate_point";
-$config['siteDir'] = "marina_admin";
+$config['siteDir'] = "site_documentation";
 
 // il framework
 require_once($dir."/".$config['cmsDir'].'/classes/Gp.php');
