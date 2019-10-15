@@ -221,6 +221,32 @@ class GpLoad
 		return false;
 	}
 	/**
+	 * carica un file utilizzando un percorso
+	 * @param String $varName il nome del gruppo di directory da richiamare oppure il file specifico
+	 * @param String|Array $fileName Il nome del file da richiamare
+	 * @return String|Boolean
+	 */
+	public function getFile($varName, $fileName = "") {
+		if ($fileName == "") {
+			if (is_file($varName)) {
+				$path = $varName;
+			} else {
+				$path = false;
+			}
+		} else {
+			$path = $this->getPath($varName, $fileName);
+		}		
+		if ($path) {
+			if (!is_file($path)) {
+				Gp::log()->set('error', 'LOAD getFile', $path);
+				Gp::log()->set('system', 'ERROR', 'getFile: '.$path);
+			} else {
+				return file_get_contents($path);
+			}
+		}
+		return false;
+	}
+	/**
 	 * Esegue un modulo
 	 * @param String $moduleName il nome del gruppo di directory da richiamare 
 	 * @param String $action L'azione passata al modulo

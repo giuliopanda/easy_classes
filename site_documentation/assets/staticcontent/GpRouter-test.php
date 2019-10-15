@@ -42,12 +42,21 @@ var_dump($r);
     <div class="col">
     <p><b>Risultato atteso:</b></p>
     <pre class="xdebug-var-dump" dir="ltr"><small>...</small>
-<b>array</b> <i>(size=3)</i>
+
+<b>array</b> <i>(size=4)</i>
   'scheme' <font color="#888a85">=&gt;</font> <small>string</small> <font color="#cc0000">'http'</font> <i>(length=4)</i>
   'host' <font color="#888a85">=&gt;</font> <small>string</small> <font color="#cc0000">'localhost'</font> <i>(length=9)</i>
+  'path' <font color="#888a85">=&gt;</font> 
+    <b>array</b> <i>(size=4)</i>
+      0 <font color="#888a85">=&gt;</font> <small>string</small> <font color="#cc0000">'project'</font> <i>(length=7)</i>
+      1 <font color="#888a85">=&gt;</font> <small>string</small> <font color="#cc0000">'github'</font> <i>(length=6)</i>
+      2 <font color="#888a85">=&gt;</font> <small>string</small> <font color="#cc0000">'easy_classes'</font> <i>(length=12)</i>
+      3 <font color="#888a85">=&gt;</font> <small>string</small> <font color="#cc0000">'index.php'</font> <i>(length=9)</i>
   'query' <font color="#888a85">=&gt;</font> 
     <b>array</b> <i>(size=2)</i>
-        '0' <font color="#888a85">=&gt;</font> <small>string</small> <font color="#cc0000">'GpRouter-test'</font> <i>(length=13)</i>
+      'page' <font color="#888a85">=&gt;</font> <small>string</small> <font color="#cc0000">'api'</font> <i>(length=3)</i>
+      'id' <font color="#888a85">=&gt;</font> <small>string</small> <font color="#cc0000">'GpRouter-test'</font> <i>(length=13)</i>
+
 </pre>
     </div>
 </div>
