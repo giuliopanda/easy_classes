@@ -30,4 +30,11 @@ $listener->add('logOnFatalHandler', 'fnLogOnFatalHandler');
 $listener->add('module_menu_event', 'afterRis');
 </pre></code>
 
+
+   <h3><b>routerParse</b>: fa il parsing di un link</h3>
+    <p>Viene passata la pagina che si sta caricando e ritorna un'array con  filename: il file della pagina da caricare, il link e page e info che contiene al suo interno un array con altre informazioni</p>
+
+    <h3><b>routerBuild</b>: Ricostruisce il link del rooter</h3>
+
+
 </div>

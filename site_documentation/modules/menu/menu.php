@@ -12,7 +12,8 @@ class module_menu
         '/index.php?page=api&id=GpLog'=>'Classe gestione dei log',
         '/index.php?page=api&id=moduli'=>'CMS Caricamento dei moduli',
         '/index.php?page=api&id=event'=>'CMS Elenco degli eventi',
-        '/index.php?page=api&id=files'=>'CMS La struttura dei file e cartelle');
+        '/index.php?page=api&id=files'=>'CMS La struttura dei file e cartelle',
+        '/index.php?page=api&id=template'=>'CMS i template');
         $data = Gp::action()->invoke("module_menu_get_data", $data);
         return $data;
     }
